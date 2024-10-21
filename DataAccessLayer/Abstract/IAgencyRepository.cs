@@ -9,5 +9,7 @@ namespace DataAccessLayer.Abstract
 {
     public interface IAgencyRepository : IGenericRepository<Agency>
     {
+        
+        
     }
 }
