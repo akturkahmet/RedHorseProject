@@ -3,77 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-
     <!-- General CSS Files -->
     <link rel="stylesheet" href="~/Content/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/bootstrap/all.min.css">
-
-
     <!-- CSS Libraries -->
     <!-- Template CSS -->
     <link href="~/Content/css/custom.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/css/style.css">
     <link rel="stylesheet" href="~/Content/css/components.css">
 
-
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- /END GA -->
-</head>
 
+</head>
 <body>
     <div class="layout">
         <div class="row">
             <div class="col-md-2" id="app">
                 <div class="main-wrapper main-wrapper-1">
-
                     <div class="main-sidebar sidebar-style-2">
                         <aside id="sidebar-wrapper">
                             <div class="sidebar-brand">
-                                <a>Admin Paneli</a>
+                                <a>Kullanıcı Paneli</a>
                             </div>
                             <div class="sidebar-brand sidebar-brand-sm">
-                                <a href="index.html">AP</a>
+                                <a href="index.html">KP</a>
                             </div>
                             <ul class="sidebar-menu">
-                                <li class="menu-header">Müşteriler</li>
+                                <li class="menu-header">Turlar</li>
                                 <li>
-                                    <a href="~/Home/Index/">
-                                        <i class="fas fa-fire"></i><span>Müşteriler</span>
+                                    <a href="/Customer/AtvTurlari">
+                                        <i class="fas fa-fire"></i><span>Atv Turları</span>
                                     </a>
                                 </li>
-
+                                <li>
+                                    <a href="/Customer/JeepSafariTurlari">
+                                        <i class="fas fa-fire"></i><span>Jeep Safari Turları</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Customer/AtTurlari">
+                                        <i class="fas fa-fire"></i><span>At Turları</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Customer/BalonTurlari">
+                                        <i class="fas fa-fire"></i><span>Balon Turları</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Customer/DeveTurlari">
+                                        <i class="fas fa-fire"></i><span>Deve Turları</span>
+                                    </a>
+                                </li>
                                 <li class="menu-header">Yönetim</li>
                                 <li>
                                     <a class="nav-link" href="~/Home/Rezervation/">
-                                        <i class="fas fa-th"></i><span>Rezervasyonlar</span>
+                                        <i class="fas fa-th"></i><span>Rezervasyonlarım</span>
                                     </a>
                                 </li>
-
-                                <li>
-                                    <a class="nav-link" href="~/Home/Appeals/">
-                                        <i class="fas fa-th"></i><span>Başvurular</span>
-                                    </a>
-                                </li>
-
+                              
                                 <li class="menu-header">Ayarlar</li>
                                 <li>
-                                    <a href="~/Home/CustomerCreator/" >
-                                        <i class="fas fa-th"></i><span>Kullanıcı Oluşturma</span>
+                                    <a href="~/Home/CustomerCreator/">
+                                        <i class="fas fa-th"></i><span>Hesap Ayarları</span>
                                     </a>
                                 </li>
                                 @*<li> ORNEK DROPDOWN YAPIUSI
-                                    <a href="~/Home/CustomerCreator/" class="nav-link has-dropdown">
-                                        <i class="fas fa-th"></i><span>Kullanıcı Oluşturma</span>
-                                    </a>
-                                </li>*@
-                                <li>
-                                    <a href="#" class="nav-link has-dropdown">
-                                        <i class="fas fa-th"></i><span>Ayarlar</span>
-                                    </a>
-
-                                </li>
+                                        <a href="~/Home/CustomerCreator/" class="nav-link has-dropdown">
+                                            <i class="fas fa-th"></i><span>Kullanıcı Oluşturma</span>
+                                        </a>
+                                    </li>*@
+                               
                             </ul>
 
                         </aside>
@@ -106,22 +109,18 @@
                             </a>
                         </div>
                     </div>
-                </div> 
+                </div>
                 @RenderBody()
             </div>
-          
         </div>
-
-            <footer class="main-footer">
-                <div class="footer-left">
-                    Copyright &copy; 2024 <div class="bullet"></div> Design By Ahmet Aktürk
-                </div>
-                <div class="footer-right">
-
-                </div>
-            </footer>
-        </div>
-
+        <footer class="main-footer">
+            <div class="footer-left">
+                Copyright &copy; 2024 <div class="bullet"></div> Design By Ahmet Aktürk
+            </div>
+            <div class="footer-right">
+            </div>
+        </footer>
+    </div>
     <!-- General JS Scripts -->
     <script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Scripts/popper.js"></script>
@@ -130,8 +129,6 @@
     <script src="~/Scripts/nicescroll/jquery.nicescroll.min.js"></script>
     <script src="~/Scripts/moment.min.js"></script>
     <script src="~/Scripts/stisla.js"></script>
-
-
     <!-- JS Libraies -->
     <!-- Page Specific JS File -->
     <!-- Template JS File -->

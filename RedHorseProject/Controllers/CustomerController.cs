@@ -13,5 +13,25 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
+        public ActionResult AtvTurlari()
+        {
+            return View();
+        }
+        public ActionResult AtTurlari()
+        {
+            return View();
+        }
+        public ActionResult BalonTurlari()
+        {
+            return View();
+        }
+        public ActionResult DeveTurlari()
+        {
+            return View();
+        }
+        public ActionResult JeepSafariTurlari()
+        {
+            return View();
+        }
     }
 }

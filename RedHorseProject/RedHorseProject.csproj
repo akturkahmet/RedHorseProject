@@ -154,8 +154,12 @@
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\bootstrap\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap\bootstrap.rtl.min.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\components.css" />
     <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\fullcalendar.min.css" />
+    <Content Include="Content\css\icons.min.css" />
+    <Content Include="Content\css\theme.css" />
     <Content Include="Content\js\custom.js" />
     <Content Include="Content\js\scripts.js" />
     <Content Include="favicon.ico" />
@@ -168,17 +172,21 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
+    <Content Include="Scripts\calendar-demo.js" />
+    <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\nicescroll\dist\jquery.nicescroll.iframehelper.js" />
     <Content Include="Scripts\nicescroll\dist\jquery.nicescroll.iframehelper.min.js" />
@@ -191,8 +199,11 @@
     <Content Include="Scripts\nicescroll\jquery.nicescroll.min.js" />
     <Content Include="Scripts\nicescroll\zoomico.png" />
     <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\simplebar.min.js" />
     <Content Include="Scripts\stisla.js" />
+    <Content Include="Scripts\theme.js" />
     <Content Include="Scripts\tooltip.js" />
+    <Content Include="Scripts\waves.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -217,6 +228,12 @@
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Home\CustomerCreator.cshtml" />
     <Content Include="Views\Home\Appeals.cshtml" />
+    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
+    <Content Include="Views\Customer\AtvTurlari.cshtml" />
+    <Content Include="Views\Customer\JeepSafariTurlari.cshtml" />
+    <Content Include="Views\Customer\AtTurlari.cshtml" />
+    <Content Include="Views\Customer\DeveTurlari.cshtml" />
+    <Content Include="Views\Customer\BalonTurlari.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
