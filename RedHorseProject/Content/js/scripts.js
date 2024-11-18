@@ -474,14 +474,7 @@ $(function () {
     });
 
     // Bootstrap 4 Validation
-    $(".needs-validation").submit(function () {
-        var form = $(this);
-        if (form[0].checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        form.addClass('was-validated');
-    });
+    
 
     // alert dismissible
     $(".alert-dismissible").each(function () {
@@ -581,4 +574,16 @@ $(function () {
             }
         });
     }
+});
+$(document).ready(function () {
+    $('.hamb-menu a').on('click', function () {
+        $('#app').toggleClass('shift'); // 'app' ana sınıfına 'shift' ekle veya kaldır
+        $('.layout').toggleClass('shift'); // 'layout' ana sınıfına 'shift' ekle veya kaldır
+        $('header').toggleClass('expanded'); // 'header' öğesine 'expanded' sınıfını ekle veya kaldır
+    });
+});
+
+
+$(document).on('click', '.close', function () {
+    $('#timeModal').modal('hide');
 });

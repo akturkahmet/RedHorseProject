@@ -1,15 +1,14 @@
-﻿
-@{
-    ViewBag.Title = "DeveTurlari";
+﻿@{
+    ViewBag.Title = "AtvTurları";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
+@Html.Partial("~/Views/Shared/sharedpartial/_Calendar.cshtml")
 
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <link rel="stylesheet" href="~/Content/css/fullcalendar.min.css">
-    <!-- App css -->
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/css/theme.css" rel="stylesheet" type="text/css" />
@@ -21,10 +20,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0 font-size-18">Calendar</h4>
-
-
-
+                        <h4 class="mb-0 font-size-18">Takvim</h4>
                     </div>
                 </div>
             </div>
@@ -33,60 +29,33 @@
                 <div class="col-12">
                     <div class="card m-b-30">
                         <div class="card-body">
-
                             <div class="row">
-                                <div class="col-lg-3 col-md-4">
-
-                                    <h6 class="mb-3">Create Events</h6>
-                                    <form method="post" id="add_event_form">
-                                        <input type="text" class="form-control new-event-form" placeholder="Create new event..." />
-                                    </form>
-
-                                    <div id='external-events' class="mt-4">
-                                        <h6 class="mb-3">Draggable Events</h6>
-                                        <div class='fc-event'>Design Review - Myra</div>
-                                        <div class='fc-event'>Project Meeting</div>
-                                        <div class='fc-event'>Weekly Review</div>
-                                        <div class='fc-event'>Planning</div>
-                                        <div class='fc-event'>Kickoff Meeting</div>
-                                    </div>
-
-                                    <!-- checkbox -->
-                                    <div class="custom-control custom-checkbox mt-3">
-                                        <input type="checkbox" class="custom-control-input" id="drop-remove" data-parsley-multiple="groups" data-parsley-mincheck="2">
-                                        <label class="custom-control-label" for="drop-remove">Remove after drop</label>
-                                    </div>
-
-                                </div>
 
                                 <div id='calendar' class="col-lg-9 col-md-8 mt-3 mt-lg-0"></div>
-
                             </div>
                             <!-- end row -->
-
                         </div>
                     </div>
                 </div> <!-- end col -->
             </div> <!-- end row -->
-
-
         </div> <!-- container-fluid -->
     </div>
-    <script src="~/Scripts/jquery.min.js"></script>
-    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    <script src="~/Scripts/waves.js"></script>
-    <script src="~/Scripts/simplebar.min.js"></script>
 
+    <!-- jQuery ve Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery UI ve Moment -->
     <script src="~/Scripts/jquery-ui.min.js"></script>
     <script src="~/Scripts/moment.js"></script>
-    <script src='~/Scripts/fullcalendar.min.js'></script>
+
+    <!-- FullCalendar ve özel script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
     <script src="~/Scripts/calendar-demo.js"></script>
 
-
-
-    <!-- App js -->
+    <!-- Uygulama Özel Scriptler -->
     <script src="~/Scripts/theme.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Waves/0.7.6/waves.min.js"></script>
+
 
 </body>
-
-

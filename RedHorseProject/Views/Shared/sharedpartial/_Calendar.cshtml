@@ -1,0 +1,68 @@
+﻿<style>
+    .custom-modal .modal-dialog {
+        max-width: 1000px; /* İstediğiniz genişliği ayarlayın */
+        width: 100%; /* Modal genişliği %100 olacak şekilde ayarlanır */
+    }
+
+    .custom-modal .modal-content {
+        border-radius: 8px; /* Köşe yuvarlaklığı için opsiyonel */
+    }
+</style>
+
+<!-- Modal -->
+<div class="modal fade custom-modal" id="timeModal" tabindex="-1" role="dialog" aria-labelledby="timeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="timeModalLabel">Saat Seç</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="timeList">
+                            <!-- Saat butonları burada yer alacak -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <div class="section-title mt-0">Misafir Bilgileri</div>
+                            <div class="form-group">
+                                <label>Adı-Soyadı</label>
+                                <input type="text" class="form-control form-control-sm">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefon Numarası</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Otel Adı</label>
+                                <input type="text" class="form-control form-control-lg">
+                            </div>
+                            <div class="form-group">
+                                <label>Pasaport No</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Kişi Sayısı</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Oda Numarası</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Başvur</button>
+            </div>
+        </div>
+    </div>
+</div>

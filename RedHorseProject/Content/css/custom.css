@@ -1,4 +1,16 @@
-﻿.header {
+﻿/* Menüyü sağdan açmak için gerekli stil */
+.shift {
+    transform: translateX(-250px); /* Menü genişliğine göre ayarlayın */
+    transition: transform 0.3s ease;
+}
+
+/* İçeriğin kayması için gerekli stil */
+.layout.shift {
+    transform: translateX(-250px); /* Menü genişliğine göre ayarlayın */
+    transition: transform 0.3s ease;
+}
+
+.header {
     overflow: hidden;
     background-color: aliceblue;
     padding: 20px 10px;
@@ -46,3 +58,47 @@
         float: none;
     }
 }
+/* Orta boy mobil cihazlar için medya sorgusu */
+@media (max-width: 768px) {
+    .section-header h1 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .card-header h4 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    /* Kart kenar boşluklarını azaltma */
+    .card {
+        margin: 10px;
+    }
+
+    /* Tablo başlıklarını ve hücrelerini küçültme */
+    .table th, .table td {
+        font-size: 0.9rem;
+        padding: 8px;
+        text-align: center;
+    }
+
+    /* "Detaylar" butonlarının boyutunu küçültme */
+    .btn {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+
+    /* Responsive tablo görünümü */
+    .table-responsive {
+        overflow-x: auto;
+    }
+}
+
+
+
+
+
+
+
+
+

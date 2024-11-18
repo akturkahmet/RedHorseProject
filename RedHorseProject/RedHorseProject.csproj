@@ -234,6 +234,10 @@
     <Content Include="Views\Customer\AtTurlari.cshtml" />
     <Content Include="Views\Customer\DeveTurlari.cshtml" />
     <Content Include="Views\Customer\BalonTurlari.cshtml" />
+    <Content Include="Views\Home\ResetPassword.cshtml" />
+    <Content Include="Views\Customer\CustomerRezervation.cshtml" />
+    <Content Include="Views\Shared\sharedpartial\_Calendar.cshtml" />
+    <Content Include="Views\Customer\CustomerSettings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

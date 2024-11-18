@@ -1,4 +1,31 @@
-﻿body {
+﻿/* Menüyü sağdan açmak için gerekli stil */
+.shift {
+    transform: translateX(-250px); /* Menü genişliğine göre ayarlayın */
+    transition: transform 0.3s ease;
+}
+
+/* İçeriğin kayması için gerekli stil */
+.layout.shift {
+    transform: translateX(-250px); /* Menü genişliğine göre ayarlayın */
+    transition: transform 0.3s ease;
+}
+header {
+    width: 60px; /* Varsayılan genişlik */
+    height: 100vh; /* Yüksekliği tüm ekranı kaplar */
+    position: fixed; /* Ekranın üstüne sabitlenir */
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease; /* Yumuşak geçiş efekti */
+    background-color: #333; /* Arka plan rengi (isteğe bağlı) */
+    z-index: 1000; /* Diğer içeriklerin üstünde görünmesi için */
+}
+
+    header.expanded {
+        width: 100vw; /* Menü açıldığında tam ekran genişliği */
+    }
+
+
+body {
     margin: 0;
     color: #6a6f8c;
     background: #c8c8c8;
@@ -996,10 +1023,16 @@ select.form-control:not([size]):not([multiple]) {
     }
 
     .card .card-body {
+
         padding-top: 20px;
         padding-bottom: 20px;
     }
-
+.card-body2 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+}
         .card .card-body .section-title {
             margin: 30px 0 10px 0;
             font-size: 16px;

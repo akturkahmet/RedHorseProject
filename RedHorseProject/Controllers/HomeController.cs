@@ -34,5 +34,9 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
     }
 }

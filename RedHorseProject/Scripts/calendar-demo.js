@@ -72,90 +72,44 @@
                   }
 
               },
+
+
+
               events: [{
-                  title: 'All Day Event',
-                  start: new Date(y, m, 1)
-                  },
-                  {
-                      title: 'Long Event',
-                      start: new Date(y, m, d-5),
-                      end: new Date(y, m, d-2)
-                  },
-                  {
-                      id: 999,
-                      title: 'Repeating Event',
-                      start: new Date(y, m, d-3, 16, 0),
-                      allDay: false
-                  },
-                  {
-                      id: 999,
-                      title: 'Repeating Event',
-                      start: new Date(y, m, d+4, 16, 0),
-                      allDay: false
-                  },
-                  {
-                      title: 'Meeting',
-                      start: new Date(y, m, d, 10, 30),
-                      allDay: false
-                  },
-                  {
-                      title: 'Lunch',
-                      start: new Date(y, m, d, 12, 0),
-                      end: new Date(y, m, d, 14, 0),
-                      allDay: false
-                  },
-                  {
-                      title: 'Birthday Party',
-                      start: new Date(y, m, d+1, 19, 0),
-                      end: new Date(y, m, d+1, 22, 30),
-                      allDay: false
-                  },
-                  {
-                      title: 'Click for Google',
-                      start: new Date(y, m, 28),
-                      end: new Date(y, m, 29),
-                      url: 'http://google.com/'
-                  }]
+                  
+                  }],
+                  dayClick: function (date, jsEvent, view) {
+                  // Týklanan günü alýn
+                  var selectedDate = date.format('YYYY-MM-DD');
+
+                  // Saatleri listeleyin (örnek olarak belirli saatleri kullanýyoruz)
+                  var hours = [
+                      '09:00', '10:00', '11:00', '12:00', '13:00',
+                      '14:00', '15:00', '16:00', '17:00', '18:00'
+                  ];
+
+                  // Saatleri modal içine ekleyin
+                  var timeListHtml = '<ul>';
+                  hours.forEach(function (hour) {
+                      timeListHtml += `<li><button class="btn btn-primary btn-sm mb-1">${hour}</button></li>`;
+                  });
+                  timeListHtml += '</ul>';
+
+                  // Modal içindeki listeyi güncelleyin
+                  $('#timeList').html(timeListHtml);
+
+                  // Modal baþlýðýný seçilen tarihe göre güncelleyin
+                  $('#timeModalLabel').text(' ' + selectedDate);
+
+                  // Modali göster
+                  $('#timeModal').modal('show');
+              },
           });
           
            /*Add new event*/
           // Form to add new event
 
-          $("#add_event_form").on('submit', function(ev) {
-              ev.preventDefault();
-
-              var $event = $(this).find('.new-event-form'),
-                  event_name = $event.val();
-
-              if (event_name.length >= 3) {
-
-                  var newid = "new" + "" + Math.random().toString(36).substring(7);
-                  // Create Event Entry
-                  $("#external-events").append(
-                      '<div id="' + newid + '" class="fc-event">' + event_name + '</div>'
-                  );
-
-
-                  var eventObject = {
-                      title: $.trim($("#" + newid).text()) // use the element's text as the event title
-                  };
-
-                  // store the Event Object in the DOM element so we can get to it later
-                  $("#" + newid).data('eventObject', eventObject);
-
-                  // Reset draggable
-                  $("#" + newid).draggable({
-                      revert: true,
-                      revertDuration: 0,
-                      zIndex: 999
-                  });
-
-                  // Reset input
-                  $event.val('').focus();
-              } else {
-                  $event.focus();
-              }
-          });
+          
 
       }
       else {

@@ -33,5 +33,19 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
+        public ActionResult CustomerRezervation()
+        {
+            return View();
+        }
+        public ActionResult _Calendar()
+        {
+            // Gerekli veriyi burada oluşturabilirsiniz
+            return PartialView("_Calendar");
+        }
+        public ActionResult CustomerSettings()
+        {
+            return View();
+        }
+
     }
 }
