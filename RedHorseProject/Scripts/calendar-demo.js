@@ -1,10 +1,3 @@
-/*
- Template Name: Xacton - Admin & Dashboard Template
- Author: Myra Studio
- File: Calendar
-*/
-
-
 !function($) {
   "use strict";
 
@@ -32,9 +25,7 @@
                   revertDuration: 0 //  original position after the drag
               });
           });
-          
           /* initialize the calendar */
-
           var date = new Date();
           var d = date.getDate();
           var m = date.getMonth();
@@ -70,11 +61,7 @@
                       // if so, remove the element from the "Draggable Events" list
                       $(this).remove();
                   }
-
               },
-
-
-
               events: [{
                   
                   }],
@@ -89,12 +76,6 @@
                   $('#timeModal').modal('show');
               },
           });
-          
-           /*Add new event*/
-          // Form to add new event
-
-          
-
       }
       else {
           alert("Calendar plugin is not installed");
@@ -108,4 +89,5 @@
 function($) {
   "use strict";
   $.CalendarPage.init()
-}(window.jQuery);
+    }(window.jQuery); 
+

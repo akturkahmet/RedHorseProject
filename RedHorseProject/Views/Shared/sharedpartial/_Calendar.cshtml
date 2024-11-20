@@ -1,15 +1,37 @@
-﻿<style>
+﻿
+<style>
+
     .custom-modal .modal-dialog {
-        max-width: 1000px; /* İstediğiniz genişliği ayarlayın */
-        width: 100%; /* Modal genişliği %100 olacak şekilde ayarlanır */
+        max-width: 800px; /* Modal genişliği */
+        width: 100%;
     }
 
     .custom-modal .modal-content {
-        border-radius: 8px; /* Köşe yuvarlaklığı için opsiyonel */
+        border-radius: 8px;
+    }
+
+    .custom-modal .table {
+        font-size: 14px; /* Daha küçük yazı boyutu */
+    }
+
+        .custom-modal .table td,
+        .custom-modal .table th {
+            padding: 8px; /* Hücreler arasında daha dar boşluk */
+            text-align: center;
+        }
+
+    .custom-modal .modal-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .btn-hour {
+        font-size: 12px;
+        padding: 5px 10px;
     }
 
     .form-control {
-        margin-bottom: 15px; /* Form alanları arasında boşluk */
+        margin-bottom: 10px; /* Form alanları arasında boşluk */
     }
 </style>
 
@@ -19,67 +41,109 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="timeModalLabel">Saat Seç</h5>
+                <h5 class="modal-title" id="timeModalLabel">Saat ve Başvuru Formu</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <!-- Saat Listesi -->
-                        <div class="col-md-6">
-                            <h1>Saatler</h1>
-                            <div id="timeList">
-                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="09">09:00</button>
-                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="10">10:00</button>
-                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="11">11:00</button>
-                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="12">12:00</button>
-                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="13">13:00</button>
-                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="14">14:00</button>
-                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="15">15:00</button>
-                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="16">16:00</button>
-                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="17">17:00</button>
-                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="18s">18:00</button>
-                            </div>
-                            <h1>Kontenjan</h1>
-                            <div class="kontenjan">
-                                
-                            </div>
-                        </div>
-
-                        <!-- Misafir Bilgileri -->
-                        <div class="col-md-6">
-                            <div class="card-body">
-                                <div class="section-title mt-0">Misafir Bilgileri</div>
-                                <div class="form-group">
-                                    <label for="guestName">Adı-Soyadı</label>
-                                    <input type="text" id="guestName" class="form-control form-control-sm" placeholder="Ad ve Soyad">
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone">Telefon Numarası</label>
-                                    <input type="tel" id="phone" class="form-control" placeholder="Telefon Numarası">
-                                </div>
-                                <div class="form-group">
-                                    <label for="hotelName">Otel Adı</label>
-                                    <input type="text" id="hotelName" class="form-control form-control-lg" placeholder="Otel Adı">
-                                </div>
-                                <div class="form-group">
-                                    <label for="passportNumber">Pasaport No</label>
-                                    <input type="text" id="passportNumber" class="form-control" placeholder="Pasaport No">
-                                </div>
-                                <div class="form-group">
-                                    <label for="guestCount">Kişi Sayısı</label>
-                                    <input type="number" id="guestCount" class="form-control" placeholder="Kişi Sayısı">
-                                </div>
-                                <div class="form-group">
-                                    <label for="roomNumber">Oda Numarası</label>
-                                    <input type="text" id="roomNumber" class="form-control" placeholder="Oda Numarası">
-                                </div>
-                            </div>
+                <div class="row">
+                    <!-- Saat ve Kontenjan Tablosu -->
+                    <div class="col-md-6">
+                        <h6>Saat ve Kontenjan</h6>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Saat</th>
+                                        <th>Kontenjan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="09">09:00</button>
+                                        </td>
+                                        <td>10 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="10">10:00</button>
+                                        </td>
+                                        <td>8 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="11">11:00</button>
+                                        </td>
+                                        <td>12 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="12">12:00</button>
+                                        </td>
+                                        <td>6 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="13">13:00</button>
+                                        </td>
+                                        <td>4 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="14">14:00</button>
+                                        </td>
+                                        <td>9 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="15">15:00</button>
+                                        </td>
+                                        <td>5 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="16">16:00</button>
+                                        </td>
+                                        <td>7 kişi</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </form>
+
+                    <!-- Başvuru Formu -->
+                    <div class="col-md-6">
+                        <h6>Başvuru Formu</h6>
+                        <form>
+                            <div class="form-group">
+                                <label for="guestName">Adı-Soyadı</label>
+                                <input type="text" id="guestName" class="form-control form-control-sm" placeholder="Ad ve Soyad">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Telefon Numarası</label>
+                                <input type="tel" id="phone" class="form-control form-control-sm" placeholder="Telefon Numarası">
+                            </div>
+                            <div class="form-group">
+                                <label for="hotelName">Otel Adı</label>
+                                <input type="text" id="hotelName" class="form-control form-control-sm" placeholder="Otel Adı">
+                            </div>
+                            <div class="form-group">
+                                <label for="passportNumber">Pasaport No</label>
+                                <input type="text" id="passportNumber" class="form-control form-control-sm" placeholder="Pasaport No">
+                            </div>
+                            <div class="form-group">
+                                <label for="guestCount">Kişi Sayısı</label>
+                                <input type="number" id="guestCount" class="form-control form-control-sm" placeholder="Kişi Sayısı">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomNumber">Oda Numarası</label>
+                                <input type="text" id="roomNumber" class="form-control form-control-sm" placeholder="Oda Numarası">
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
             <!-- Modal Footer -->
@@ -90,4 +154,4 @@
         </div>
     </div>
 </div>
-
+<script src="~/Scripts/calendar-demo.js"></script>
