@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "AgencyLogin";
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
@@ -14,7 +14,7 @@
             <div class="card-header"><h4>Giriş Yap</h4></div>
 
             <div class="card-body">
-                @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                @using (Html.BeginForm("AgencyLogin", "Login", FormMethod.Post))
                 {<div class="form-group">
                         <label for="email">Kullanıcı Adı</label>
                         <input id="username" type="text" class="form-control" name="UserName" tabindex="1" required autofocus>
@@ -47,8 +47,8 @@
                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                             Giriş Yap
                         </button>
-                        <a href="/Login/AgencyLogin" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                            Acenta Girişi
+                        <a href="/Login/Index" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                            Admin Girişi
                         </a>
                         <a href="/Login/Register" type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                             Kayıt Ol

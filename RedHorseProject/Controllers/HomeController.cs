@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace RedHorseProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -19,8 +20,8 @@ namespace RedHorseProject.Controllers
         }
 
         public ActionResult Rezervation()
-        {    
-          return View();
+        {
+            return View();
         }
         public ActionResult Test()
         {
