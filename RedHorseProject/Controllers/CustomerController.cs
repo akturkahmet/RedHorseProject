@@ -20,6 +20,7 @@ namespace RedHorseProject.Controllers
         public ActionResult AtTurlari()
         {
             return View();
+
         }
         public ActionResult BalonTurlari()
         {

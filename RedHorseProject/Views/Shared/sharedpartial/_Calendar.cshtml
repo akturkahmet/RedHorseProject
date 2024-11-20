@@ -7,62 +7,87 @@
     .custom-modal .modal-content {
         border-radius: 8px; /* Köşe yuvarlaklığı için opsiyonel */
     }
+
+    .form-control {
+        margin-bottom: 15px; /* Form alanları arasında boşluk */
+    }
 </style>
 
 <!-- Modal -->
-<div class="modal fade custom-modal" id="timeModal" tabindex="-1" role="dialog" aria-labelledby="timeModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade custom-modal" id="timeModal" tabindex="-1" aria-labelledby="timeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+            <!-- Modal Header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="timeModalLabel">Saat Seç</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+            <!-- Modal Body -->
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div id="timeList">
-                            <!-- Saat butonları burada yer alacak -->
+                <form>
+                    <div class="row">
+                        <!-- Saat Listesi -->
+                        <div class="col-md-6">
+                            <h1>Saatler</h1>
+                            <div id="timeList">
+                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="09">09:00</button>
+                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="10">10:00</button>
+                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="11">11:00</button>
+                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="12">12:00</button>
+                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="13">13:00</button>
+                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="14">14:00</button>
+                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="15">15:00</button>
+                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="16">16:00</button>
+                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="17">17:00</button>
+                                <button type="button" class="btn btn-outline-primary mb-2 hour" value="18s">18:00</button>
+                            </div>
+                            <h1>Kontenjan</h1>
+                            <div class="kontenjan">
+                                
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <div class="section-title mt-0">Misafir Bilgileri</div>
-                            <div class="form-group">
-                                <label>Adı-Soyadı</label>
-                                <input type="text" class="form-control form-control-sm">
-                            </div>
-                            <div class="form-group">
-                                <label>Telefon Numarası</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Otel Adı</label>
-                                <input type="text" class="form-control form-control-lg">
-                            </div>
-                            <div class="form-group">
-                                <label>Pasaport No</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Kişi Sayısı</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Oda Numarası</label>
-                                <input type="text" class="form-control">
-                            </div>
 
+                        <!-- Misafir Bilgileri -->
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <div class="section-title mt-0">Misafir Bilgileri</div>
+                                <div class="form-group">
+                                    <label for="guestName">Adı-Soyadı</label>
+                                    <input type="text" id="guestName" class="form-control form-control-sm" placeholder="Ad ve Soyad">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Telefon Numarası</label>
+                                    <input type="tel" id="phone" class="form-control" placeholder="Telefon Numarası">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hotelName">Otel Adı</label>
+                                    <input type="text" id="hotelName" class="form-control form-control-lg" placeholder="Otel Adı">
+                                </div>
+                                <div class="form-group">
+                                    <label for="passportNumber">Pasaport No</label>
+                                    <input type="text" id="passportNumber" class="form-control" placeholder="Pasaport No">
+                                </div>
+                                <div class="form-group">
+                                    <label for="guestCount">Kişi Sayısı</label>
+                                    <input type="number" id="guestCount" class="form-control" placeholder="Kişi Sayısı">
+                                </div>
+                                <div class="form-group">
+                                    <label for="roomNumber">Oda Numarası</label>
+                                    <input type="text" id="roomNumber" class="form-control" placeholder="Oda Numarası">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- end row -->
+                </form>
             </div>
+
+            <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Başvur</button>
+                <button type="button" class="btn btn-primary">Başvur</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
             </div>
         </div>
     </div>
 </div>
+
