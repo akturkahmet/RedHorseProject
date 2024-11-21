@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace RedHorseProject.Controllers
 {
+    [Authorize(Roles = "Agency")]
     public class CustomerController : Controller
     {
         //GET: Customer

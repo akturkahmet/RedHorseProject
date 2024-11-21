@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Concrete\Admin.cs" />
     <Compile Include="Concrete\Agency.cs" />
     <Compile Include="Concrete\AtvTour.cs" />
     <Compile Include="Concrete\BalloonTour.cs" />

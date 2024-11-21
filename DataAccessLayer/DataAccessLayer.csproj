@@ -61,6 +61,18 @@
     <Compile Include="Abstract\IJeepRepository.cs" />
     <Compile Include="Concrete\GenericRepository.cs" />
     <Compile Include="Context\Context.cs" />
+    <Compile Include="Migrations\202411202130066_InitialCreate.cs" />
+    <Compile Include="Migrations\202411202130066_InitialCreate.Designer.cs">
+      <DependentUpon>202411202130066_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411202131487_admins.cs" />
+    <Compile Include="Migrations\202411202131487_admins.Designer.cs">
+      <DependentUpon>202411202131487_admins.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411202203303_agencypasswrd.cs" />
+    <Compile Include="Migrations\202411202203303_agencypasswrd.Designer.cs">
+      <DependentUpon>202411202203303_agencypasswrd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -73,6 +85,17 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202411202130066_InitialCreate.resx">
+      <DependentUpon>202411202130066_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411202131487_admins.resx">
+      <DependentUpon>202411202131487_admins.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411202203303_agencypasswrd.resx">
+      <DependentUpon>202411202203303_agencypasswrd.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

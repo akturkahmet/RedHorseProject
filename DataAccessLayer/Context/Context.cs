@@ -17,6 +17,7 @@ namespace DataAccessLayer.Context
         public DbSet<CustomerInformation> CustomerInformations { get; set; }
         public DbSet<HorseTour> HorseTours { get; set; }
         public DbSet<JeepTour> JeepTours { get; set; }
+        public DbSet<Admin> Admins { get; set; }
 
     }
 }
