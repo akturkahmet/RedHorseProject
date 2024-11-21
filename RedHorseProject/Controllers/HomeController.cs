@@ -44,5 +44,15 @@ namespace RedHorseProject.Controllers
 
             return PartialView("_CustomerDetails");
         }
+        public ActionResult _CustomerRezervationDetails()
+        {
+
+            return PartialView("_CustomerRezervationDetails");
+        }
+        public ActionResult frmCustomerDetails()
+        {
+            return View("frmCustomerDetails");
+        }
+
     }
 }

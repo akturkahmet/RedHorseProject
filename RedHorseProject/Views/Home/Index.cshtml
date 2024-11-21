@@ -4,22 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*@Html.Partial("~/Views/Shared/_CustomerDetails.cshtml")*@
 <div class="card">
     <div class="card-header">
-        <h4>Kullanıcılar</h4>
-        <div class="card-header-action">
-            <a href="#" class="btn btn-danger">Daha Fazla Gör <i class="fas fa-chevron-right"></i></a>
-        </div>
+        <h4>Kayıtlı Acenteler</h4>
+       
     </div>
     <div class="card-body p-0">
         <div class="table-responsive table-invoice">
             <table class="table table-striped">
                 <tr>
                     <th>Kullanıcı ID</th>
-                    <th>Kullanıcı</th>
+                    <th>Acente Adı</th>
                     <th>Katılma Tarihi</th>
                     <th>Detaylar</th>
+                    <th>İşlemler</th>
                 </tr>
                 <tr>
                     <td><a href="#">INV-87239</a></td>
@@ -27,15 +25,24 @@
 
                     <td>July 19, 2018</td>
                     <td>
-                        <a href="/Home/_CustomerDetails" class="btn btn-primary">Detaylar</a>
+                        <button href="" onclick="openDetailModal()" class="btn btn-primary">Detaylar</button>
+
+
                     </td>
+                    <td>
+                        <a href="/Home/_CustomerDetails" class="btn btn-primary">Sil</a>
+                    </td>
+
                 </tr>
                 <tr>
                     <td><a href="#">INV-48574</a></td>
                     <td class="font-weight-600">Hasan Basri</td>
                     <td>July 21, 2018</td>
                     <td>
-                        <a href="~/Views/Shared/sharedpartial/_CustomerDetails.cshtml" class="btn btn-primary">Detaylar</a>
+                        <a href="/Home/_CustomerDetails" class="btn btn-primary">Detaylar</a>
+                    </td>
+                    <td>
+                        <a href="/Home/_CustomerDetails" class="btn btn-primary">Sil</a>
                     </td>
                 </tr>
                 <tr>
@@ -43,7 +50,10 @@
                     <td class="font-weight-600">Muhamad Nuruzzaki</td>
                     <td>July 22, 2018</td>
                     <td>
-                        <a href="~/Views/Shared/sharedpartial/_CustomerDetails.cshtml" class="btn btn-primary">Detaylar</a>
+                        <a href="/Home/_CustomerDetails" class="btn btn-primary">Detaylar</a>
+                    </td>
+                    <td>
+                        <a href="/Home/_CustomerDetails" class="btn btn-primary">Sil</a>
                     </td>
                 </tr>
                 <tr>
@@ -51,7 +61,10 @@
                     <td class="font-weight-600">Agung Ardiansyah</td>
                     <td>July 22, 2018</td>
                     <td>
-                        <a href="~/Views/Shared/sharedpartial/_CustomerDetails.cshtml" class="btn btn-primary">Detaylar</a>
+                        <a href="/Home/_CustomerDetails" class="btn btn-primary">Detaylar</a>
+                    </td>
+                    <td>
+                        <a href="/Home/_CustomerDetails" class="btn btn-primary">Sil</a>
                     </td>
                 </tr>
                 <tr>
@@ -59,7 +72,10 @@
                     <td class="font-weight-600">Ardian Rahardiansyah</td>
                     <td>July 28, 2018</td>
                     <td>
-                        <a href="~/Views/Shared/sharedpartial/_CustomerDetails.cshtml" class="btn btn-primary">Detaylar</a>
+                        <a href="/Home/_CustomerDetails" class="btn btn-primary">Detaylar</a>
+                    </td>
+                    <td>
+                        <a href="/Home/_CustomerDetails" class="btn btn-primary">Sil</a>
                     </td>
                 </tr>
             </table>

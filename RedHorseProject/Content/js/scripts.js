@@ -587,3 +587,8 @@ $(document).ready(function () {
 $(document).on('click', '.close', function () {
     $('#timeModal').modal('hide');
 });
+function openDetailModal() {
+    $('#modal-body123').load('/Home/frmCustomerDetails', function () {
+        $('#myModal').modal({ show: true });
+    });
+}
