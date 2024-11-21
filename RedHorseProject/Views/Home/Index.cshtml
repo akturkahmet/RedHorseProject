@@ -3,7 +3,8 @@
     ViewBag.Title = "Müşteriler";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<img src="https://i.ytimg.com/vi/hZpdMOMip2E/maxresdefault.jpg" />
+
+@*@Html.Partial("~/Views/Shared/_CustomerDetails.cshtml")*@
 <div class="card">
     <div class="card-header">
         <h4>Kullanıcılar</h4>
@@ -23,10 +24,10 @@
                 <tr>
                     <td><a href="#">INV-87239</a></td>
                     <td class="font-weight-600">Kusnadi</td>
-                   
+
                     <td>July 19, 2018</td>
                     <td>
-                        <a href="#" class="btn btn-primary">Detaylar</a>
+                        <a href="/Home/_CustomerDetails" class="btn btn-primary">Detaylar</a>
                     </td>
                 </tr>
                 <tr>
@@ -34,7 +35,7 @@
                     <td class="font-weight-600">Hasan Basri</td>
                     <td>July 21, 2018</td>
                     <td>
-                        <a href="#" class="btn btn-primary">Detaylar</a>
+                        <a href="~/Views/Shared/sharedpartial/_CustomerDetails.cshtml" class="btn btn-primary">Detaylar</a>
                     </td>
                 </tr>
                 <tr>
@@ -42,7 +43,7 @@
                     <td class="font-weight-600">Muhamad Nuruzzaki</td>
                     <td>July 22, 2018</td>
                     <td>
-                        <a href="#" class="btn btn-primary">Detaylar</a>
+                        <a href="~/Views/Shared/sharedpartial/_CustomerDetails.cshtml" class="btn btn-primary">Detaylar</a>
                     </td>
                 </tr>
                 <tr>
@@ -50,7 +51,7 @@
                     <td class="font-weight-600">Agung Ardiansyah</td>
                     <td>July 22, 2018</td>
                     <td>
-                        <a href="#" class="btn btn-primary">Detaylar</a>
+                        <a href="~/Views/Shared/sharedpartial/_CustomerDetails.cshtml" class="btn btn-primary">Detaylar</a>
                     </td>
                 </tr>
                 <tr>
@@ -58,7 +59,7 @@
                     <td class="font-weight-600">Ardian Rahardiansyah</td>
                     <td>July 28, 2018</td>
                     <td>
-                        <a href="#" class="btn btn-primary">Detaylar</a>
+                        <a href="~/Views/Shared/sharedpartial/_CustomerDetails.cshtml" class="btn btn-primary">Detaylar</a>
                     </td>
                 </tr>
             </table>

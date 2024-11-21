@@ -132,6 +132,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles\AdminRoleProvider.cs" />
   </ItemGroup>
@@ -237,11 +238,10 @@
     <Content Include="Views\Customer\CustomerRezervation.cshtml" />
     <Content Include="Views\Shared\sharedpartial\_Calendar.cshtml" />
     <Content Include="Views\Customer\CustomerSettings.cshtml" />
-    <Content Include="Views\Login\AgencyLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\bootstrap.rtl.min.css.map" />

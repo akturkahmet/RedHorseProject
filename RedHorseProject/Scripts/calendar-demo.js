@@ -1,10 +1,3 @@
-/*
- Template Name: Xacton - Admin & Dashboard Template
- Author: Myra Studio
- File: Calendar
-*/
-
-
 !function($) {
   "use strict";
 
@@ -32,9 +25,7 @@
                   revertDuration: 0 //  original position after the drag
               });
           });
-          
           /* initialize the calendar */
-
           var date = new Date();
           var d = date.getDate();
           var m = date.getMonth();
@@ -70,33 +61,13 @@
                       // if so, remove the element from the "Draggable Events" list
                       $(this).remove();
                   }
-
               },
-
-
-
               events: [{
                   
                   }],
                   dayClick: function (date, jsEvent, view) {
                   // Týklanan günü alýn
                   var selectedDate = date.format('YYYY-MM-DD');
-
-                  // Saatleri listeleyin (örnek olarak belirli saatleri kullanýyoruz)
-                  var hours = [
-                      '09:00', '10:00', '11:00', '12:00', '13:00',
-                      '14:00', '15:00', '16:00', '17:00', '18:00'
-                  ];
-
-                  // Saatleri modal içine ekleyin
-                  var timeListHtml = '<ul>';
-                  hours.forEach(function (hour) {
-                      timeListHtml += `<li><button class="btn btn-primary btn-sm mb-1">${hour}</button></li>`;
-                  });
-                  timeListHtml += '</ul>';
-
-                  // Modal içindeki listeyi güncelleyin
-                  $('#timeList').html(timeListHtml);
 
                   // Modal baþlýðýný seçilen tarihe göre güncelleyin
                   $('#timeModalLabel').text(' ' + selectedDate);
@@ -105,12 +76,6 @@
                   $('#timeModal').modal('show');
               },
           });
-          
-           /*Add new event*/
-          // Form to add new event
-
-          
-
       }
       else {
           alert("Calendar plugin is not installed");
@@ -124,4 +89,5 @@
 function($) {
   "use strict";
   $.CalendarPage.init()
-}(window.jQuery);
+    }(window.jQuery); 
+

@@ -1,68 +1,154 @@
-﻿<style>
+﻿
+<style>
+
     .custom-modal .modal-dialog {
-        max-width: 1000px; /* İstediğiniz genişliği ayarlayın */
-        width: 100%; /* Modal genişliği %100 olacak şekilde ayarlanır */
+        max-width: 800px; /* Modal genişliği */
+        width: 100%;
     }
 
     .custom-modal .modal-content {
-        border-radius: 8px; /* Köşe yuvarlaklığı için opsiyonel */
+        border-radius: 8px;
+    }
+
+    .custom-modal .table {
+        font-size: 14px; /* Daha küçük yazı boyutu */
+    }
+
+        .custom-modal .table td,
+        .custom-modal .table th {
+            padding: 8px; /* Hücreler arasında daha dar boşluk */
+            text-align: center;
+        }
+
+    .custom-modal .modal-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .btn-hour {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    .form-control {
+        margin-bottom: 10px; /* Form alanları arasında boşluk */
     }
 </style>
 
 <!-- Modal -->
-<div class="modal fade custom-modal" id="timeModal" tabindex="-1" role="dialog" aria-labelledby="timeModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade custom-modal" id="timeModal" tabindex="-1" aria-labelledby="timeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+            <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="timeModalLabel">Saat Seç</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-
+                <h5 class="modal-title" id="timeModalLabel">Saat ve Başvuru Formu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+            <!-- Modal Body -->
             <div class="modal-body">
                 <div class="row">
+                    <!-- Saat ve Kontenjan Tablosu -->
                     <div class="col-md-6">
-                        <div id="timeList">
-                            <!-- Saat butonları burada yer alacak -->
+                        <h6>Saat ve Kontenjan</h6>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Saat</th>
+                                        <th>Kontenjan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="09">09:00</button>
+                                        </td>
+                                        <td>10 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="10">10:00</button>
+                                        </td>
+                                        <td>8 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="11">11:00</button>
+                                        </td>
+                                        <td>12 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="12">12:00</button>
+                                        </td>
+                                        <td>6 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="13">13:00</button>
+                                        </td>
+                                        <td>4 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="14">14:00</button>
+                                        </td>
+                                        <td>9 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="15">15:00</button>
+                                        </td>
+                                        <td>5 kişi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" value="16">16:00</button>
+                                        </td>
+                                        <td>7 kişi</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                    <!-- Başvuru Formu -->
                     <div class="col-md-6">
-                        <div class="card-body">
-                            <div class="section-title mt-0">Misafir Bilgileri</div>
+                        <h6>Başvuru Formu</h6>
+                        <form>
                             <div class="form-group">
-                                <label>Adı-Soyadı</label>
-                                <input type="text" class="form-control form-control-sm">
+                                <label for="guestName">Adı-Soyadı</label>
+                                <input type="text" id="guestName" class="form-control form-control-sm" placeholder="Ad ve Soyad">
                             </div>
                             <div class="form-group">
-                                <label>Telefon Numarası</label>
-                                <input type="text" class="form-control">
+                                <label for="phone">Telefon Numarası</label>
+                                <input type="tel" id="phone" class="form-control form-control-sm" placeholder="Telefon Numarası">
                             </div>
                             <div class="form-group">
-                                <label>Otel Adı</label>
-                                <input type="text" class="form-control form-control-lg">
+                                <label for="hotelName">Otel Adı</label>
+                                <input type="text" id="hotelName" class="form-control form-control-sm" placeholder="Otel Adı">
                             </div>
                             <div class="form-group">
-                                <label>Pasaport No</label>
-                                <input type="text" class="form-control">
+                                <label for="passportNumber">Pasaport No</label>
+                                <input type="text" id="passportNumber" class="form-control form-control-sm" placeholder="Pasaport No">
                             </div>
                             <div class="form-group">
-                                <label>Kişi Sayısı</label>
-                                <input type="text" class="form-control">
+                                <label for="guestCount">Kişi Sayısı</label>
+                                <input type="number" id="guestCount" class="form-control form-control-sm" placeholder="Kişi Sayısı">
                             </div>
                             <div class="form-group">
-                                <label>Oda Numarası</label>
-                                <input type="text" class="form-control">
+                                <label for="roomNumber">Oda Numarası</label>
+                                <input type="text" id="roomNumber" class="form-control form-control-sm" placeholder="Oda Numarası">
                             </div>
-
-                        </div>
+                        </form>
                     </div>
                 </div>
-                <!-- end row -->
             </div>
+            <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Başvur</button>
+                <button type="button" class="btn btn-primary">Başvur</button>
             </div>
         </div>
     </div>
 </div>
+<script src="~/Scripts/calendar-demo.js"></script>

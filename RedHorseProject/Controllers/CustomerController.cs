@@ -31,6 +31,7 @@ namespace RedHorseProject.Controllers
         public ActionResult AtTurlari()
         {
             return View();
+
         }
         public ActionResult BalonTurlari()
         {
@@ -50,7 +51,7 @@ namespace RedHorseProject.Controllers
         }
         public ActionResult _Calendar()
         {
-            // Gerekli veriyi burada oluşturabilirsiniz
+            
             return PartialView("_Calendar");
         }
         public ActionResult CustomerSettings()
