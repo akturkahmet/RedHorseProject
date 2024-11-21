@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLayer.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +13,16 @@ namespace RedHorseProject.Controllers
         //GET: Customer
         public ActionResult Index()
         {
-            return View();
+            using (Context c = new Context())
+            {
+                // Giriş yapan kullanıcının AgencyId'sini Session'dan al
+                var agencyId = (int)Session["AgencyId"];
+
+                // Bu Agency'ye bağlı araçları listele
+                var atv = c.AtvTours.Where(car => car.AgenciesId == agencyId).ToList();
+
+                return View(atv);
+            }
         }
         public ActionResult AtvTurlari()
         {

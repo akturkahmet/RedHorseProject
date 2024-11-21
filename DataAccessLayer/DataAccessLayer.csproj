@@ -73,6 +73,10 @@
     <Compile Include="Migrations\202411202203303_agencypasswrd.Designer.cs">
       <DependentUpon>202411202203303_agencypasswrd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411202235203_asdasd.cs" />
+    <Compile Include="Migrations\202411202235203_asdasd.Designer.cs">
+      <DependentUpon>202411202235203_asdasd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -95,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411202203303_agencypasswrd.resx">
       <DependentUpon>202411202203303_agencypasswrd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411202235203_asdasd.resx">
+      <DependentUpon>202411202235203_asdasd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

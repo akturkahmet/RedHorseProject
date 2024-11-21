@@ -22,7 +22,7 @@ namespace EntityLayer.Concrete
         public string Region { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Role { get; set; }
-
+        public ICollection<AtvTour> AtvTours { get; set; }
     }
 
 }

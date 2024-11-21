@@ -1,8 +1,42 @@
-﻿
+﻿@model List<EntityLayer.Concrete.AtvTour>
 
 @{
     ViewBag.Title = "Appeals";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
+<h2>Atv Tours</h2>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Atv Count</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Hotel Name</th>
+            <th>Hotel Room No</th>
+            <th>Customer Count</th>
+            <th>Created Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var atvTour in Model)
+        {
+            <tr>
+                <td>@atvTour.Id</td>
+                <td>@atvTour.AtvCount</td>
+                <td>@atvTour.FirstName</td>
+                <td>@atvTour.LastName</td>
+                <td>@atvTour.Mail</td>
+                <td>@atvTour.Phone</td>
+                <td>@atvTour.HotelName</td>
+                <td>@atvTour.HotelRoomNo</td>
+                <td>@atvTour.CustomerCount</td>
+                <td>@atvTour.CreatedDate</td>
+            </tr>
+        }
+    </tbody>
+</table>

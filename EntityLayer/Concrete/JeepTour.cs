@@ -21,5 +21,7 @@ namespace EntityLayer.Concrete
         public int CustomerCount { get; set; }
         public DateTime CreatedDate { get; set; }
         public string TourNote { get; set; }
+        //public Agency Agency { get; set; }
+        //public int AgencyId { get; set; }
     }
 }

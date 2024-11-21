@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,10 @@ namespace EntityLayer.Concrete
         public int CustomerCount { get; set; }
         public DateTime CreatedDate { get; set; }
         public string TourNote { get; set; }
-      
+
+        public virtual Agency Agencies { get; set; }
+        [ForeignKey(nameof(Agencies))]
+        public int AgenciesId { get; set; }
+
     }
 }

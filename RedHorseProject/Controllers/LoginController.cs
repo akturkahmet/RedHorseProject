@@ -54,6 +54,7 @@ namespace RedHorseProject.Controllers
             {
                 FormsAuthentication.SetAuthCookie(adminuserinfo.Role, false);
                 Session["Role"] = adminuserinfo.Role;
+                Session["AgencyId"] = adminuserinfo.Id;
                 return RedirectToAction("Index", "Customer");
             }
             else
