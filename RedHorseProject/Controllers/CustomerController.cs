@@ -40,7 +40,7 @@ namespace RedHorseProject.Controllers
         }
         public ActionResult _Calendar()
         {
-            // Gerekli veriyi burada oluşturabilirsiniz
+            
             return PartialView("_Calendar");
         }
         public ActionResult CustomerSettings()
