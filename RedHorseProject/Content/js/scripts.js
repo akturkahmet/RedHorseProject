@@ -592,3 +592,29 @@ function openDetailModal() {
         $('#myModal').modal({ show: true });
     });
 }
+
+///////////////////sdghgrju///////////
+document.addEventListener('DOMContentLoaded', function () {
+    // Tüm saat butonlarını seç
+    const hourButtons = document.querySelectorAll('.btn-hour');
+
+    hourButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            // Tıklanan butona "active" sınıfını ekle
+            hourButtons.forEach(btn => btn.classList.remove('active')); // Diğer butonlardan kaldır
+            this.classList.add('active');
+
+            // Butonun 'focus' durumunu elle tut
+            this.setAttribute('data-selected', 'true');
+        });
+    });
+
+    // Modal formdaki diğer tıklamalar saat seçimini etkilemesin
+    const modalBody = document.querySelector('.modal-body');
+    modalBody.addEventListener('mousedown', function (event) {
+        // Eğer tıklanan bir saat butonu değilse, hiçbir şey yapma
+        if (!event.target.classList.contains('btn-hour')) {
+            hourButtons.forEach(btn => btn.setAttribute('data-selected', 'true'));
+        }
+    });
+});
