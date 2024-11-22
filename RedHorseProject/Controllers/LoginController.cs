@@ -21,7 +21,7 @@ namespace RedHorseProject.Controllers
         [HttpPost]
         public ActionResult Index(Admin p)
         {
-            Context c = new Context();
+            RedHorseContext c = new RedHorseContext();
             var adminuserinfo = c.Admins.FirstOrDefault
                 (x => x.UserName == p.UserName
                 && x.Password == p.Password);
@@ -45,7 +45,7 @@ namespace RedHorseProject.Controllers
         [HttpPost]
         public ActionResult AgencyLogin(Agency p)
         {
-            Context c = new Context();
+            RedHorseContext c = new RedHorseContext();
             var adminuserinfo = c.Agencys.FirstOrDefault
                 (x => x.UserName == p.UserName
                 && x.Password == p.Password);
@@ -54,6 +54,7 @@ namespace RedHorseProject.Controllers
             {
                 FormsAuthentication.SetAuthCookie(adminuserinfo.Role, false);
                 Session["Role"] = adminuserinfo.Role;
+                Session["Mail"] = adminuserinfo.Mail;
                 Session["AgencyId"] = adminuserinfo.Id;
                 return RedirectToAction("Index", "Customer");
             }
