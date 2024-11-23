@@ -59,6 +59,7 @@
     <Compile Include="Abstract\IGenericRepository.cs" />
     <Compile Include="Abstract\IHorseRepository.cs" />
     <Compile Include="Abstract\IJeepRepository.cs" />
+    <Compile Include="Concrete\AgencyRepository.cs" />
     <Compile Include="Concrete\GenericRepository.cs" />
     <Compile Include="Context\Context.cs" />
     <Compile Include="Migrations\202411202130066_InitialCreate.cs" />

@@ -12,7 +12,7 @@ namespace RedHorseProject.Roles
         public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public override string[] GetRolesForUser(string username)
         {
-            using (Context c = new Context())
+            using (RedHorseContext c = new RedHorseContext())
             {
                 var admin = c.Admins.FirstOrDefault(a => a.Role == username);
                 if (admin != null)
