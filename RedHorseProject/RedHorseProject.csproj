@@ -242,6 +242,7 @@
     <Content Include="Views\Shared\_CustomerRezervationDetails.cshtml" />
     <Content Include="Views\Shared\_LayoutModal.cshtml" />
     <Content Include="Views\Home\frmCustomerDetails.cshtml" />
+    <Content Include="Views\Customer\Editİnformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
