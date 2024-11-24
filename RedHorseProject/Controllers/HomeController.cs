@@ -108,7 +108,7 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
-
+     
         [HttpPost]
         public JsonResult ResetPassword(string password, string confirmPassword, string currentPassword)
         {

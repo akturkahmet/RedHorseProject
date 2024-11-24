@@ -19,9 +19,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- /END GA -->
 
-
+    
 </head>
 <body>
+    @{Html.RenderPartial("_LayoutModal"); }
+
     <div class="layout">
         <div class="row">
             <div class="col-md-2" id="app">
@@ -86,10 +88,10 @@
                                     </form>
                                 </li>
                                 @*<li> ORNEK DROPDOWN YAPISI
-            <a href="~/Home/CustomerCreator/" class="nav-link has-dropdown">
-                <i class="fas fa-th"></i><span>Kullanıcı Oluşturma</span>
-            </a>
-        </li>*@
+                                        <a href="~/Home/CustomerCreator/" class="nav-link has-dropdown">
+                                            <i class="fas fa-th"></i><span>Kullanıcı Oluşturma</span>
+                                        </a>
+                                    </li>*@
 
                             </ul>
 

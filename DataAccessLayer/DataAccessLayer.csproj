@@ -90,6 +90,26 @@
     <Compile Include="Migrations\202411241207020_mig-status.Designer.cs">
       <DependentUpon>202411241207020_mig-status.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411241637364_45.cs" />
+    <Compile Include="Migrations\202411241637364_45.Designer.cs">
+      <DependentUpon>202411241637364_45.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411241638508_3.cs" />
+    <Compile Include="Migrations\202411241638508_3.Designer.cs">
+      <DependentUpon>202411241638508_3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411241647343_date.cs" />
+    <Compile Include="Migrations\202411241647343_date.Designer.cs">
+      <DependentUpon>202411241647343_date.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411241733237_a.cs" />
+    <Compile Include="Migrations\202411241733237_a.Designer.cs">
+      <DependentUpon>202411241733237_a.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411241736123_bca.cs" />
+    <Compile Include="Migrations\202411241736123_bca.Designer.cs">
+      <DependentUpon>202411241736123_bca.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -124,6 +144,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411241207020_mig-status.resx">
       <DependentUpon>202411241207020_mig-status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411241637364_45.resx">
+      <DependentUpon>202411241637364_45.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411241638508_3.resx">
+      <DependentUpon>202411241638508_3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411241647343_date.resx">
+      <DependentUpon>202411241647343_date.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411241733237_a.resx">
+      <DependentUpon>202411241733237_a.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411241736123_bca.resx">
+      <DependentUpon>202411241736123_bca.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

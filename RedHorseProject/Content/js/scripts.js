@@ -482,7 +482,7 @@ $(function () {
     });
 
     // Bootstrap 4 Validation
-    
+
 
     // alert dismissible
     $(".alert-dismissible").each(function () {
@@ -597,7 +597,7 @@ $(document).on('click', '.close', function () {
 });
 
 function openCustomerModal() {
- 
+
     fetch('/Home/frmCustomerDetails')
         .then(response => {
             if (!response.ok) {
@@ -665,6 +665,29 @@ function openAppealModal() {
         })
         .catch(error => console.error('Error loading modal content:', error));
 }
+function openDetailsModal() {
+
+    fetch('/Customer/frmDetails')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(html => {
+            // İçeriği modal-body123'e yükle
+            document.getElementById('Body').innerHTML = html;
+
+            // Modal'ı göster
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+
+            // Arka plan için fade sınıfı
+            document.body.classList.add('modal-open');
+        })
+        .catch(error => console.error('Error loading modal content:', error));
+}
 
 // Modal'ı kapatma işlemi için bir event listener
 document.addEventListener('click', function (event) {
@@ -678,30 +701,23 @@ document.addEventListener('click', function (event) {
 });
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Tüm saat butonlarını seç
-    const hourButtons = document.querySelectorAll('.btn-hour');
-
-    hourButtons.forEach(button => {
-        button.addEventListener('click', function (event) {
-            // Tıklanan butona "active" sınıfını ekle
-            hourButtons.forEach(btn => btn.classList.remove('active')); // Diğer butonlardan kaldır
-            this.classList.add('active');
-
-            // Butonun 'focus' durumunu elle tut
-            this.setAttribute('data-selected', 'true');
-        });
+$(document).ready(function () {
+    // Butonlara tıklama olayını dinle
+    $(".btn-hour").on("click", function () {
+        // Tıklanan butona "data-selected" özelliğini true yap
+        $(this).attr("data-selected", "true");
     });
 
-    // Modal formdaki diğer tıklamalar saat seçimini etkilemesin
-    const modalBody = document.querySelector('.modal-body');
-    modalBody.addEventListener('mousedown', function (event) {
-        // Eğer tıklanan bir saat butonu değilse, hiçbir şey yapma
-        if (!event.target.classList.contains('btn-hour')) {
-            hourButtons.forEach(btn => btn.setAttribute('data-selected', 'true'));
-        }
+
+    $(".btn-hour").on("click", function () {
+        // Tüm butonlardan "selected" sınıfını ve data-selected="true" değerini kaldır
+        $(".btn-hour").removeClass("selected").attr("data-selected", "false");
+
+        // Sadece tıklanan butona "selected" sınıfını ekle ve data-selected="true" yap
+        $(this).addClass("selected").attr("data-selected", "true");
     });
 });
+
 function toggleSettingsMenu() {
     const menu = document.getElementById('settingsMenu');
     if (menu.style.display === 'block') {
@@ -721,4 +737,54 @@ function saveCapacities() {
     };
     console.log('Kaydedilen Kapasiteler:', capacities);
     alert('Kapasiteler başarıyla kaydedildi!');
+}
+
+
+
+
+
+// Rezervasyon başvuru eventi
+
+function saveRezervation() {
+    var dateText = $('#timeModalLabel').text();
+    var timeText = $(".btn-hour[data-selected='true']").text();
+    var fullDateTime = new Date(dateText + ' ' + timeText);
+
+    // Date formatını 'yyyy-MM-dd HH:mm:ss' olarak ayarlıyoruz
+    var formattedDate = fullDateTime.getFullYear() + '-' +
+        ('0' + (fullDateTime.getMonth() + 1)).slice(-2) + '-' +
+        ('0' + fullDateTime.getDate()).slice(-2) + ' ' +
+        ('0' + fullDateTime.getHours()).slice(-2) + ':' +
+        ('0' + fullDateTime.getMinutes()).slice(-2) + ':' +
+        ('0' + fullDateTime.getSeconds()).slice(-2);
+
+    // Backend'e doğru tarih formatında gönderiyoruz (ISO 8601 formatı)
+    var isoDate = fullDateTime.toISOString();  // 2024-01-14T13:00:00.000Z
+
+    var name = $("#guestName").val();
+    var surname = $("#guestSurname").val();
+    var phone = $("#phone").val();
+    var hotelName = $("#hotelName").val();
+    var roomNumber = $("#roomNumber").val();
+
+    $.ajax({
+        url: "/Customer/SaveRezervation/",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            name: name,
+            surname: surname,
+            phone: phone,
+            roomNumber: roomNumber,
+            hotelName: hotelName,
+            reservationTime: isoDate // Burada formatlı tarihi gönderiyoruz
+        }),
+        success: function (response) {
+            alert(`Seçili saat: ${isoDate}, Cevap: ${response.message}`);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+            alert("Bir hata oluştu.");
+        }
+    });
 }

@@ -10,6 +10,8 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true; // Veri kaybına izin ver
+
         }
 
         protected override void Seed(DataAccessLayer.Context.RedHorseContext context)

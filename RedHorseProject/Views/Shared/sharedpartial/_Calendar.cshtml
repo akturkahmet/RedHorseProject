@@ -33,6 +33,12 @@
     .form-control {
         margin-bottom: 10px; /* Form alanları arasında boşluk */
     }
+    .btn-hour.selected {
+        background-color: #007bff; /* Mavi arka plan */
+        color: #fff; /* Beyaz yazı rengi */
+        border-color: #007bff; /* Mavi sınır */
+    }
+
 </style>
 
 <!-- Modal -->
@@ -60,63 +66,64 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                              
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary btn-hour" value="09">09:00</button>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" id="hour9" value="09">09:00</button>
                                         </td>
                                         <td>10 kişi</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary btn-hour" value="10">10:00</button>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" id="hour10" value="10">10:00</button>
                                         </td>
                                         <td>8 kişi</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary btn-hour" value="11">11:00</button>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" id="hour11" value="11">11:00</button>
                                         </td>
                                         <td>12 kişi</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary btn-hour" value="12">12:00</button>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" id="hour12" value="12">12:00</button>
                                         </td>
                                         <td>6 kişi</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary btn-hour" value="13">13:00</button>
+                                            <button type="button" class="btn btn-outline-primary btn-hour"  id="hour13" value="13">13:00</button>
                                         </td>
                                         <td>4 kişi</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary btn-hour" value="14">14:00</button>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" id="hour14" value="14">14:00</button>
                                         </td>
                                         <td>9 kişi</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary btn-hour" value="15">15:00</button>
+                                            <button type="button" class="btn btn-outline-primary btn-hour"  id="hour15" value="15">15:00</button>
                                         </td>
                                         <td>5 kişi</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary btn-hour" value="16">16:00</button>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" id="hour16" value="16">16:00</button>
                                         </td>
                                         <td>9 kişi</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary btn-hour" value="17">17:00</button>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" id="hour17" value="17">17:00</button>
                                         </td>
                                         <td>3 kişi</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary btn-hour" value="18">18:00</button>
+                                            <button type="button" class="btn btn-outline-primary btn-hour" id="hour18" value="18">18:00</button>
                                         </td>
                                         <td>5 kişi</td>
                                     </tr>
@@ -155,7 +162,7 @@
             </div>
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="submit" id="basvur" class="btn btn-primary">Başvur</button>
+                <button type="submit" id="basvur" class="btn btn-primary" onclick="saveRezervation()">Başvur</button>
             </div>
         </div>
     </div>

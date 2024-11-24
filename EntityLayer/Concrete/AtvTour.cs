@@ -10,23 +10,24 @@ namespace EntityLayer.Concrete
     public class AtvTour
     {
         public int Id { get; set; }
-        public int AtvCount { get; set; }
+        public int? Capacity { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Mail { get; set; }
         public string CountryCode { get; set; }
         public string Phone { get; set; }
         public string HotelName { get; set; }
-        public int HotelRoomNo { get; set; }
+        public int? HotelRoomNo { get; set; }
         public string PassportNo { get; set; }
-        public int CustomerCount { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public TimeSpan ReservationTime { get; set; } 
+        public int? CustomerCount { get; set; }
+        public Nullable<DateTime> CreatedDate { get; set; }
+        //public DateTime ReservationTime { get; set; }
+        public Nullable<DateTime> ReservationDate { get; set; }
         public string TourNote { get; set; }
         public bool Status { get; set; }
         public virtual Agency Agencies { get; set; }
         [ForeignKey(nameof(Agencies))]
-        public int AgenciesId { get; set; }
+        public int? AgenciesId { get; set; }
 
     }
 }
