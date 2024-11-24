@@ -58,6 +58,14 @@ namespace RedHorseProject.Controllers
         {
             return View("frmCustomerDetails");
         }
+        public ActionResult frmRezervationDetails()
+        {
+            return View("frmRezervationDetails");
+        }
+        public ActionResult frmAppealDetails()
+        {
+            return View("frmAppealDetails");
+        }
         [HttpGet]
         public ActionResult ResetPassword()
         {

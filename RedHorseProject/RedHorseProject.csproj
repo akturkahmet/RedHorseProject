@@ -264,6 +264,8 @@
     <Content Include="Views\Shared\_LayoutModal.cshtml" />
     <Content Include="Views\Home\frmCustomerDetails.cshtml" />
     <Content Include="Views\Customer\Editİnformation.cshtml" />
+    <Content Include="Views\Home\frmRezervationDetails.cshtml" />
+    <Content Include="Views\Home\frmAppealDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -4152,3 +4152,53 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
 }
 
 /*# sourceMappingURL=style.css.map */
+.settings-menu {
+    display: none;
+    position: fixed; 
+    right: 20px; 
+    top: 60px; 
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 10px;
+    width: 250px;
+    z-index: 1000; 
+}
+
+    .settings-menu li {
+        margin-bottom: 10px;
+    }
+
+        .settings-menu li label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .settings-menu li input {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .settings-menu li button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+            .settings-menu li button:hover {
+                background-color: #0056b3;
+                
+            }
+
+.settings-icon {
+    font-size: 26px;
+    cursor:pointer;
+}
+

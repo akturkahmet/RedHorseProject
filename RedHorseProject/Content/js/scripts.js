@@ -19,6 +19,14 @@ if (window.Chart) {
 if (window.Dropzone) {
     Dropzone.autoDiscover = false;
 }
+$(document).ready(function () {
+    // Modal'ı draggable yap
+    $('#myModal').on('shown.bs.modal', function () {
+        $('.modal-dialog').draggable({
+            handle: ".modal-header" // Modal başlığı sürükleme alanı
+        });
+    });
+});
 
 // Basic confirm box
 $('[data-confirm]').each(function () {
@@ -587,13 +595,89 @@ $(document).ready(function () {
 $(document).on('click', '.close', function () {
     $('#timeModal').modal('hide');
 });
-function openDetailModal() {
-    $('#modal-body123').load('/Home/frmCustomerDetails', function () {
-        $('#myModal').modal({ show: true });
-    });
+
+function openCustomerModal() {
+ 
+    fetch('/Home/frmCustomerDetails')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(html => {
+            // İçeriği modal-body123'e yükle
+            document.getElementById('Body').innerHTML = html;
+
+            // Modal'ı göster
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+
+            // Arka plan için fade sınıfı
+            document.body.classList.add('modal-open');
+        })
+        .catch(error => console.error('Error loading modal content:', error));
+}
+function openRezervationModal() {
+
+    fetch('/Home/frmRezervationDetails')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(html => {
+            // İçeriği modal-body123'e yükle
+            document.getElementById('Body').innerHTML = html;
+
+            // Modal'ı göster
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+
+            // Arka plan için fade sınıfı
+            document.body.classList.add('modal-open');
+        })
+        .catch(error => console.error('Error loading modal content:', error));
+}
+function openAppealModal() {
+
+    fetch('/Home/frmAppealDetails')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(html => {
+            // İçeriği modal-body123'e yükle
+            document.getElementById('Body').innerHTML = html;
+
+            // Modal'ı göster
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+
+            // Arka plan için fade sınıfı
+            document.body.classList.add('modal-open');
+        })
+        .catch(error => console.error('Error loading modal content:', error));
 }
 
-///////////////////sdghgrju///////////
+// Modal'ı kapatma işlemi için bir event listener
+document.addEventListener('click', function (event) {
+    const modal = document.getElementById('myModal');
+
+    if (event.target.classList.contains('close') || event.target.classList.contains('btn-default')) {
+        modal.style.display = 'none';
+        modal.classList.remove('show');
+        document.body.classList.remove('modal-open');
+    }
+});
+
+
 document.addEventListener('DOMContentLoaded', function () {
     // Tüm saat butonlarını seç
     const hourButtons = document.querySelectorAll('.btn-hour');
@@ -618,3 +702,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+function toggleSettingsMenu() {
+    const menu = document.getElementById('settingsMenu');
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none'; // Menü açıkken kapat
+    } else {
+        menu.style.display = 'block'; // Menü kapalıyken aç
+    }
+}
+
+function saveCapacities() {
+    const capacities = {
+        horse: document.getElementById('horseCapacity').value,
+        atv: document.getElementById('atvCapacity').value,
+        jeep: document.getElementById('jeepCapacity').value,
+        balloon: document.getElementById('balloonCapacity').value,
+        camel: document.getElementById('camelCapacity').value,
+    };
+    console.log('Kaydedilen Kapasiteler:', capacities);
+    alert('Kapasiteler başarıyla kaydedildi!');
+}
