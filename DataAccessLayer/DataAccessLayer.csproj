@@ -78,6 +78,18 @@
     <Compile Include="Migrations\202411202235203_asdasd.Designer.cs">
       <DependentUpon>202411202235203_asdasd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411241051230_mig-entities.cs" />
+    <Compile Include="Migrations\202411241051230_mig-entities.Designer.cs">
+      <DependentUpon>202411241051230_mig-entities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411241115126_phone-string.cs" />
+    <Compile Include="Migrations\202411241115126_phone-string.Designer.cs">
+      <DependentUpon>202411241115126_phone-string.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411241207020_mig-status.cs" />
+    <Compile Include="Migrations\202411241207020_mig-status.Designer.cs">
+      <DependentUpon>202411241207020_mig-status.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -103,6 +115,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411202235203_asdasd.resx">
       <DependentUpon>202411202235203_asdasd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411241051230_mig-entities.resx">
+      <DependentUpon>202411241051230_mig-entities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411241115126_phone-string.resx">
+      <DependentUpon>202411241115126_phone-string.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411241207020_mig-status.resx">
+      <DependentUpon>202411241207020_mig-status.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

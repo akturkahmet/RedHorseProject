@@ -129,8 +129,12 @@
                         <h6>Başvuru Formu</h6>
                         <form>
                             <div class="form-group">
-                                <label for="guestName">Adı-Soyadı</label>
-                                <input type="text" id="guestName" class="form-control form-control-sm" placeholder="Ad ve Soyad">
+                                <label for="guestName">Adı</label>
+                                <input type="text" id="guestName" class="form-control form-control-sm" placeholder="Ad">
+                            </div>
+                            <div class="form-group">
+                                <label for="guestName">Soyadı</label>
+                                <input type="text" id="guestSurname" class="form-control form-control-sm" placeholder="Soyad">
                             </div>
                             <div class="form-group">
                                 <label for="phone">Telefon Numarası</label>
@@ -141,16 +145,9 @@
                                 <input type="text" id="hotelName" class="form-control form-control-sm" placeholder="Otel Adı">
                             </div>
                             <div class="form-group">
-                                <label for="passportNumber">Pasaport No</label>
-                                <input type="text" id="passportNumber" class="form-control form-control-sm" placeholder="Pasaport No">
-                            </div>
-                            <div class="form-group">
-                                <label for="guestCount">Kişi Sayısı</label>
-                                <input type="number" id="guestCount" class="form-control form-control-sm" placeholder="Kişi Sayısı">
-                            </div>
-                            <div class="form-group">
                                 <label for="roomNumber">Oda Numarası</label>
                                 <input type="text" id="roomNumber" class="form-control form-control-sm" placeholder="Oda Numarası">
+                                <input type="hidden" id="selectedTime" name="ReservationTime" />
                             </div>
                         </form>
                     </div>
@@ -158,11 +155,13 @@
             </div>
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Başvur</button>
+                <button type="submit" id="basvur" class="btn btn-primary">Başvur</button>
             </div>
         </div>
     </div>
 </div>
 <script src="~/Scripts/calendar-demo.js"></script>
 <script src="~/Content/js/scripts.js"></script>
+
+
 

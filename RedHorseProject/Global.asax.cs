@@ -38,9 +38,11 @@ namespace RedHorseProject
             // Bağımlılıkları burada tanımlayın
             container.RegisterType<IGenericRepository<Agency>, GenericRepository<Agency>>();
             container.RegisterType<IGenericRepository<Admin>, GenericRepository<Admin>>();
+            container.RegisterType<IGenericRepository<AtvTour>, GenericRepository<AtvTour>>();
             container.RegisterType<IAgencyService, AgencyManager>();
             container.RegisterType<IAgencyRepository, AgencyRepository>();
             container.RegisterType<IAdminService, AdminManager>();
+            container.RegisterType<IAtvTourService, AtvTourManager>();
         }
     }
 }

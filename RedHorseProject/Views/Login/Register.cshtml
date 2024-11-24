@@ -15,11 +15,11 @@
                     <div class="card-header"><h4>Kayıt Ol</h4></div>
 
                     <div class="card-body">
-                        <form method="POST">
+                        <form id="createAgencyForm" method="post">
                             <div class="row">
                                 <div class="form-group col-6">
-                                    <label for="frist_name">İsim</label>
-                                    <input id="frist_name" type="text" class="form-control" name="frist_name" autofocus>
+                                    <label for="first_name">İsim</label>
+                                    <input id="first_name" type="text" class="form-control" name="frist_name" autofocus>
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="last_name">Soyisim</label>
@@ -47,13 +47,7 @@
                                         <div class="label"></div>
                                     </div>
                                 </div>
-                                <div class="form-group col-6">
-                                    <label for="password2" class="d-block">Şifre Doğrulama</label>
-                                    <input id="password2" type="password" class="form-control" name="password-confirm">
-                                </div>
                             </div>
-
-
 
                             <div class="row">
                                 <div class="form-group col-6">
@@ -62,28 +56,25 @@
                                 </div>
                                 <div class="form-group col-6">
                                     <label>Faaliyet Bölgesi</label>
-                                    <select class="form-control selectric">
-                                        <option>Kapadokya</option>
-
+                                    <select class="form-control selectric" id="region" name="region">
+                                        <option selected value="Kapadokya">Kapadokya</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-6">
                                     <label>Vergi Kimlik No/TC Kimlik No</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="tc_no" name="tc_no">
                                 </div>
                                 <div class="form-group col-6">
                                     <label>Telefon Numarası</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="phone" name="phone">
                                 </div>
                             </div>
 
-
-
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                    Kayıt Ol
+                                    Kaydet
                                 </button>
                             </div>
                         </form>
@@ -95,3 +86,77 @@
         </div>
     </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#createAgencyForm').on('submit', function (e) {
+            e.preventDefault();
+
+            var formData = {
+                FirstName: $('#first_name').val(),
+                LastName: $('#last_name').val(),
+                UserName: $('#frist_name').val(),
+                Mail: $('#email').val(),
+                Phone: $('#phone').val(),
+                TursabNo: $('#tursab_no').val(),
+                TcNo: $('#tc_no').val(),
+                Region: $('#region').val(),
+                Password: $('#password').val(),
+            };
+
+
+            var missingFields = [];
+            if (!formData.FirstName) missingFields.push('İsim');
+            if (!formData.LastName) missingFields.push('Soyisim');
+            if (!formData.UserName) missingFields.push('Acente Adı');
+            if (!formData.Mail) missingFields.push('Email');
+            if (!formData.Phone) missingFields.push('Telefon Numarası');
+            if (!formData.TursabNo) missingFields.push('Türsab Numarası');
+            if (!formData.TcNo) missingFields.push('Vergi Kimlik No/TC Kimlik No');
+            if (!formData.Region) missingFields.push('Faaliyet Bölgesi');
+            if (!formData.Password) missingFields.push('Şifre');
+
+            if (missingFields.length > 0) {
+                var missingFieldsText = missingFields.join(', ');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Eksik Alanlar',
+                    text: missingFieldsText + ' boş bırakılamaz.',
+                });
+                return;
+            }
+
+
+            $.ajax({
+                url:'@Url.Action("CreateCustomer","Login")',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Başarılı',
+                            text: response.message,
+                            confirmButtonText: 'Giriş Yap', 
+                            customClass: {
+                                confirmButton: 'btn btn-success'
+                            },
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                             
+                                window.location.href = '/Login/AgencyLogin'; 
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hata',
+                            text: response.message,
+                        });
+                    }
+                },
+            });
+        });
+    });
+</script>

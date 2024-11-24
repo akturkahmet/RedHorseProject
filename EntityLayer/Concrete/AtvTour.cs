@@ -15,14 +15,15 @@ namespace EntityLayer.Concrete
         public string LastName { get; set; }
         public string Mail { get; set; }
         public string CountryCode { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
         public string HotelName { get; set; }
         public int HotelRoomNo { get; set; }
         public string PassportNo { get; set; }
         public int CustomerCount { get; set; }
         public DateTime CreatedDate { get; set; }
+        public TimeSpan ReservationTime { get; set; } 
         public string TourNote { get; set; }
-
+        public bool Status { get; set; }
         public virtual Agency Agencies { get; set; }
         [ForeignKey(nameof(Agencies))]
         public int AgenciesId { get; set; }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EntityLayer.Concrete
@@ -22,7 +23,12 @@ namespace EntityLayer.Concrete
         public string Region { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Role { get; set; }
+        public bool Status { get; set; }
         public ICollection<AtvTour> AtvTours { get; set; }
+        public ICollection<BalloonTour> BalloonTours { get; set; }
+        public ICollection<CamelTour> CamelTours { get; set; }
+        public ICollection<HorseTour> HorseTours { get; set; }
+        public ICollection<JeepTour> JeepTours { get; set; }
     }
 
 }

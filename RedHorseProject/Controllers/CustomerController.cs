@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Context;
 using EntityLayer.Concrete;
+using RedHorseProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,13 @@ using System.Web.Mvc;
 
 namespace RedHorseProject.Controllers
 {
-    [Authorize(Roles = "Agency")]
+    [Authorize]
     public class CustomerController : Controller
     {
         private readonly IAgencyService _agencyService;
+        private readonly IAtvTourService _atvTourService;
+
+        // _atvTourService.Insert(nesne) şeklinde dbye kaydediyor // 
 
         public CustomerController(IAgencyService agencyService)
         {
@@ -71,7 +75,6 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public JsonResult ChangePassword(string email, string newPassword, string confirmPassword)
         {
@@ -100,6 +103,34 @@ namespace RedHorseProject.Controllers
             _agencyService.Update(agency);
 
             return Json(new { success = true, message = "Şifreniz başarıyla değiştirildi." });
+        }
+
+
+        ///ÖRNEK/// 
+        
+        [HttpPost]
+        public JsonResult SubmitAtvTourReservation(ReservationViewModel model)
+        {
+            int? agencyId = Session["AgencyId"] as int?;
+
+            if (ModelState.IsValid)
+            {
+                var reservation = new EntityLayer.Concrete.AtvTour
+                {
+                    FirstName = model.FirstName,
+                    Phone = model.Phone,
+                    HotelName = model.HotelName,
+                    HotelRoomNo = model.HotelRoomNo,
+                    CreatedDate = DateTime.Now,
+                    ReservationTime = model.ReservationTime,
+                    AgenciesId = agencyId.Value,
+                    CustomerCount = model.CustomerCount,
+                };
+
+                _atvTourService.Insert(reservation);
+                return Json(new { success = true, message = "Rezervasyon başarıyla kaydedildi!" });
+            }
+            return Json(new { success = false, message = "Geçerli bir veri gönderilmedi." });
         }
 
     }

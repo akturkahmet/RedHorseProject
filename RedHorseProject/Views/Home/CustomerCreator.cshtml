@@ -2,96 +2,154 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+</head>
+<body>
 
-<section class="section">
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-                <div class="login-brand">
-                    <img src="assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
-                </div>
+    <section class="section">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                    <div class="login-brand">
+                        <img src="assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
+                    </div>
 
-                <div class="card card-primary">
-                    <div class="card-header"><h4>Yeni Kayıt</h4></div>
+                    <div class="card card-primary">
+                        <div class="card-header"><h4>Yeni Kayıt</h4></div>
 
-                    <div class="card-body">
-                        <form method="POST">
-                            <div class="row">
-                                <div class="form-group col-6">
-                                    <label for="frist_name">İsim</label>
-                                    <input id="frist_name" type="text" class="form-control" name="frist_name" autofocus>
-                                </div>
-                                <div class="form-group col-6">
-                                    <label for="last_name">Soyisim</label>
-                                    <input id="last_name" type="text" class="form-control" name="last_name">
-                                </div>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="frist_name">Acente Adı</label>
-                                <input id="frist_name" type="text" class="form-control" name="frist_name" autofocus>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input id="email" type="email" class="form-control" name="email">
-                                <div class="invalid-feedback">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-6">
-                                    <label for="password" class="d-block">Şifre</label>
-                                    <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password">
-                                    <div id="pwindicator" class="pwindicator">
-                                        <div class="bar"></div>
-                                        <div class="label"></div>
+                        <div class="card-body">
+                            <form id="createAgencyForm" method="post">
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="first_name">İsim</label>
+                                        <input id="first_name" type="text" class="form-control" name="frist_name" autofocus>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="last_name">Soyisim</label>
+                                        <input id="last_name" type="text" class="form-control" name="last_name">
                                     </div>
                                 </div>
                                 <div class="form-group col-6">
-                                    <label for="password2" class="d-block">Şifre Doğrulama</label>
-                                    <input id="password2" type="password" class="form-control" name="password-confirm">
+                                    <label for="frist_name">Acente Adı</label>
+                                    <input id="frist_name" type="text" class="form-control" name="frist_name" autofocus>
                                 </div>
-                            </div>
 
-
-
-                            <div class="row">
-                                <div class="form-group col-6">
-                                    <label for="tursab_no">Türsab Numarası</label>
-                                    <input id="tursab_no" type="text" class="form-control" name="tursab_no" autofocus>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input id="email" type="email" class="form-control" name="email">
+                                    <div class="invalid-feedback">
+                                    </div>
                                 </div>
-                                <div class="form-group col-6">
-                                    <label>Faaliyet Bölgesi</label>
-                                    <select class="form-control selectric">
-                                        <option>Kapadokya</option>
 
-                                    </select>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="password" class="d-block">Şifre</label>
+                                        <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password">
+                                        <div id="pwindicator" class="pwindicator">
+                                            <div class="bar"></div>
+                                            <div class="label"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-6">
-                                    <label>Vergi Kimlik No/TC Kimlik No</label>
-                                    <input type="text" class="form-control">
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="tursab_no">Türsab Numarası</label>
+                                        <input id="tursab_no" type="text" class="form-control" name="tursab_no" autofocus>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Faaliyet Bölgesi</label>
+                                        <select class="form-control selectric" id="region" name="region">
+                                            <option selected value="Kapadokya">Kapadokya</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="form-group col-6">
-                                    <label>Telefon Numarası</label>
-                                    <input type="text" class="form-control">
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label>Vergi Kimlik No/TC Kimlik No</label>
+                                        <input type="text" class="form-control" id="tc_no" name="tc_no">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Telefon Numarası</label>
+                                        <input type="text" class="form-control" id="phone" name="phone">
+                                    </div>
                                 </div>
-                            </div>
 
-
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                    Kaydet
-                                </button>
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                        Kaydet
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-    </div>
-</section>
+    </section>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#createAgencyForm').on('submit', function (e) {
+            e.preventDefault();  
+
+            var formData = {
+                FirstName: $('#first_name').val(),
+                LastName: $('#last_name').val(),
+                UserName: $('#frist_name').val(),
+                Mail: $('#email').val(),
+                Phone: $('#phone').val(),
+                TursabNo: $('#tursab_no').val(),
+                TcNo: $('#tc_no').val(),
+                Region: $('#region').val(),
+                Password: $('#password').val(),
+            };
+
+
+            var missingFields = [];
+            if (!formData.FirstName) missingFields.push('İsim');
+            if (!formData.LastName) missingFields.push('Soyisim');
+            if (!formData.UserName) missingFields.push('Acente Adı');
+            if (!formData.Mail) missingFields.push('Email');
+            if (!formData.Phone) missingFields.push('Telefon Numarası');
+            if (!formData.TursabNo) missingFields.push('Türsab Numarası');
+            if (!formData.TcNo) missingFields.push('Vergi Kimlik No/TC Kimlik No');
+            if (!formData.Region) missingFields.push('Faaliyet Bölgesi');
+            if (!formData.Password) missingFields.push('Şifre');
+
+            if (missingFields.length > 0) {
+                var missingFieldsText = missingFields.join(', ');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Eksik Alanlar',
+                    text: missingFieldsText + ' boş bırakılamaz.',
+                });
+                return; 
+            }
+
+
+            $.ajax({
+                url:'@Url.Action("CreateCustomer","Home")',
+                type: 'POST',
+                data: formData,  
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Başarılı',
+                            text: response.message,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hata',
+                            text: response.message,
+                        });
+                    }
+                },
+            });
+        });
+    });
+</script>

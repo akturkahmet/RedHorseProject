@@ -1,8 +1,11 @@
 ﻿using BusinessLayer.Abstract;
+using EntityLayer.Concrete;
+using RedHorseProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Management;
 using System.Web.Mvc;
 using System.Web.Services.Description;
 
@@ -12,10 +15,12 @@ namespace RedHorseProject.Controllers
     public class HomeController : Controller
     {
         private readonly IAdminService _service;
+        private readonly IAgencyService _agencyService;
 
-        public HomeController(IAdminService service)
+        public HomeController(IAdminService service, IAgencyService agencyService)
         {
             _service = service;
+            _agencyService = agencyService;
         }
 
         public ActionResult Index()
@@ -40,6 +45,38 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public JsonResult CreateCustomer(CreateAgencyModel model)
+        {
+            // Model doğrulama
+            if (!ModelState.IsValid)
+            {
+                return Json(new { success = false, message = "Geçersiz veri!" });
+            }
+
+            var newAgency = new Agency
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UserName = model.UserName,
+                Mail = model.Mail,
+                Phone = model.Phone,
+                TursabNo = model.TursabNo,
+                Tc = model.TcNo,
+                Region = model.Region,
+                Password = model.Password,
+                TaxNo = "boş",
+                Role = "Agency",
+                Status = true,
+                CreatedDate = DateTime.Now
+            };
+
+            _agencyService.Insert(newAgency);
+
+            return Json(new { success = true, message = "Acenta Başarıyla Eklendi!" });
+        }
+
         public ActionResult Appeals()
         {
             return View();

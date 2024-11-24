@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "AgencyLogin";
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
@@ -11,13 +10,21 @@
         </div>
 
         <div class="card card-primary">
-            <div class="card-header"><h4>Giriş Yap</h4></div>
+            <div class="card-header"><h4>Acenta Girişi</h4></div>
 
             <div class="card-body">
                 @using (Html.BeginForm("AgencyLogin", "Login", FormMethod.Post))
-                {<div class="form-group">
-                        <label for="email">Kullanıcı Adı</label>
-                        <input id="username" type="text" class="form-control" name="UserName" tabindex="1" required autofocus>
+                {
+                    if (ViewBag.ErrorMessage != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.ErrorMessage
+                        </div>
+                    }
+
+                    <div class="form-group">
+                        <label for="username">Kullanıcı Adı</label>
+                        <input id="username" type="text" class="form-control" name="UserName" tabindex="1"  autofocus>
                         <div class="invalid-feedback">
                             Lütfen kullanıcı adı alanını doldurunuz
                         </div>
@@ -26,11 +33,8 @@
                     <div class="form-group">
                         <div class="d-block">
                             <label for="password" class="control-label">Şifre</label>
-                            <div class="float-right">
-
-                            </div>
                         </div>
-                        <input id="password" type="password" class="form-control" name="Password" tabindex="2" required>
+                        <input id="password" type="password" class="form-control" name="Password" tabindex="2" >
                         <div class="invalid-feedback">
                             Lütfen Şifre alanını doldurunuz
                         </div>
@@ -47,19 +51,16 @@
                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                             Giriş Yap
                         </button>
-                        <a href="/Login/Index" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                            Admin Girişi
-                        </a>
+
                         <a href="/Login/Register" type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                             Kayıt Ol
+                        </a>
+                        <a href="/Login/Index" class="btn btn-warning btn-lg btn-block" tabindex="4">
+                            Admin Girişi
                         </a>
                     </div>
                 }
             </div>
-
-
-
         </div>
     </div>
-
 </div>
