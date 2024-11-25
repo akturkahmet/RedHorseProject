@@ -1,6 +1,8 @@
 ﻿using BusinessLayer.Abstract;
+using DataAccessLayer.Context;
 using EntityLayer.Concrete;
 using RedHorseProject.Models;
+using RedHorseProject.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,7 @@ namespace RedHorseProject.Controllers
     {
         private readonly IAdminService _service;
         private readonly IAgencyService _agencyService;
+        RedHorseContext _context = new RedHorseContext();
 
         public HomeController(IAdminService service, IAgencyService agencyService)
         {
@@ -25,7 +28,11 @@ namespace RedHorseProject.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var list = _context.Agencys
+            .Where(t => t.isDeleted == false && t.Status == true)
+            .ToList();
+
+            return View(list);
         }
 
         public ActionResult About()
@@ -35,7 +42,55 @@ namespace RedHorseProject.Controllers
 
         public ActionResult Rezervation()
         {
-            return View();
+            // Aktif turlar
+            var activeAtvTours = _context.AtvTours
+                .Where(t => t.Status == true)
+                .ToList();
+
+            var activeBalloonTours = _context.BalloonTours
+                .Where(t => t.Status == true)
+                .ToList();
+
+            var activeCamelTours = _context.CamelTours
+                .Where(t => t.Status == true)
+                .ToList();
+
+            // Deaktif turlar
+            var inactiveAtvTours = _context.AtvTours
+                .Where(t => t.Status == false)
+                .ToList();
+
+            var inactiveBalloonTours = _context.BalloonTours
+                .Where(t => t.Status == false)
+                .ToList();
+
+            var inactiveCamelTours = _context.CamelTours
+                .Where(t => t.Status == false)
+                .ToList();
+
+            // Tüm aktif turları tek bir listeye ekleyin
+            var activeTours = new List<Tour>();
+            activeTours.AddRange(activeAtvTours);
+            activeTours.AddRange(activeBalloonTours);
+            activeTours.AddRange(activeCamelTours);
+
+            // Tüm deaktif turları tek bir listeye ekleyin
+            var inactiveTours = new List<Tour>();
+            inactiveTours.AddRange(inactiveAtvTours);
+            inactiveTours.AddRange(inactiveBalloonTours);
+            inactiveTours.AddRange(inactiveCamelTours);
+
+            // Modeli oluşturun
+            var model = new ToursViewModel
+            {
+                ActiveTours = activeTours,
+                InactiveTours = inactiveTours
+            };
+
+            return View(model);
+
+
+
         }
         public ActionResult Test()
         {
@@ -79,7 +134,11 @@ namespace RedHorseProject.Controllers
 
         public ActionResult Appeals()
         {
-            return View();
+            var list = _context.Agencys
+            .Where(t => t.isDeleted == false && t.Status == false)
+            .ToList();
+
+            return View(list);
         }
         public ActionResult _CustomerDetails()
         {
@@ -108,7 +167,7 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
-     
+
         [HttpPost]
         public JsonResult ResetPassword(string password, string confirmPassword, string currentPassword)
         {
@@ -134,5 +193,82 @@ namespace RedHorseProject.Controllers
 
             return Json(new { success = true, message = "Şifreniz başarıyla değiştirildi." });
         }
+
+        public bool ConfirmRezervation(int id)
+        {
+            var tour = _context.AtvTours.FirstOrDefault(t => t.Id == id);
+
+            if (tour == null)
+            {
+                return false;
+            }
+
+            tour.Status = true;
+
+            _context.SaveChanges();
+
+            return true;
+        }
+        public bool CancelRezervation(int id)
+        {
+            var tour = _context.AtvTours.FirstOrDefault(t => t.Id == id);
+
+            if (tour == null)
+            {
+                return false;
+            }
+
+            tour.Status = false;
+
+            _context.SaveChanges();
+
+            return true;
+        }
+        public bool DeleteCustomer(int id)
+        {
+            var customer = _context.Agencys.FirstOrDefault(t => t.Id == id);
+
+            if (customer == null)
+            {
+                return false;
+            }
+
+            customer.isDeleted = true;
+
+            _context.SaveChanges();
+
+            return true;
+        }
+        public bool ConfirmCustomer(int id)
+        {
+            var customer = _context.Agencys.FirstOrDefault(t => t.Id == id);
+
+            if (customer == null)
+            {
+                return false;
+            }
+
+            customer.Status = true;
+
+            _context.SaveChanges();
+
+            return true;
+        } 
+        public bool CancelCustomer(int id)
+        {
+            var customer = _context.Agencys.FirstOrDefault(t => t.Id == id);
+
+            if (customer == null)
+            {
+                return false;
+            }
+
+            customer.isDeleted = true;
+
+            _context.SaveChanges();
+
+            return true;
+        }
+
     }
 }

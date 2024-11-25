@@ -665,7 +665,7 @@ function openAppealModal() {
         })
         .catch(error => console.error('Error loading modal content:', error));
 }
-function openDetailsModal() {
+function openDetailsModal(id) {
 
     fetch('/Customer/frmDetails')
         .then(response => {
@@ -685,8 +685,27 @@ function openDetailsModal() {
 
             // Arka plan için fade sınıfı
             document.body.classList.add('modal-open');
+
+            $.ajax({
+                url: "/Customer/GetRezervation/" + id,
+                method: "GET",
+                success: function (data) {
+                    $("#NameSurname").text(data.FirstName + " " + data.LastName)
+                    $("#Phone").text(data.Phone)
+                    $("#HotelName").text(data.HotelName)
+                    $("#RoomNo").text(data.HotelRoomNo)
+                    $("#Pax").text(data.CustomerCount)
+                    $("#PassportNo").text(data.PassportNo)
+                },
+                error: function (xhr, status, error) {
+
+                }
+            });
         })
         .catch(error => console.error('Error loading modal content:', error));
+
+
+
 }
 
 // Modal'ı kapatma işlemi için bir event listener
@@ -766,6 +785,8 @@ function saveRezervation() {
     var phone = $("#phone").val();
     var hotelName = $("#hotelName").val();
     var roomNumber = $("#roomNumber").val();
+    var customerCount = $("#customerCount").val();
+    var passportNo = $("#passportNo").val();
 
     $.ajax({
         url: "/Customer/SaveRezervation/",
@@ -777,10 +798,152 @@ function saveRezervation() {
             phone: phone,
             roomNumber: roomNumber,
             hotelName: hotelName,
-            reservationTime: isoDate // Burada formatlı tarihi gönderiyoruz
+            reservationTime: isoDate ,
+            customerCount: customerCount ,
+            passportNo: passportNo 
         }),
         success: function (response) {
             alert(`Seçili saat: ${isoDate}, Cevap: ${response.message}`);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+            alert("Bir hata oluştu.");
+        }
+    });
+}
+function ConfirmRezervation(id) {
+    $.ajax({
+        url: "/Home/ConfirmRezervation/",  
+        method: "POST", 
+        data: {
+            id: id  
+        },
+        success: function (response) {
+        
+            Swal.fire({
+                title: 'Başarılı',
+                text: 'Başvuru Onaylandı',
+                icon: 'success',
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                // Eğer kullanıcı 'Tamam' butonuna tıklarsa
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+            alert("Bir hata oluştu.");
+        }
+    });
+}
+function CancelRezervation(id) {
+    $.ajax({
+        url: "/Home/CancelRezervation/",
+        method: "POST",
+        data: {
+            id: id
+        },
+        success: function (response) {
+
+            Swal.fire({
+                title: 'Başarılı',
+                text: 'Başvuru İptal Edildi',
+                icon: 'success',
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                // Eğer kullanıcı 'Tamam' butonuna tıklarsa
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+          
+
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+            alert("Bir hata oluştu.");
+        }
+    });
+}
+
+function deleteCustomer(id) {
+    $.ajax({
+        url: "/Home/DeleteCustomer/",
+        method: "POST",
+        data: {
+            id: id
+        },
+        success: function (response) {
+
+            Swal.fire({
+                title: 'Başarılı',
+                text: 'Müşteri silindi',
+                icon: 'alert',
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+
+
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+            alert("Bir hata oluştu.");
+        }
+    });
+} function confirmCustomer(id) {
+    $.ajax({
+        url: "/Home/ConfirmCustomer/",
+        method: "POST",
+        data: {
+            id: id
+        },
+        success: function (response) {
+
+            Swal.fire({
+                title: 'Başarılı',
+                text: 'Müşteri onaylandı.',
+                icon: 'succes',
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+
+
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+            alert("Bir hata oluştu.");
+        }
+    });
+}
+function cancelCustomer(id) {
+    $.ajax({
+        url: "/Home/CancelCustomer/",
+        method: "POST",
+        data: {
+            id: id
+        },
+        success: function (response) {
+
+            Swal.fire({
+                title: 'Başarılı',
+                text: 'Müşteri reddedildi.',
+                icon: 'alert',
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+
+
         },
         error: function (xhr, status, error) {
             console.error("Error:", error);

@@ -91,6 +91,8 @@ namespace RedHorseProject.Controllers
             Session["Role"] = adminuserinfo.Role;
             Session["Mail"] = adminuserinfo.Mail;
             Session["AgencyId"] = adminuserinfo.Id;
+            Session["UserId"] = adminuserinfo.Id;
+
             return RedirectToAction("Index", "Customer");
         }
 

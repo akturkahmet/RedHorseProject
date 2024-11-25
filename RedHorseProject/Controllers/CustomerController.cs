@@ -1,13 +1,13 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Context;
-using EntityLayer.Concrete;
-using RedHorseProject.Models;
+using RedHorseProject.Helper;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using AtvTour = EntityLayer.Concrete.AtvTour;
+using RedHorseProject.Models.ViewModel;
 
 namespace RedHorseProject.Controllers
 {
@@ -17,6 +17,7 @@ namespace RedHorseProject.Controllers
         private readonly IAgencyService _agencyService;
         private readonly IAtvTourService _atvTourService;
         RedHorseContext _context = new RedHorseContext();
+        DataContext _datacontext = new DataContext();
         // _atvTourService.Insert(nesne) şeklinde dbye kaydediyor // 
 
         public CustomerController(IAgencyService agencyService, IAtvTourService atvTourService)
@@ -62,10 +63,16 @@ namespace RedHorseProject.Controllers
         }
         public ActionResult CustomerRezervation()
         {
+            var unapproved = GetUnapprovedAllRezervation(); 
+            var approved = GetapprovedAllRezervation(); 
 
-            var list = GetUnapprovedAllRezervation();
+            var model = new AtvTourViewModel
+            {
+                UnapprovedReservations = unapproved,
+                ApprovedReservations = approved
+            };
 
-            return View(list);
+            return View(model); // View'e model gönderiyoruz
         }
         public ActionResult _Calendar()
         {
@@ -83,7 +90,7 @@ namespace RedHorseProject.Controllers
         }
         public ActionResult frmDetails()
         {
-            return View("frmDetails");
+            return View();
         }
         [HttpPost]
         public JsonResult ChangePassword(string email, string newPassword, string confirmPassword)
@@ -116,77 +123,80 @@ namespace RedHorseProject.Controllers
         }
 
 
-        ///ÖRNEK/// 
-
-        //[HttpPost]
-        //public JsonResult SubmitAtvTourReservation(ReservationViewModel model)
-        //{
-        //    int? agencyId = Session["AgencyId"] as int?;
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        var reservation = new EntityLayer.Concrete.AtvTour
-        //        {
-        //            FirstName = model.FirstName,
-        //            Phone = model.Phone,
-        //            HotelName = model.HotelName,
-        //            HotelRoomNo = model.HotelRoomNo,
-        //            CreatedDate = DateTime.Now,
-        //            ReservationTime = model.ReservationTime,
-        //            AgenciesId = agencyId.Value,
-        //            CustomerCount = model.CustomerCount,
-        //        };
-
-        //        _atvTourService.Insert(reservation);
-        //        return Json(new { success = true, message = "Rezervasyon başarıyla kaydedildi!" });
-        //    }
-        //    return Json(new { success = false, message = "Geçerli bir veri gönderilmedi." });
-        //}
 
 
         [HttpPost]
-        public JsonResult SaveRezervation(string name, string surname, string phone, string hotelName, int roomNumber, string reservationTime)
+        public JsonResult SaveRezervation(string name, string surname, string phone, string hotelName, int roomNumber, string reservationTime,string passportNo,int? customerCount)
         {
+            int userId = Convert.ToInt32(Session["UserId"]);
             try
             {
-                DateTime selectedDateTime = DateTime.ParseExact(reservationTime, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-                // ReservationDate'e seçilen tarihi atıyoruz
-                var newRezervation = new EntityLayer.Concrete.AtvTour
+                // Gelen tarihi uygun formata dönüştürme
+                DateTime selectedDateTime;
+                if (DateTime.TryParse(reservationTime, out selectedDateTime))
                 {
-                    FirstName = name,
-                    LastName = surname,
-                    Phone = phone,
-                    HotelName = hotelName,
-                    HotelRoomNo = roomNumber,
-                    ReservationDate = selectedDateTime // sadece gün, ay, yıl kullanılıyor
-                };
+                    // Eğer tarih geçerli bir DateTime ise kayda devam et
+                    var newRezervation = new EntityLayer.Concrete.AtvTour
+                    {
+                        FirstName = name,
+                        LastName = surname,
+                        Phone = phone,
+                        HotelName = hotelName,
+                        HotelRoomNo = roomNumber,
+                        CreatedDate = DateTime.Now,
+                        ReservationDate = selectedDateTime,
+                        PassportNo = passportNo,
+                        CustomerCount = customerCount,
+                        Agency_Id = userId
+                    };
 
-                // Veritabanına ekle
-                _atvTourService.Insert(newRezervation);
+                    _atvTourService.Insert(newRezervation);
 
-                return Json(new { success = true, message = "Rezervasyon başarıyla kaydedildi." });
+                    return Json(new { success = true, message = "Rezervasyon başarıyla kaydedildi." });
+                }
+                else
+                {
+                    // Geçersiz tarih formatı
+                    return Json(new { success = false, message = "Geçersiz tarih formatı." });
+                }
             }
             catch (Exception ex)
             {
                 return Json(new { success = false, message = "Hata oluştu: " + ex.Message });
             }
         }
+
         public List<AtvTour> GetUnapprovedAllRezervation()
         {
-            var rezervation = _context.AtvTours
+            var unaproved = _context.AtvTours
                                       .Where(t => t.Status == false)
                                       .ToList();
-            return rezervation;
+            return unaproved;
         }
         [HttpGet]
-        public JsonResult GetapprovedAllRezervation()
+        public List<AtvTour> GetapprovedAllRezervation()
         {
-            var approvedrezervation = _context.AtvTours
+            var aproved = _context.AtvTours
                                       .Where(t => t.Status == true)
                                       .ToList();
-
-            return Json(approvedrezervation, JsonRequestBehavior.AllowGet);
+            return aproved;
         }
+        [HttpGet]
+        public JsonResult GetRezervation(int id)
+        {
+
+            var query = _context.AtvTours
+                                      .Where(t => t.Id == id)
+                                      .FirstOrDefault();
+
+
+
+
+                return Json(query, JsonRequestBehavior.AllowGet);
+            
+
+
+        }
+
     }
 }

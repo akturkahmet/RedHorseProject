@@ -29,6 +29,7 @@ namespace EntityLayer.Concrete
         public ICollection<CamelTour> CamelTours { get; set; }
         public ICollection<HorseTour> HorseTours { get; set; }
         public ICollection<JeepTour> JeepTours { get; set; }
+        public bool isDeleted { get; set; }
     }
 
 }

@@ -59,6 +59,7 @@
     <Compile Include="Concrete\CustomerInformation.cs" />
     <Compile Include="Concrete\HorseTour.cs" />
     <Compile Include="Concrete\JeepTour.cs" />
+    <Compile Include="Concrete\Tour.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

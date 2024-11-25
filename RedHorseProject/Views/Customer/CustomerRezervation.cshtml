@@ -1,6 +1,6 @@
-﻿@Model
+﻿@model RedHorseProject.Models.ViewModel.AtvTourViewModel
+
 @{
-    ViewBag.Title = "CustomerRezervation";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
@@ -28,29 +28,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var record in Model)
+                                    @foreach (var record in Model.UnapprovedReservations)
                                     {
-                                        <tr>
+                                        <tr id="@record.Id">
                                             <td>
                                                 @record.FirstName  @record.LastName
-                                            </td> 
+                                            </td>
                                             <td>
                                                 @record.HotelName
                                             </td>
                                             <td>
                                                 @record.Phone
-                                            </td> 
+                                            </td>
                                             <td>
-                                                @record.CreatedDate.ToString("dd.MM.yyyy")
+                                                @{
+                                                    var dateDisplay = record.CreatedDate.HasValue
+                                                        ? record.CreatedDate.Value.ToString("dd.MM.yyyy")  
+                                                        : "Tarih Yok";  
+                                                }
+
+                                                @dateDisplay
 
                                             </td>
                                             <td>
-                                                <button href="" onclick="openDetailsModal()" class="btn btn-primary">Detaylar</button>
+                                                <button href="" onclick="openDetailsModal(@record.Id)" class="btn btn-primary">Detaylar</button>
                                             </td>
                                         </tr>
                                     }
 
-                                   
+
                                 </tbody>
                             </table>
                         </div>
@@ -69,9 +75,7 @@
                             <table class="table table-striped" id="table-1">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            #
-                                        </th>
+                                     
                                         <th>Ad Soyad</th>
                                         <th>Otel Adı</th>
                                         <th>Telefon Numarası</th>
@@ -80,53 +84,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    @foreach (var record in Model.ApprovedReservations)
+                                    {
+                                        <tr id="@record.Id">
+                                            <td>
+                                                @record.FirstName  @record.LastName
+                                            </td>
+                                            <td>
+                                                @record.HotelName
+                                            </td>
+                                            <td>
+                                                @record.Phone
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var dateDisplay = record.CreatedDate.HasValue
+                                                        ? record.CreatedDate.Value.ToString("dd.MM.yyyy")
+                                                        : "Tarih Yok";
+                                                }
 
+                                                @dateDisplay
 
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>Create a mobile app</td>
-
-
-                                        <td>2018-01-20</td>
-
-                                        <td>
-                                            <button href="" onclick="openDetailsModal()" class="btn btn-primary">Detaylar</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>Redesign homepage</td>
-
-
-                                        <td>2018-04-10</td>
-                                        <td><a href="#" class="btn btn-secondary">Detaylar</a></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            3
-                                        </td>
-                                        <td>Backup database</td>
-
-
-                                        <td>2018-01-29</td>
-                                        <td><a href="#" class="btn btn-secondary">Detaylar</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>Input data</td>
-
-
-                                        <td>2018-01-16</td>
-
-                                        <td><a href="#" class="btn btn-secondary">Detaylar</a></td>
-                                    </tr>
+                                            </td>
+                                            <td>
+                                                <button href="" onclick="openDetailsModal(@record.Id)" class="btn btn-primary">Detaylar</button>
+                                            </td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>
