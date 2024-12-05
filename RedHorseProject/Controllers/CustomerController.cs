@@ -20,7 +20,7 @@ namespace RedHorseProject.Controllers
         DataContext _datacontext = new DataContext();
         // _atvTourService.Insert(nesne) şeklinde dbye kaydediyor // 
 
-        public CustomerController(IAgencyService agencyService, IAtvTourService atvTourService)
+        public CustomerController(IAgencyService agencyService, ITourService atvTourService)
         {
             _agencyService = agencyService;
             _atvTourService = atvTourService;
