@@ -43,53 +43,10 @@ namespace RedHorseProject.Controllers
         public ActionResult Rezervation()
         {
             // Aktif turlar
-            var activeAtvTours = _context.AtvTours
+            var activeAtvTours = _context.Reservations
                 .Where(t => t.Status == true)
                 .ToList();
-
-            var activeBalloonTours = _context.BalloonTours
-                .Where(t => t.Status == true)
-                .ToList();
-
-            var activeCamelTours = _context.CamelTours
-                .Where(t => t.Status == true)
-                .ToList();
-
-            // Deaktif turlar
-            var inactiveAtvTours = _context.AtvTours
-                .Where(t => t.Status == false)
-                .ToList();
-
-            var inactiveBalloonTours = _context.BalloonTours
-                .Where(t => t.Status == false)
-                .ToList();
-
-            var inactiveCamelTours = _context.CamelTours
-                .Where(t => t.Status == false)
-                .ToList();
-
-            // Tüm aktif turları tek bir listeye ekleyin
-            var activeTours = new List<Tour>();
-            activeTours.AddRange(activeAtvTours);
-            activeTours.AddRange(activeBalloonTours);
-            activeTours.AddRange(activeCamelTours);
-
-            // Tüm deaktif turları tek bir listeye ekleyin
-            var inactiveTours = new List<Tour>();
-            inactiveTours.AddRange(inactiveAtvTours);
-            inactiveTours.AddRange(inactiveBalloonTours);
-            inactiveTours.AddRange(inactiveCamelTours);
-
-            // Modeli oluşturun
-            var model = new ToursViewModel
-            {
-                ActiveTours = activeTours,
-                InactiveTours = inactiveTours
-            };
-
-            return View(model);
-
-
+            return View();
 
         }
         public ActionResult Test()
@@ -196,7 +153,7 @@ namespace RedHorseProject.Controllers
 
         public bool ConfirmRezervation(int id)
         {
-            var tour = _context.AtvTours.FirstOrDefault(t => t.Id == id);
+            var tour = _context.Reservations.FirstOrDefault(t => t.Id == id);
 
             if (tour == null)
             {
@@ -211,7 +168,7 @@ namespace RedHorseProject.Controllers
         }
         public bool CancelRezervation(int id)
         {
-            var tour = _context.AtvTours.FirstOrDefault(t => t.Id == id);
+            var tour = _context.Reservations.FirstOrDefault(t => t.Id == id);
 
             if (tour == null)
             {

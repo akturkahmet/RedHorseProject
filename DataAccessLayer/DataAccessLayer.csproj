@@ -52,79 +52,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAgencyRepository.cs" />
-    <Compile Include="Abstract\IAtvRepository.cs" />
-    <Compile Include="Abstract\IBalloonRepository.cs" />
-    <Compile Include="Abstract\ICamelRepository.cs" />
     <Compile Include="Abstract\ICustomerInformationRepository.cs" />
     <Compile Include="Abstract\IGenericRepository.cs" />
-    <Compile Include="Abstract\IHorseRepository.cs" />
-    <Compile Include="Abstract\IJeepRepository.cs" />
+    <Compile Include="Abstract\ITourRepository.cs" />
     <Compile Include="Concrete\AgencyRepository.cs" />
     <Compile Include="Concrete\GenericRepository.cs" />
     <Compile Include="Context\RedHorseContext.cs" />
-    <Compile Include="Migrations\202411202130066_InitialCreate.cs" />
-    <Compile Include="Migrations\202411202130066_InitialCreate.Designer.cs">
-      <DependentUpon>202411202130066_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202412031732026_create.cs" />
+    <Compile Include="Migrations\202412031732026_create.Designer.cs">
+      <DependentUpon>202412031732026_create.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202411202131487_admins.cs" />
-    <Compile Include="Migrations\202411202131487_admins.Designer.cs">
-      <DependentUpon>202411202131487_admins.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411202203303_agencypasswrd.cs" />
-    <Compile Include="Migrations\202411202203303_agencypasswrd.Designer.cs">
-      <DependentUpon>202411202203303_agencypasswrd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411202235203_asdasd.cs" />
-    <Compile Include="Migrations\202411202235203_asdasd.Designer.cs">
-      <DependentUpon>202411202235203_asdasd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241051230_mig-entities.cs" />
-    <Compile Include="Migrations\202411241051230_mig-entities.Designer.cs">
-      <DependentUpon>202411241051230_mig-entities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241115126_phone-string.cs" />
-    <Compile Include="Migrations\202411241115126_phone-string.Designer.cs">
-      <DependentUpon>202411241115126_phone-string.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241207020_mig-status.cs" />
-    <Compile Include="Migrations\202411241207020_mig-status.Designer.cs">
-      <DependentUpon>202411241207020_mig-status.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241637364_45.cs" />
-    <Compile Include="Migrations\202411241637364_45.Designer.cs">
-      <DependentUpon>202411241637364_45.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241638508_3.cs" />
-    <Compile Include="Migrations\202411241638508_3.Designer.cs">
-      <DependentUpon>202411241638508_3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241647343_date.cs" />
-    <Compile Include="Migrations\202411241647343_date.Designer.cs">
-      <DependentUpon>202411241647343_date.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241733237_a.cs" />
-    <Compile Include="Migrations\202411241733237_a.Designer.cs">
-      <DependentUpon>202411241733237_a.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411241736123_bca.cs" />
-    <Compile Include="Migrations\202411241736123_bca.Designer.cs">
-      <DependentUpon>202411241736123_bca.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411242306408_as.cs" />
-    <Compile Include="Migrations\202411242306408_as.Designer.cs">
-      <DependentUpon>202411242306408_as.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411242337404_added isDeleted.cs" />
-    <Compile Include="Migrations\202411242337404_added isDeleted.Designer.cs">
-      <DependentUpon>202411242337404_added isDeleted.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411250107004_asd.cs" />
-    <Compile Include="Migrations\202411250107004_asd.Designer.cs">
-      <DependentUpon>202411250107004_asd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411250123296_rekjgfjw.cs" />
-    <Compile Include="Migrations\202411250123296_rekjgfjw.Designer.cs">
-      <DependentUpon>202411250123296_rekjgfjw.cs</DependentUpon>
+    <Compile Include="Migrations\202412031753389_create_tourtype.cs" />
+    <Compile Include="Migrations\202412031753389_create_tourtype.Designer.cs">
+      <DependentUpon>202412031753389_create_tourtype.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -140,53 +80,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202411202130066_InitialCreate.resx">
-      <DependentUpon>202411202130066_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202412031732026_create.resx">
+      <DependentUpon>202412031732026_create.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411202131487_admins.resx">
-      <DependentUpon>202411202131487_admins.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411202203303_agencypasswrd.resx">
-      <DependentUpon>202411202203303_agencypasswrd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411202235203_asdasd.resx">
-      <DependentUpon>202411202235203_asdasd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241051230_mig-entities.resx">
-      <DependentUpon>202411241051230_mig-entities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241115126_phone-string.resx">
-      <DependentUpon>202411241115126_phone-string.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241207020_mig-status.resx">
-      <DependentUpon>202411241207020_mig-status.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241637364_45.resx">
-      <DependentUpon>202411241637364_45.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241638508_3.resx">
-      <DependentUpon>202411241638508_3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241647343_date.resx">
-      <DependentUpon>202411241647343_date.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241733237_a.resx">
-      <DependentUpon>202411241733237_a.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411241736123_bca.resx">
-      <DependentUpon>202411241736123_bca.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411242306408_as.resx">
-      <DependentUpon>202411242306408_as.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411242337404_added isDeleted.resx">
-      <DependentUpon>202411242337404_added isDeleted.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411250107004_asd.resx">
-      <DependentUpon>202411250107004_asd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411250123296_rekjgfjw.resx">
-      <DependentUpon>202411250123296_rekjgfjw.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202412031753389_create_tourtype.resx">
+      <DependentUpon>202412031753389_create_tourtype.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

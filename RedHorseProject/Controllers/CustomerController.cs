@@ -6,24 +6,26 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
-using AtvTour = EntityLayer.Concrete.AtvTour;
+using AtvTour = EntityLayer.Concrete.Reservation;
 using RedHorseProject.Models.ViewModel;
+using EntityLayer.Concrete;
 
 namespace RedHorseProject.Controllers
 {
+
     [Authorize]
     public class CustomerController : Controller
     {
         private readonly IAgencyService _agencyService;
-        private readonly IAtvTourService _atvTourService;
+        private readonly IReservationService _ReservationService;
         RedHorseContext _context = new RedHorseContext();
         DataContext _datacontext = new DataContext();
         // _atvTourService.Insert(nesne) şeklinde dbye kaydediyor // 
 
-        public CustomerController(IAgencyService agencyService, ITourService atvTourService)
+        public CustomerController(IAgencyService agencyService, IReservationService ReservationService)
         {
             _agencyService = agencyService;
-            _atvTourService = atvTourService;
+            _ReservationService = ReservationService;
 
         }
 
@@ -35,50 +37,25 @@ namespace RedHorseProject.Controllers
                 var agencyId = (int)Session["AgencyId"];
 
                 // Bu Agency'ye bağlı araçları listele
-                var atv = c.AtvTours.Where(car => car.AgenciesId == agencyId).ToList();
+                var atv = c.Reservations.Where(car => car.Agency_Id == agencyId).ToList();
 
-                return View(atv);
+                return View();
             }
         }
-        public ActionResult AtvTurlari()
-        {
-            return View();
-        }
-        public ActionResult AtTurlari()
-        {
-            return View();
 
-        }
-        public ActionResult BalonTurlari()
-        {
-            return View();
-        }
-        public ActionResult DeveTurlari()
-        {
-            return View();
-        }
-        public ActionResult JeepSafariTurlari()
-        {
-            return View();
-        }
         public ActionResult CustomerRezervation()
         {
-            var unapproved = GetUnapprovedAllRezervation(); 
-            var approved = GetapprovedAllRezervation(); 
+            var Reservation = _context.Reservations.ToList();
 
-            var model = new AtvTourViewModel
-            {
-                UnapprovedReservations = unapproved,
-                ApprovedReservations = approved
-            };
-
-            return View(model); // View'e model gönderiyoruz
+            return View(Reservation);
         }
-        public ActionResult _Calendar()
+        public JsonResult GetRezervation()
         {
-
-            return PartialView("_Calendar");
+            var reservations = _context.Reservations.ToList();
+            return Json(reservations, JsonRequestBehavior.AllowGet);
         }
+
+
         [HttpGet]
         public ActionResult ChangePassword()
         {
@@ -92,10 +69,14 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
+        public ActionResult frmCreateReservation()
+        {
+            return View();
+        }
         [HttpPost]
         public JsonResult ChangePassword(string email, string newPassword, string confirmPassword)
         {
-            //Eraya tten//
+
 
             var currentEmail = Session["Mail"]?.ToString();  // Giriş yapan kullanıcının e-mail adresini çektük //
             var agency = _agencyService.Get(a => a.Mail == currentEmail);
@@ -121,82 +102,39 @@ namespace RedHorseProject.Controllers
 
             return Json(new { success = true, message = "Şifreniz başarıyla değiştirildi." });
         }
-
-
+        public ActionResult EditRezervation()
+        {
+            return View();
+        }
 
 
         [HttpPost]
-        public JsonResult SaveRezervation(string name, string surname, string phone, string hotelName, int roomNumber, string reservationTime,string passportNo,int? customerCount)
+        public ActionResult updateStatus(int id, bool status)
         {
-            int userId = Convert.ToInt32(Session["UserId"]);
-            try
+
+            var reservation = _context.Reservations.SingleOrDefault(r => r.Id == id);
+
+            if (reservation.Status == true)
             {
-                // Gelen tarihi uygun formata dönüştürme
-                DateTime selectedDateTime;
-                if (DateTime.TryParse(reservationTime, out selectedDateTime))
-                {
-                    // Eğer tarih geçerli bir DateTime ise kayda devam et
-                    var newRezervation = new EntityLayer.Concrete.AtvTour
-                    {
-                        FirstName = name,
-                        LastName = surname,
-                        Phone = phone,
-                        HotelName = hotelName,
-                        HotelRoomNo = roomNumber,
-                        CreatedDate = DateTime.Now,
-                        ReservationDate = selectedDateTime,
-                        PassportNo = passportNo,
-                        CustomerCount = customerCount,
-                        Agency_Id = userId
-                    };
-
-                    _atvTourService.Insert(newRezervation);
-
-                    return Json(new { success = true, message = "Rezervasyon başarıyla kaydedildi." });
-                }
-                else
-                {
-                    // Geçersiz tarih formatı
-                    return Json(new { success = false, message = "Geçersiz tarih formatı." });
-                }
+                reservation.Status = false;
+                _context.SaveChanges();
+                return Json(new { success = true, message = "Rezervasyon pasif oldu." });
             }
-            catch (Exception ex)
+            else
             {
-                return Json(new { success = false, message = "Hata oluştu: " + ex.Message });
+                reservation.Status = true;
+                _context.SaveChanges();
+                return Json(new { success = true, message = "Rezervasyon aktif oldu." });
             }
-        }
 
-        public List<AtvTour> GetUnapprovedAllRezervation()
-        {
-            var unaproved = _context.AtvTours
-                                      .Where(t => t.Status == false)
-                                      .ToList();
-            return unaproved;
-        }
-        [HttpGet]
-        public List<AtvTour> GetapprovedAllRezervation()
-        {
-            var aproved = _context.AtvTours
-                                      .Where(t => t.Status == true)
-                                      .ToList();
-            return aproved;
-        }
-        [HttpGet]
-        public JsonResult GetRezervation(int id)
-        {
-
-            var query = _context.AtvTours
-                                      .Where(t => t.Id == id)
-                                      .FirstOrDefault();
-
-
-
-
-                return Json(query, JsonRequestBehavior.AllowGet);
-            
 
 
         }
+
+
+
+
+
 
     }
 }

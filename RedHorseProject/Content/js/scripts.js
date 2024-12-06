@@ -707,6 +707,85 @@ function openDetailsModal(id) {
 
 
 }
+function openEditModal() {
+
+    fetch('/Customer/frmEditRezervation')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(html => {
+            // İçeriği modal-body123'e yükle
+            document.getElementById('Body').innerHTML = html;
+
+            // Modal'ı göster
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+
+            // Arka plan için fade sınıfı
+            document.body.classList.add('modal-open');
+
+
+        })
+        .catch(error => console.error('Error loading modal content:', error));
+
+
+
+}
+function openCreateReservationModal() {
+
+    fetch('/Customer/frmCreateReservation')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(html => {
+            // İçeriği modal-body123'e yükle
+            document.getElementById('Body').innerHTML = html;
+
+            // Modal'ı göster
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+
+            // Arka plan için fade sınıfı
+            document.body.classList.add('modal-open');
+
+
+        })
+        .catch(error => console.error('Error loading modal content:', error));
+
+
+
+}
+function openFilterModal() {
+
+    fetch('/Home/frmFilter')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(html => {
+            // İçeriği modal-body123'e yükle
+            document.getElementById('Body').innerHTML = html;
+
+            // Modal'ı göster
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+
+            // Arka plan için fade sınıfı
+            document.body.classList.add('modal-open');
+        })
+        .catch(error => console.error('Error loading modal content:', error));
+}
 
 // Modal'ı kapatma işlemi için bir event listener
 document.addEventListener('click', function (event) {
@@ -798,9 +877,9 @@ function saveRezervation() {
             phone: phone,
             roomNumber: roomNumber,
             hotelName: hotelName,
-            reservationTime: isoDate ,
-            customerCount: customerCount ,
-            passportNo: passportNo 
+            reservationTime: isoDate,
+            customerCount: customerCount,
+            passportNo: passportNo
         }),
         success: function (response) {
             alert(`Seçili saat: ${isoDate}, Cevap: ${response.message}`);
@@ -813,13 +892,13 @@ function saveRezervation() {
 }
 function ConfirmRezervation(id) {
     $.ajax({
-        url: "/Home/ConfirmRezervation/",  
-        method: "POST", 
+        url: "/Home/ConfirmRezervation/",
+        method: "POST",
         data: {
-            id: id  
+            id: id
         },
         success: function (response) {
-        
+
             Swal.fire({
                 title: 'Başarılı',
                 text: 'Başvuru Onaylandı',
@@ -858,7 +937,7 @@ function CancelRezervation(id) {
                     location.reload();
                 }
             });
-          
+
 
         },
         error: function (xhr, status, error) {
@@ -951,3 +1030,114 @@ function cancelCustomer(id) {
         }
     });
 }
+// Tur Kategorisi Dropdown İşlemleri
+document.querySelectorAll('#dropdownKategoriler .dropdown-item').forEach(item => {
+    item.addEventListener('click', function () {
+        const kategoriInput = document.getElementById('kategori'); // Kategori input
+        const kategoriHidden = document.getElementById('form_kategori'); // Gizli input
+
+        // Seçilen değerleri inputlara yaz
+        kategoriInput.value = this.getAttribute('data-baslik');
+        kategoriHidden.value = this.getAttribute('data-id');
+
+        // Dropdown'u kapat
+        const dropdownMenu = this.closest('.dropdown-menu');
+        dropdownMenu.classList.remove('show');
+    });
+});
+
+// Tur Konumu Dropdown İşlemleri
+document.querySelectorAll('#dropdownKonumlar .dropdown-item').forEach(item => {
+    item.addEventListener('click', function () {
+        const konumInput = document.getElementById('konum'); // Konum input
+        const konumHidden = document.getElementById('form_konum'); // Gizli input
+
+        // Seçilen değerleri inputlara yaz
+        konumInput.value = this.getAttribute('data-baslik');
+        konumHidden.value = this.getAttribute('data-id');
+
+        // Dropdown'u kapat
+        const dropdownMenu = this.closest('.dropdown-menu');
+        dropdownMenu.classList.remove('show');
+    });
+});
+
+// Genel Dropdown Aç-Kapat İşlemleri
+document.querySelectorAll('.closeDropdown').forEach(action => {
+    action.addEventListener('click', function () {
+        const dropdown = this.nextElementSibling;
+        if (dropdown.classList.contains('show')) {
+            dropdown.classList.remove('show'); // Kapat
+        } else {
+            dropdown.classList.add('show'); // Aç
+        }
+    });
+});
+
+
+
+
+
+$(document).ready(function () {
+    $('#example').DataTable({
+        ajax: {
+            url: '/Customer/GetRezervation',
+            dataSrc: ''
+        },
+        columns: [
+
+            { data: 'FirstName' },
+            { data: 'LastName' },
+            { data: 'Phone' },
+            { data: 'HotelName' },
+            { data: 'PassportNo' },
+            { data: 'HotelRoomNo' },
+            { data: 'CustomerCount' },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    if (data.Status == 1) {
+                        return `<button onclick="updateStatus(${row.Id}, false)" class="btn btn-danger">Deaktif Et</button>`;
+                    }
+                    else {
+                        return `<button onclick="updateStatus(${row.Id}, true)" class="btn btn-primary">Aktif Et</button>`;
+                    }
+                }
+            
+            },
+            {
+            orderable: false,
+            searchable: false 
+            }
+            
+            
+        ]
+    });
+});
+
+
+
+
+function updateStatus(reservationId, newStatus) {
+    $.ajax({
+        url: '/Customer/updateStatus', 
+        method: 'POST',
+        data: {
+            id: reservationId,
+            status: newStatus
+        },
+        success: function (response) {
+            if (response.success) {
+                alert(response.message); 
+                $('#example').DataTable().ajax.reload(); 
+            } else {
+                alert(response.message); 
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Güncelleme hatası:', error);
+            alert('Bir hata oluştu, lütfen tekrar deneyin.');
+        }
+    });
+}
+

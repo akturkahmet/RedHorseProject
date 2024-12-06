@@ -11,12 +11,8 @@ namespace DataAccessLayer.Context
     public class RedHorseContext : DbContext
     {
         public DbSet<Agency> Agencys { get; set; }
-        public DbSet<AtvTour> AtvTours { get; set; }
-        public DbSet<BalloonTour> BalloonTours { get; set; }
-        public DbSet<CamelTour> CamelTours { get; set; }
-        public DbSet<CustomerInformation> CustomerInformations { get; set; }
-        public DbSet<HorseTour> HorseTours { get; set; }
-        public DbSet<JeepTour> JeepTours { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<TourType> TourTypes { get; set; }
         public DbSet<Admin> Admins { get; set; }
 
     }

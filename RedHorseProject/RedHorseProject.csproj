@@ -157,11 +157,9 @@
     <Compile Include="Models\CreateAgencyModel.cs" />
     <Compile Include="Models\ReservationViewModel.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\ViewModel\TourReservationViewModel.cs" />
-    <Compile Include="Models\ViewModel\ToursViewModel.cs" />
+    <Compile Include="Models\ViewModel\ReservationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles\AdminRoleProvider.cs" />
-    <Compile Include="Models\ViewModel\AtvTourViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\all.min.css" />
@@ -199,8 +197,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
-    <Content Include="Scripts\calendar-demo.js" />
-    <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.js" />
@@ -242,10 +238,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Rezervation.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\Test2.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
@@ -256,14 +250,8 @@
     <Content Include="Views\Home\CustomerCreator.cshtml" />
     <Content Include="Views\Home\Appeals.cshtml" />
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
-    <Content Include="Views\Customer\AtvTurlari.cshtml" />
-    <Content Include="Views\Customer\JeepSafariTurlari.cshtml" />
-    <Content Include="Views\Customer\AtTurlari.cshtml" />
-    <Content Include="Views\Customer\DeveTurlari.cshtml" />
-    <Content Include="Views\Customer\BalonTurlari.cshtml" />
     <Content Include="Views\Home\ResetPassword.cshtml" />
     <Content Include="Views\Customer\CustomerRezervation.cshtml" />
-    <Content Include="Views\Shared\sharedpartial\_Calendar.cshtml" />
     <Content Include="Views\Customer\ChangePassword.cshtml" />
     <Content Include="Views\Shared\_CustomerDetails.cshtml" />
     <Content Include="Views\Shared\_CustomerRezervationDetails.cshtml" />
@@ -274,6 +262,9 @@
     <Content Include="Views\Home\frmAppealDetails.cshtml" />
     <Content Include="Views\Login\AgencyLogin.cshtml" />
     <Content Include="Views\Customer\frmDetails.cshtml" />
+    <Content Include="Views\Customer\EditRezervation.cshtml" />
+    <Content Include="Views\Customer\frmEditRezervation.cshtml" />
+    <Content Include="Views\Customer\frmCreateReservation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

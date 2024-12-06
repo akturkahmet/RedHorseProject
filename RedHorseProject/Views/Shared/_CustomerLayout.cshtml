@@ -1,11 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
- 
+
 
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <!-- General CSS Files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.min.css">
+
+    <link href="https://fonts.cdnfonts.com/css/nunito" rel="stylesheet">
+
+    <link href="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="~/Content/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/bootstrap/all.min.css">
     <!-- CSS Libraries -->
@@ -19,7 +25,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- /END GA -->
 
-    
+
 </head>
 <body>
     @{Html.RenderPartial("_LayoutModal"); }
@@ -39,28 +45,13 @@
                             <ul class="sidebar-menu">
                                 <li class="menu-header">Turlar</li>
                                 <li>
-                                    <a href="/Customer/AtvTurlari">
-                                        <i class="fa-solid fa-fire"></i><span>Atv Turları</span>
+                                    <a href="/Customer/Index">
+                                        <i class="fas fa-th"></i><span>Ana Sayfa</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/Customer/JeepSafariTurlari">
-                                        <i class="fas fa-fire"></i><span>Jeep Safari Turları</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Customer/AtTurlari">
-                                        <i class="fa-solid fa-fire"></i><span>At Turları</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Customer/BalonTurlari">
-                                        <i class="fa-solid fa-fire"></i><span>Balon Turları</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Customer/DeveTurlari">
-                                        <i class="fas fa-fire"></i><span>Deve Turları</span>
+                                    <a href="/Customer/EditRezervation">
+                                        <i class="fas fa-th"></i><span>Rezervasyon Düzenleme</span>
                                     </a>
                                 </li>
                                 <li>
@@ -107,19 +98,8 @@
                 <div class="header">
 
                     <div class="header-right">
-                        <div class="mail-box">
-                            <a href="#">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
-                        <div class="user-profile-container">
-                            <a href="#" class="user-profile">
-                                <i class="fas fa-user"></i>
-                                <div class="icon-text" Kullanıcı Adı>
 
-                                </div>
-                            </a>
-                        </div>
+
                     </div>
                 </div>
                 @RenderBody()
@@ -133,7 +113,11 @@
             </div>
         </footer>
     </div>
-    <!-- General JS Scripts -->
+
+    <!-- DataTables CDN -->
+
+
+
     <script src="~/Scripts/waves.js"></script>
     <script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Scripts/popper.js"></script>
@@ -142,9 +126,14 @@
     <script src="~/Scripts/nicescroll/jquery.nicescroll.min.js"></script>
     <script src="~/Scripts/moment.min.js"></script>
     <script src="~/Scripts/stisla.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- JS Libraies -->
     <!-- Page Specific JS File -->
     <!-- Template JS File -->
     <script src="~/Content/js/scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.js"></script>
 </body>
 </html>

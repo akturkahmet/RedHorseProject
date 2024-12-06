@@ -53,12 +53,11 @@
   <ItemGroup>
     <Compile Include="Abstract\IAdminService.cs" />
     <Compile Include="Abstract\IAgencyService.cs" />
-    <Compile Include="Abstract\IAtvTourService.cs" />
+    <Compile Include="Abstract\IReservationService.cs" />
     <Compile Include="Abstract\IGenericService.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Concrete\AdminManager.cs" />
     <Compile Include="Concrete\AgencyManager.cs" />
-    <Compile Include="Concrete\AtvTourManager.cs" />
+    <Compile Include="Concrete\ReservationManager.cs" />
     <Compile Include="Concrete\GenericManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

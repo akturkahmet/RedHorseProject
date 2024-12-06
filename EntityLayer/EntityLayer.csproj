@@ -53,13 +53,9 @@
   <ItemGroup>
     <Compile Include="Concrete\Admin.cs" />
     <Compile Include="Concrete\Agency.cs" />
-    <Compile Include="Concrete\AtvTour.cs" />
-    <Compile Include="Concrete\BalloonTour.cs" />
-    <Compile Include="Concrete\CamelTour.cs" />
     <Compile Include="Concrete\CustomerInformation.cs" />
-    <Compile Include="Concrete\HorseTour.cs" />
-    <Compile Include="Concrete\JeepTour.cs" />
-    <Compile Include="Concrete\Tour.cs" />
+    <Compile Include="Concrete\Reservation.cs" />
+    <Compile Include="Concrete\TourType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

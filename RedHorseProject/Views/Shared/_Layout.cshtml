@@ -1,17 +1,14 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
-
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-
     <!-- General CSS Files -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+
     <link rel="stylesheet" href="~/Content/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/bootstrap/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.0/dist/sweetalert2.min.css" rel="stylesheet">
-
-
     <!-- CSS Libraries -->
     <!-- Template CSS -->
     <link href="~/Content/css/custom.css" rel="stylesheet" />
@@ -19,20 +16,17 @@
     <link rel="stylesheet" href="~/Content/css/components.css">
     <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- /END GA -->
 </head>
-
 <body>
     @{Html.RenderPartial("_LayoutModal"); }
     <div class="layout">
         <div class="row">
             <div class="col-md-2" id="app">
                 <div class="main-wrapper main-wrapper-1">
-
                     <div class="main-sidebar sidebar-style-2">
                         <aside id="sidebar-wrapper">
                             <div class="sidebar-brand">
@@ -48,7 +42,6 @@
                                         <i class="fas fa-fire"></i><span>Müşteriler</span>
                                     </a>
                                 </li>
-
                                 <li class="menu-header">Yönetim</li>
                                 <li>
                                     <a class="nav-link" href="~/Home/Rezervation/">
@@ -74,7 +67,6 @@
                                         </a>
                                     </li>*@
                                 <li>
-
                                     <a href="~/Home/ResetPassword/">
                                         <i class="fas fa-th"></i><span>Şifre Yenileme</span>
                                     </a>
@@ -85,21 +77,15 @@
                                             <span>Çıkış Yap</span>
                                         </button>
                                     </form>
-
                                 </li>
                             </ul>
-
                         </aside>
                     </div>
-
                 </div>
             </div>
             <!-- Main Content -->
-
             <div class="col-md-10 ">
-
                 <div class="header">
-
                     <div class="header-right">
                         <div class="header">
                             <div class="settings">
@@ -116,38 +102,24 @@
                         </div>
 
 
-                        <div class="mail-box">
-                            <a href="#">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
-                        <div class="
-                             -container">
-                            <a href="#" class="user-profile">
-                                <i class="fas fa-user"></i>
-                                <div class="icon-text" Kullanıcı Adı>
-
-                                </div>
-                            </a>
-                        </div>
                     </div>
                 </div>
                 @RenderBody()
             </div>
-
         </div>
-
         <footer class="main-footer">
             <div class="footer-left">
                 Copyright &copy; 2024 <div class="bullet"></div> Design By Ahmet Aktürk
             </div>
             <div class="footer-right">
-
             </div>
         </footer>
     </div>
-
     <!-- General JS Scripts -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Scripts/popper.js"></script>
     <script src="~/Scripts/tooltip.js"></script>
@@ -155,6 +127,11 @@
     <script src="~/Scripts/nicescroll/jquery.nicescroll.min.js"></script>
     <script src="~/Scripts/moment.min.js"></script>
     <script src="~/Scripts/stisla.js"></script>
+    <!-- DataTables CSS -->
+    <!-- jQuery -->
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
 
     <!-- jQuery UI -->
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>

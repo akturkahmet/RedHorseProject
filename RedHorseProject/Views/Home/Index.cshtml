@@ -1,4 +1,6 @@
 ﻿@Model
+
+
 @{
     ViewBag.Title = "Müşteriler";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,16 +9,17 @@
 <div class="card">
     <div class="card-header">
         <h4>Kayıtlı Acenteler</h4>
-       
+
     </div>
     <div class="card-body p-0">
         <div class="table-responsive table-invoice">
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        
                         <th>Acente Adı</th>
                         <th>Katılma Tarihi</th>
-                        <th>Detaylar</th>
+                        <th>Detay</th>
                         <th>İşlemler</th>
                     </tr>
                 </thead>
@@ -24,25 +27,27 @@
                     @foreach (var item in Model)
                     {
                         <tr>
+                           
+                          
                             <td>@item.UserName</td>
                             <td class="font-weight-600">
                                 @item.CreatedDate.ToString("dd.MM.yyyy")
                             </td>
-                           
+
                             <td>
                                 <button href="" onclick="openCustomerModal()" class="btn btn-primary">Detaylar</button>
                             </td>
                             <td>
-                                <a onclick="deleteCustomer(@item.Id)" class="btn btn-primary">Sil</a>
-                            </td>  
-                    
+                                <a onclick="deleteCustomer(@item.Id)" class="btn btn-primary">Pasifleştir</a>
+                            </td>
+
 
                         </tr>
                     }
 
                 </tbody>
-               
-                
+
+
             </table>
         </div>
     </div>

@@ -1,4 +1,4 @@
-﻿@model RedHorseProject.Models.ViewModel.AtvTourViewModel
+﻿@model List<EntityLayer.Concrete.Reservation>
 
 @{
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
@@ -13,106 +13,31 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Onay Bekleyen Rezervasyonlar</h4>
+                        <h4>Oluşturduğum Rezervasyonlar</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="table-1">
+                        <div id="data-container" class="table-responsive">
+                            <table id="example" class="display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Ad Soyad</th>
+                                        <th>Adı</th>
+                                        <th>Soyadı</th>
+                                        <th>Telefon</th>
                                         <th>Otel Adı</th>
-                                        <th>Telefon Numarası</th>
-                                        <th>Oluşturulma Tarihi</th>
-                                        <th>Aksiyon</th>
+                                        <th>Pasaport Numarası</th>
+                                        <th>Oda Numarası</th>
+                                        <th>Kişi Sayısı</th>
+                                        <th>ABC</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach (var record in Model.UnapprovedReservations)
-                                    {
-                                        <tr id="@record.Id">
-                                            <td>
-                                                @record.FirstName  @record.LastName
-                                            </td>
-                                            <td>
-                                                @record.HotelName
-                                            </td>
-                                            <td>
-                                                @record.Phone
-                                            </td>
-                                            <td>
-                                                @{
-                                                    var dateDisplay = record.CreatedDate.HasValue
-                                                        ? record.CreatedDate.Value.ToString("dd.MM.yyyy")  
-                                                        : "Tarih Yok";  
-                                                }
-
-                                                @dateDisplay
-
-                                            </td>
-                                            <td>
-                                                <button href="" onclick="openDetailsModal(@record.Id)" class="btn btn-primary">Detaylar</button>
-                                            </td>
-                                        </tr>
-                                    }
 
 
-                                </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Onaylanan Rezervasyonlar</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="table-1">
-                                <thead>
-                                    <tr>
-                                     
-                                        <th>Ad Soyad</th>
-                                        <th>Otel Adı</th>
-                                        <th>Telefon Numarası</th>
-                                        <th>Oluşturulma Tarihi</th>
-                                        <th>Aksiyon</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var record in Model.ApprovedReservations)
-                                    {
-                                        <tr id="@record.Id">
-                                            <td>
-                                                @record.FirstName  @record.LastName
-                                            </td>
-                                            <td>
-                                                @record.HotelName
-                                            </td>
-                                            <td>
-                                                @record.Phone
-                                            </td>
-                                            <td>
-                                                @{
-                                                    var dateDisplay = record.CreatedDate.HasValue
-                                                        ? record.CreatedDate.Value.ToString("dd.MM.yyyy")
-                                                        : "Tarih Yok";
-                                                }
+                            <ul id="context-menu" class="dropdown-menu" style="display: none; position: absolute;">
+                                <li><a href="#" id="context-edit">Düzenle</a></li>
+                                <li><a href="#" id="context-delete">Sil</a></li>
+                            </ul>
 
-                                                @dateDisplay
-
-                                            </td>
-                                            <td>
-                                                <button href="" onclick="openDetailsModal(@record.Id)" class="btn btn-primary">Detaylar</button>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -120,5 +45,4 @@
         </div>
     </div>
 </section>
-
 

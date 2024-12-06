@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "EditRezervation";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<section class="section">
+    <div class="section-header">
+        <h1>Rezervasyonlar</h1>
+    </div>
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Oluşturduğum Rezervasyonlar</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="table-1">
+                                <thead>
+                                    <tr>
+                                        <th>Ad Soyad</th>
+                                        <th>Otel Adı</th>
+                                        <th>Telefon Numarası</th>
+                                        <th>Oluşturulma Tarihi</th>
+                                        <th>Aksiyon</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                        <tr>
+                                            <td>
+                                                Kenan Seyhan
+                                            </td>
+                                            <td>
+                                                Arus
+                                            </td>
+                                            <td>
+                                               05505050
+                                            </td>
+                                            <td>
+                                               
+                                                    30.07.2001
+
+
+                                            </td>
+                                            <td>
+                                                <button href="" onclick="openEditModal()" class="btn btn-primary">Düzenle</button>
+                                            </td>
+                                        </tr>
+                                    
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
