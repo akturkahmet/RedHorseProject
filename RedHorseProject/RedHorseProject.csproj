@@ -157,6 +157,7 @@
     <Compile Include="Models\CreateAgencyModel.cs" />
     <Compile Include="Models\ReservationViewModel.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ViewModel\EditReservationViewModel.cs" />
     <Compile Include="Models\ViewModel\ReservationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles\AdminRoleProvider.cs" />
@@ -265,6 +266,7 @@
     <Content Include="Views\Customer\EditRezervation.cshtml" />
     <Content Include="Views\Customer\frmEditRezervation.cshtml" />
     <Content Include="Views\Customer\frmCreateReservation.cshtml" />
+    <Content Include="Views\Customer\_EditReservationPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,5 @@
-﻿
+﻿@model RedHorseProject.Models.ViewModel.EditReservationViewModel
+
 @{
     Layout = null;
 }
@@ -16,58 +17,16 @@
     <h2>Rezervasyon Detayları</h2>
     <div class="panel panel-default">
         <div class="panel-body">
-
             <section class="section">
                 <div class="section-header">
                     <h1>Detaylar</h1>
-
                 </div>
                 <div class="section-body">
                     <div class="row">
                         <div class="col-12">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Bilgi Türü</th>
-                                        <th>Detay</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
 
-                                    <tr>
-                                        <td><span class="text-job ">İsim Soyisim</span></td>
-                                        <td id="NameSurname"> </td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="text-job">Telefon Numarası</span></td>
-                                        <td id="Phone"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="text-job">Otel Adı</span></td>
-                                        <td id="HotelName"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="text-job">Oda Numarası</span></td>
-                                        <td id="RoomNo"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="text-job">Kişi Sayısı</span></td>
-                                        <td id="Pax"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="text-job">Pasaport Numarası</span></td>
-                                        <td id="PassportNo"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="text-job ">Rezervasyon Türü</span></td>
-                                        <td id="NameSurname"> </td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="text-job ">Rezervasyon Tarih-Saat</span></td>
-                                        <td id="NameSurname"> </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            @Html.Partial("_EditReservationPartial")
+
                         </div>
                     </div>
                 </div>

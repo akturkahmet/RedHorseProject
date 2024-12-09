@@ -16,6 +16,7 @@ namespace RedHorseProject.Controllers
     [Authorize]
     public class CustomerController : Controller
     {
+
         private readonly IAgencyService _agencyService;
         private readonly IReservationService _ReservationService;
         RedHorseContext _context = new RedHorseContext();
@@ -46,15 +47,14 @@ namespace RedHorseProject.Controllers
         public ActionResult CustomerRezervation()
         {
             var Reservation = _context.Reservations.ToList();
-
             return View(Reservation);
         }
         public JsonResult GetRezervation()
         {
+
             var reservations = _context.Reservations.ToList();
             return Json(reservations, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpGet]
         public ActionResult ChangePassword()
@@ -102,11 +102,33 @@ namespace RedHorseProject.Controllers
 
             return Json(new { success = true, message = "Şifreniz başarıyla değiştirildi." });
         }
+        public ActionResult frmEditRezervation(int id)
+        {
+            var reservation = _ReservationService.Get(x => x.Id == id);
+            if (reservation == null)
+            {
+                return HttpNotFound("Reservation not found");
+            }
+
+            var viewModel = new EditReservationViewModel
+            {
+                FirstName = reservation.FirstName,
+                LastName = reservation.LastName,
+                Phone = reservation.Phone,
+                HotelName = reservation.HotelName,
+                PassportNo = reservation.PassportNo,
+                CustomerCount = reservation.CustomerCount,
+                HotelRoomNo = reservation.HotelRoomNo
+            };
+
+            return PartialView("_EditReservationPartial", viewModel); // Partial view kullanıyoruz
+        }
+
+
         public ActionResult EditRezervation()
         {
             return View();
         }
-
 
         [HttpPost]
         public ActionResult updateStatus(int id, bool status)
@@ -127,14 +149,6 @@ namespace RedHorseProject.Controllers
                 return Json(new { success = true, message = "Rezervasyon aktif oldu." });
             }
 
-
-
         }
-
-
-
-
-
-
     }
 }
