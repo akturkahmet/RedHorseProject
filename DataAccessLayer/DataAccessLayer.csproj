@@ -54,7 +54,6 @@
     <Compile Include="Abstract\IAgencyRepository.cs" />
     <Compile Include="Abstract\ICustomerInformationRepository.cs" />
     <Compile Include="Abstract\IGenericRepository.cs" />
-    <Compile Include="Abstract\ITourRepository.cs" />
     <Compile Include="Concrete\AgencyRepository.cs" />
     <Compile Include="Concrete\GenericRepository.cs" />
     <Compile Include="Context\RedHorseContext.cs" />
@@ -65,6 +64,58 @@
     <Compile Include="Migrations\202412031753389_create_tourtype.cs" />
     <Compile Include="Migrations\202412031753389_create_tourtype.Designer.cs">
       <DependentUpon>202412031753389_create_tourtype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412111816380_change_nullable_datetime_to_non_nullable_datetime_CreatedDate.cs" />
+    <Compile Include="Migrations\202412111816380_change_nullable_datetime_to_non_nullable_datetime_CreatedDate.Designer.cs">
+      <DependentUpon>202412111816380_change_nullable_datetime_to_non_nullable_datetime_CreatedDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412111903454_change_Username_to_AgencyName.cs" />
+    <Compile Include="Migrations\202412111903454_change_Username_to_AgencyName.Designer.cs">
+      <DependentUpon>202412111903454_change_Username_to_AgencyName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412112241226_added-taxno.cs" />
+    <Compile Include="Migrations\202412112241226_added-taxno.Designer.cs">
+      <DependentUpon>202412112241226_added-taxno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412121558255_addded_HoursCapacity.cs" />
+    <Compile Include="Migrations\202412121558255_addded_HoursCapacity.Designer.cs">
+      <DependentUpon>202412121558255_addded_HoursCapacity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412121604383_abc.cs" />
+    <Compile Include="Migrations\202412121604383_abc.Designer.cs">
+      <DependentUpon>202412121604383_abc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412121605375_abv.cs" />
+    <Compile Include="Migrations\202412121605375_abv.Designer.cs">
+      <DependentUpon>202412121605375_abv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412121610527_asd.cs" />
+    <Compile Include="Migrations\202412121610527_asd.Designer.cs">
+      <DependentUpon>202412121610527_asd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412121613339_fdhh.cs" />
+    <Compile Include="Migrations\202412121613339_fdhh.Designer.cs">
+      <DependentUpon>202412121613339_fdhh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412121615225_ghj.cs" />
+    <Compile Include="Migrations\202412121615225_ghj.Designer.cs">
+      <DependentUpon>202412121615225_ghj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412121619463_asdjf.cs" />
+    <Compile Include="Migrations\202412121619463_asdjf.Designer.cs">
+      <DependentUpon>202412121619463_asdjf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412121751084_fj.cs" />
+    <Compile Include="Migrations\202412121751084_fj.Designer.cs">
+      <DependentUpon>202412121751084_fj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412121831022_a.cs" />
+    <Compile Include="Migrations\202412121831022_a.Designer.cs">
+      <DependentUpon>202412121831022_a.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412121838599_gdet.cs" />
+    <Compile Include="Migrations\202412121838599_gdet.Designer.cs">
+      <DependentUpon>202412121838599_gdet.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +136,45 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202412031753389_create_tourtype.resx">
       <DependentUpon>202412031753389_create_tourtype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412111816380_change_nullable_datetime_to_non_nullable_datetime_CreatedDate.resx">
+      <DependentUpon>202412111816380_change_nullable_datetime_to_non_nullable_datetime_CreatedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412111903454_change_Username_to_AgencyName.resx">
+      <DependentUpon>202412111903454_change_Username_to_AgencyName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412112241226_added-taxno.resx">
+      <DependentUpon>202412112241226_added-taxno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412121558255_addded_HoursCapacity.resx">
+      <DependentUpon>202412121558255_addded_HoursCapacity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412121604383_abc.resx">
+      <DependentUpon>202412121604383_abc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412121605375_abv.resx">
+      <DependentUpon>202412121605375_abv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412121610527_asd.resx">
+      <DependentUpon>202412121610527_asd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412121613339_fdhh.resx">
+      <DependentUpon>202412121613339_fdhh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412121615225_ghj.resx">
+      <DependentUpon>202412121615225_ghj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412121619463_asdjf.resx">
+      <DependentUpon>202412121619463_asdjf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412121751084_fj.resx">
+      <DependentUpon>202412121751084_fj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412121831022_a.resx">
+      <DependentUpon>202412121831022_a.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412121838599_gdet.resx">
+      <DependentUpon>202412121838599_gdet.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

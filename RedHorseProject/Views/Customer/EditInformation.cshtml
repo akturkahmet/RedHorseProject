@@ -1,0 +1,78 @@
+﻿@model EntityLayer.Concrete.Agency
+@{
+    ViewBag.Title = "Edit Information";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<section class="section">
+    
+    <div class="section-header">
+    <h1>Bilgi Düzenle</h1>
+</div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2" style="display:flex;justify-content:center;">
+              
+
+                <div class="card card-primary" style="display:flex;justify-content:center;">
+                    <div class="card-header">
+                    <h4>Bilgileri Düzenle</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <form id="EditCustomerInformationForm">
+                            <input type="hidden" name="AgencyId" id="AgencyId" value="@Model.Id" />
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="FirstName">İsim</label>
+                                    <input id="FirstName" type="text" class="form-control" name="FirstName" value="@Model.FirstName">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="LastName">Soyisim</label>
+                                    <input id="LastName" type="text" class="form-control" name="LastName" value="@Model.LastName">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="AgencyName">Acente Adı</label>
+                                    <input id="AgencyName" type="text" class="form-control" name="AgencyName" value="@Model.AgencyName">
+                                </div>
+
+                                
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="TursabNo">Türsab Numarası</label>
+                                    <input id="TursabNo" type="text" class="form-control" name="TursabNo" value="@Model.TursabNo">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Faaliyet Bölgesi</label>
+                                    <select class="form-control selectric">
+                                        <option>Kapadokya</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label>TC Kimlik No</label>
+                                    <input type="text" id="TcKimlik" name="TcKimlik" class="form-control" value="@Model.Tc">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Telefon Numarası</label>
+                                    <input type="text" id="Phone" name="Phone" class="form-control" value="@Model.Phone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="updateAgencyInformation()">
+                                    Güncelle
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

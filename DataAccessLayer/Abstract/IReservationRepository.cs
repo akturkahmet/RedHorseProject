@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Abstract
 {
-    public interface ITourRepository : IGenericRepository<Reservation>
+    public interface IReservationRepository : IGenericRepository<Reservation>
     {
+       
+      
     }
 }

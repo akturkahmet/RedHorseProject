@@ -8,166 +8,81 @@
 
 }
 
-
+<section class="section">
     <div class="section-header">
-        <h1>Rezervasyonlar</h1>
+        <h1>
+            Rezervasyonlar
+        </h1>
     </div>
-    <div class="bottom-panel bottom-panel--floating">
-        <form class="bottom-panel__wrap d-flex" method="get">
-            <div class="row bottom-panel__form-wrap">
-
-                <input type="hidden" id="form_kategori" name="kategori" autocomplete="off">
-                <input type="hidden" id="form_sure" name="sure" autocomplete="off">
-                <input type="hidden" id="form_konum" name="konum" autocomplete="off">
-
-                <!-- Tur Kategorisi -->
-                <div class="form-group2 col-12 col-md-4 dropdown slash">
-                    <div class="closeDropdown" id="dropdownKategorilerAction" data-toggle="dropdown" data-display="static">
-                        <label class="labelFeature" for="kategori">Tur Kategorisi</label>
-                        <input type="text" class="inputFeature input-arrow readonly" id="kategori" placeholder="Seçin" required="required" autocomplete="off">
-                    </div>
-
-                    <div class="dropdown-menu dropdown-menu-lg-left dropdown-menu-right" id="dropdownKategoriler" aria-labelledby="dropdownKategorilerAction">
-                        <a class="dropdown-item"
-                           href="javascript:;"
-                           data-tglnext="1"
-                           data-id="2"
-                           data-slug="at-turlari"
-                           data-baslik="At Turu">
-                            <i class="fa fa-chevron-right"></i> At Turları
-                        </a>
-                        <a class="dropdown-item"
-                           href="javascript:;"
-                           data-tglnext="1"
-                           data-id="3"
-                           data-slug="atv-turlari"
-                           data-baslik="ATV Turu">
-                            <i class="fa fa-chevron-right"></i> ATV Turu
-                        </a>
+</section>
 
 
 
-                        <a class="dropdown-item"
-                           href="javascript:;"
-                           data-tglnext="1"
-                           data-id="5"
-                           data-slug="jeep-safari-turlari"
-                           data-baslik="Jeep Safari Turu">
-                            <i class="fa fa-chevron-right"></i> Jeep Safari Turu
-                        </a>
-                        <a class="dropdown-item"
-                           href="javascript:;"
-                           data-tglnext="1"
-                           data-id="6"
-                           data-slug="klasik-arac-turlari-kiralama"
-                           data-baslik="Deve Turu">
-                            <i class="fa fa-chevron-right"></i> Deve Turu
-                        </a>
-
-                        <a class="dropdown-item"
-                           href="javascript:;"
-                           data-tglnext="1"
-                           data-id="10"
-                           data-slug="sıcak-hava-balonu"
-                           data-baslik="Balon Turu">
-                            <i class="fa fa-chevron-right"></i> Balon Turu
-                        </a>
-
-
-
+<div class="section-body">
+    <div class="row">
+        <div class="col-6">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="mb-2" for="turSec">Tur Kategorisi:</label>
+                        <select id="turSec" name="turSec" class="form-control">
+                            <option value="seçiniz" disabled selected>Seç</option>
+                            <option value="atTur">At Turu</option>
+                            <option value="atvTur">ATV Turu</option>
+                            <option value="jeepSafari">Jeep Safari Turu</option>
+                            <option value="balonTur">Balon Turu</option>
+                            <option value="deveTur">Deve Turu</option>
+                        </select>
                     </div>
                 </div>
 
-
-
-                <!-- Tur Konumu -->
-                <div class="form-group2 col-12 col-md-4 dropdown">
-                    <div class="closeDropdown" id="dropdownKonumlarAction" data-toggle="dropdown" data-display="static">
-                        <label class="labelFeature" for="konum">Saat</label>
-                        <input type="text" class="inputFeature input-arrow readonly" id="konum" placeholder="Seçin" autocomplete="off">
-                    </div>
-
-                    <div class="dropdown-menu dropdown-menu-lg-left dropdown-menu-right" id="dropdownKonumlar" aria-labelledby="dropdownKonumlarAction">
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="28" data-baslik="00.00"><i class="fa fa-chevron-right"></i>00.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="29" data-baslik="01.00"><i class="fa fa-chevron-right"></i>01.00 </a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="66" data-baslik="02.00"><i class="fa fa-chevron-right"></i>02.00 </a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="70" data-baslik="03.00"><i class="fa fa-chevron-right"></i> 03.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="37" data-baslik="04.00"><i class="fa fa-chevron-right"></i> 04.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="53" data-baslik="05.00"><i class="fa fa-chevron-right"></i> 05.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="54" data-baslik="06.00"><i class="fa fa-chevron-right"></i> 06.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="12" data-baslik="07.00"><i class="fa fa-chevron-right"></i> 07.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="46" data-baslik="08.00"><i class="fa fa-chevron-right"></i> 08.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="44" data-baslik="09.00"><i class="fa fa-chevron-right"></i> 09.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="39" data-baslik="10.00"><i class="fa fa-chevron-right"></i> 10.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="11" data-baslik="11.00"><i class="fa fa-chevron-right"></i> 11.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="76" data-baslik="12.00"><i class="fa fa-chevron-right"></i> 12.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="69" data-baslik="13.00"><i class="fa fa-chevron-right"></i> 13.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="49" data-baslik="14.00"><i class="fa fa-chevron-right"></i> 14.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="45" data-baslik="15.00"><i class="fa fa-chevron-right"></i> 15.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="31" data-baslik="16.00"><i class="fa fa-chevron-right"></i> 16.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="34" data-baslik="17.00"><i class="fa fa-chevron-right"></i>17.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="77" data-baslik="18.00"><i class="fa fa-chevron-right"></i> 18.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="35" data-baslik="19.00"><i class="fa fa-chevron-right"></i> 19.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="78" data-baslik="20.00"><i class="fa fa-chevron-right"></i> 20.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="15" data-baslik="21.00"><i class="fa fa-chevron-right"></i> 21.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="10" data-baslik="22.00"><i class="fa fa-chevron-right"></i> 22.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="22" data-baslik="23.00"><i class="fa fa-chevron-right"></i> 23.00</a>
-                        <a class="dropdown-item konum-item" href="javascript:;" data-tglnext="0" data-id="52" data-baslik="24.00"><i class="fa fa-chevron-right"></i> 24.00</a>
-
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="mb-2"  for="turSec">Saat Seçiniz:</label>
+                        <select id="turSec" name="turSec" class="form-control">
+                            <option value="seçiniz" disabled selected>Seç</option>
+                            @for (int i = 0; i < 25; i++)
+                            {
+                                <option value="@i">@i:00</option>
+                            }
+                        </select>
                     </div>
                 </div>
-
+                <button href="" onclick="openFilterModal()" class="btn btn-primary col-md-4" style="height:50px;">Listele</button>
             </div>
-
-            <button href="" onclick="openFilterModal()" class="btn-booking">Listele</button>
-        </form>
-
+        </div>
     </div>
 
 
-    <div class="section-body">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Rezervasyonlar</h4>
-                    </div>
-                    <div class="card-body">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Rezervasyonlar</h4>
+                </div>
+                <div class="card-body">
 
-                        <table id="example" class="display" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Ad</th>
-                                    <th>Soyad</th>
-                                    <th>Yaş</th>
-                                    <th>Şehir</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Ahmet</td>
-                                    <td>Yılmaz</td>
-                                    <td>28</td>
-                                    <td>İstanbul</td>
-                                </tr>
-                                <tr>
-                                    <td>Aylin</td>
-                                    <td>Kara</td>
-                                    <td>34</td>
-                                    <td>Ankara</td>
-                                </tr>
-                                <tr>
-                                    <td>Mehmet</td>
-                                    <td>Demir</td>
-                                    <td>42</td>
-                                    <td>İzmir</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <table id="example" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Acenta Adı</th>
+                                <th>Adı</th>
+                                <th>Soyadı</th>
+                                <th>Telefon</th>
+                                <th>Otel Adı</th>
+                                <th>Pasaport Numarası</th>
+                                <th>Oda Numarası</th>
+                                <th>Kişi Sayısı</th>
+                                <th></th>
+                            </tr>
+                        </thead>
 
-                    </div>
+
+                    </table>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 

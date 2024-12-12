@@ -1,14 +1,12 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Context;
 using EntityLayer.Concrete;
-using RedHorseProject.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
-using System.Web.UI.WebControls.WebParts;
 
 namespace RedHorseProject.Controllers
 {
@@ -16,19 +14,24 @@ namespace RedHorseProject.Controllers
     public class LoginController : Controller
     {
         private readonly IAgencyService _service;
+        RedHorseContext _context = new RedHorseContext();
 
         public LoginController(IAgencyService service)
         {
             _service = service;
         }
-
+        private bool VerifyPassword(string enteredPassword, string storedHash)
+        {
+            string hashedEnteredPassword = HashPassword(enteredPassword);
+            return hashedEnteredPassword == storedHash;
+        }
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Admin()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Index(Admin p)
+        public ActionResult Admin(Admin p)
         {
             RedHorseContext c = new RedHorseContext();
             var adminuserinfo = c.Admins.FirstOrDefault
@@ -49,6 +52,8 @@ namespace RedHorseProject.Controllers
             {
                 FormsAuthentication.SetAuthCookie(adminuserinfo.Role, false);
                 Session["Role"] = adminuserinfo.Role;
+                Session["FirstName"] = adminuserinfo.FirstName;
+                Session["LastName"] = adminuserinfo.LastName;
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -57,25 +62,24 @@ namespace RedHorseProject.Controllers
             }
         }
         [HttpGet]
-        public ActionResult AgencyLogin()
+        public ActionResult Index()
         {
-            return View();
+            return View("AgencyLogin");
         }
         [HttpPost]
         public ActionResult AgencyLogin(Agency p)
         {
             RedHorseContext c = new RedHorseContext();
-            if (string.IsNullOrEmpty(p.UserName) || string.IsNullOrEmpty(p.Password))
+
+            if (string.IsNullOrEmpty(p.Mail) || string.IsNullOrEmpty(p.Password))
             {
                 ViewBag.ErrorMessage = "Kullanıcı adı ve şifre alanları boş bırakılamaz.";
                 return View();
             }
 
-            var adminuserinfo = c.Agencys.FirstOrDefault
-                (x => x.UserName == p.UserName
-                && x.Password == p.Password);
+            var adminuserinfo = c.Agencys.FirstOrDefault(x => x.Mail == p.Mail);
 
-            if (adminuserinfo == null)
+            if (adminuserinfo == null || !VerifyPassword(p.Password, adminuserinfo.Password))
             {
                 ViewBag.ErrorMessage = "Geçersiz giriş bilgileri. Lütfen tekrar deneyin.";
                 return View();
@@ -87,41 +91,54 @@ namespace RedHorseProject.Controllers
                 return View();
             }
 
+            // Kullanıcıyı oturum aç
             FormsAuthentication.SetAuthCookie(adminuserinfo.Role, false);
             Session["Role"] = adminuserinfo.Role;
             Session["Mail"] = adminuserinfo.Mail;
             Session["AgencyId"] = adminuserinfo.Id;
             Session["UserId"] = adminuserinfo.Id;
+            Session["FirstName"] = adminuserinfo.FirstName;
+            Session["LastName"] = adminuserinfo.LastName;
 
             return RedirectToAction("Index", "Customer");
         }
+
 
         public ActionResult Register()
         {
             return View();
         }
 
-        [HttpPost]
-        public JsonResult CreateCustomer(CreateAgencyModel model)
+
+
+        public JsonResult CreateCustomer(string FirstName, string LastName, string AgencyName, string Phone, string Email, string Password, string ConfirmPassword, string TursabNo, string Region, string IdentityNo, string TaxNo)
         {
-            // Model doğrulama
-            if (!ModelState.IsValid)
+            if (Password != ConfirmPassword)
             {
-                return Json(new { success = false, message = "Geçersiz veri!" });
+                return Json(new { success = false, message = "Şifreler eşleşmiyor." });
             }
+
+            var agency = _context.Agencys.FirstOrDefault(a => a.Mail == Email);
+
+            if (agency != null)
+            {
+                return Json(new { success = false, message = "Email adresi zaten kayıtlı." });
+            }
+
+            string hashedPassword = HashPassword(Password);
 
             var newAgency = new Agency
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                UserName = model.UserName,
-                Mail = model.Mail,
-                Phone = model.Phone,
-                TursabNo = model.TursabNo,
-                Tc = model.TcNo,
-                Region = model.Region,
-                Password = model.Password,
-                TaxNo = "boş",
+                FirstName = FirstName,
+                LastName = LastName,
+                AgencyName = AgencyName,
+                Mail = Email,
+                Phone = Phone,
+                TursabNo = TursabNo,
+                Tc = IdentityNo,
+                Region = Region,
+                Password = hashedPassword, 
+                TaxNo = TaxNo,
                 Role = "Agency",
                 Status = false,
                 CreatedDate = DateTime.Now
@@ -129,15 +146,33 @@ namespace RedHorseProject.Controllers
 
             _service.Insert(newAgency);
 
-            return Json(new { success = true, message = "Kayıt Başarılı!" });
+            return Json(new { success = true, message = "Başvurunuz alındı." });
+        }
+
+        private string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(password);
+                byte[] hash = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hash); 
+            }
         }
 
         [HttpPost]
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            Session.Clear(); 
-            return RedirectToAction("AgencyLogin", "Login");
+
+            var role = Session["Role"] as string; 
+            Session.Clear();
+            if (role=="Admin")
+            {   
+                return RedirectToAction("Admin", "Login");
+
+            }
+            return RedirectToAction("Index", "Login");
+       
         }
 
     }

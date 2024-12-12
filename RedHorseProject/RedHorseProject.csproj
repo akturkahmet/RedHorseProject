@@ -153,6 +153,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\DataContext.cs" />
+    <Compile Include="Migrations\202412121557402_addded_HoursCapacity.cs" />
+    <Compile Include="Migrations\202412121557402_addded_HoursCapacity.Designer.cs">
+      <DependentUpon>202412121557402_addded_HoursCapacity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordViewModel.cs" />
     <Compile Include="Models\CreateAgencyModel.cs" />
     <Compile Include="Models\ReservationViewModel.cs" />
@@ -186,7 +191,11 @@
     <Content Include="Content\css\fullcalendar.min.css" />
     <Content Include="Content\css\icons.min.css" />
     <Content Include="Content\css\theme.css" />
+    <Content Include="Content\Images\loginagencybg.jpg" />
+    <Content Include="Content\js\Admin.js" />
     <Content Include="Content\js\custom.js" />
+    <Content Include="Content\js\Customer.js" />
+    <Content Include="Content\js\Login.js" />
     <Content Include="Content\js\scripts.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -243,7 +252,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\Test2.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Scripts\nicescroll\MIT.LICENSE" />
@@ -252,21 +261,21 @@
     <Content Include="Views\Home\Appeals.cshtml" />
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
     <Content Include="Views\Home\ResetPassword.cshtml" />
-    <Content Include="Views\Customer\CustomerRezervation.cshtml" />
     <Content Include="Views\Customer\ChangePassword.cshtml" />
     <Content Include="Views\Shared\_CustomerDetails.cshtml" />
     <Content Include="Views\Shared\_CustomerRezervationDetails.cshtml" />
     <Content Include="Views\Shared\_LayoutModal.cshtml" />
     <Content Include="Views\Home\frmCustomerDetails.cshtml" />
-    <Content Include="Views\Customer\Editİnformation.cshtml" />
+    <Content Include="Views\Customer\EditInformation.cshtml" />
     <Content Include="Views\Home\frmRezervationDetails.cshtml" />
     <Content Include="Views\Home\frmAppealDetails.cshtml" />
     <Content Include="Views\Login\AgencyLogin.cshtml" />
     <Content Include="Views\Customer\frmDetails.cshtml" />
-    <Content Include="Views\Customer\EditRezervation.cshtml" />
+    <Content Include="Views\Customer\CustomerRezervation.cshtml" />
     <Content Include="Views\Customer\frmEditRezervation.cshtml" />
     <Content Include="Views\Customer\frmCreateReservation.cshtml" />
     <Content Include="Views\Customer\_EditReservationPartial.cshtml" />
+    <Content Include="Views\Home\EditCapacity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -312,6 +321,11 @@
       <Project>{27a0cdbf-4c97-4dff-a910-488aeaf3e9a4}</Project>
       <Name>EntityLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202412121557402_addded_HoursCapacity.resx">
+      <DependentUpon>202412121557402_addded_HoursCapacity.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,34 +1,35 @@
-﻿
-@model RedHorseProject.Models.ViewModel.EditReservationViewModel
+﻿<form id="EditReservationForm">
+    <div id="EditReservationModal">
+        <div class="form-group">
+            <label for="FirstName">Müşteri Adı*</label>
+            <input id="FirstName" type="text" class="form-control" name="FirstName" value="">
+        </div>
+        <div class="form-group">
+            <label for="LastName">Müşteri Soyadı*</label>
+            <input id="LastName" type="text" class="form-control" name="LastName" value="">
+        </div>
+        <div class="form-group">
+            <label for="Phone">Telefon Numarası*</label>
+            <input id="Phone" type="text" class="form-control" name="Phone" value="">
+        </div>
+        <div class="form-group">
+            <label for="HotelName">Otel Adı*</label>
+            <input id="HotelName" type="text" class="form-control" name="HotelName" value="">
+        </div>
+        <div class="form-group">
+            <label for="PassportNo">Pasaport Numarası</label>
+            <input id="PassportNo" type="text" class="form-control" name="PassportNo" value="">
+        </div>
+        <div class="form-group">
+            <label for="CustomerCount">Kişi Sayısı</label>
+            <input id="CustomerCount" type="text" class="form-control" name="CustomerCount" value="">
+        </div>
+        <div class="form-group">
+            <label for="HotelRoomNo">Oda Numarası</label>
+            <input id="HotelRoomNo" type="text" class="form-control" name="HotelRoomNo" value="">
+        </div>
+        <input type="hidden" name="ReservationId" id="ReservationId" value="" />
 
-<form method="POST" action="/Customer/UpdateReservation">
-    <div class="form-group">
-        <label for="FirstName">Müşteri Adı*</label>
-        <input id="FirstName" type="text" class="form-control" name="FirstName" value="@Model.FirstName">
+        <button type="button" id="updateReservationBtn" onclick="updateReservation()" class="btn btn-primary">Rezervasyonu Güncelle</button>
     </div>
-    <div class="form-group">
-        <label for="LastName">Müşteri Soyadı*</label>
-        <input id="LastName" type="text" class="form-control" name="LastName" value="@Model.LastName">
-    </div>
-    <div class="form-group">
-        <label for="Phone">Telefon Numarası*</label>
-        <input id="Phone" type="text" class="form-control" name="Phone" value="@Model.Phone">
-    </div>
-    <div class="form-group">
-        <label for="HotelName">Otel Adı*</label>
-        <input id="HotelName" type="text" class="form-control" name="HotelName" value="@Model.HotelName">
-    </div>
-    <div class="form-group">
-        <label for="PassportNo">Pasaport Numarası</label>
-        <input id="PassportNo" type="text" class="form-control" name="PassportNo" value="@Model.PassportNo">
-    </div>
-    <div class="form-group">
-        <label for="CustomerCount">Kişi Sayısı</label>
-        <input id="CustomerCount" type="text" class="form-control" name="CustomerCount" value="@Model.CustomerCount">
-    </div>
-    <div class="form-group">
-        <label for="HotelRoomNo">Oda Numarası</label>
-        <input id="HotelRoomNo" type="text" class="form-control" name="HotelRoomNo" value="@Model.HotelRoomNo">
-    </div>
-    <button type="submit" class="btn btn-primary">Rezervasyonu Güncelle</button>
 </form>

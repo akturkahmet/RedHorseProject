@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var FullName = ViewData["FullName"] as string;
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -36,8 +41,11 @@
                 <div class="main-wrapper main-wrapper-1">
                     <div class="main-sidebar sidebar-style-2">
                         <aside id="sidebar-wrapper">
-                            <div class="sidebar-brand">
-                                <a>Kullanıcı Paneli</a>
+                            <div>
+                                <div>
+                                    <h6>Hoşgeldiniz</h6>
+                                    <h6> @FullName</h6>
+                                </div>
                             </div>
                             <div class="sidebar-brand sidebar-brand-sm">
                                 <a href="index.html">KP</a>
@@ -51,14 +59,10 @@
                                 </li>
                                 <li>
                                     <a href="/Customer/EditRezervation">
-                                        <i class="fas fa-th"></i><span>Rezervasyon Düzenleme</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link" href="~/Customer/CustomerRezervation/">
                                         <i class="fas fa-th"></i><span>Rezervasyonlarım</span>
                                     </a>
                                 </li>
+
 
                                 <li class="menu-header">Ayarlar</li>
                                 <li>
@@ -67,7 +71,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/Customer/Editİnformation">
+                                    <a href="/Customer/EditInformation">
                                         <i class="fas fa-th"></i><span>Bilgileri Düzenle</span>
                                     </a>
                                 </li>
@@ -131,9 +135,12 @@
     <!-- Page Specific JS File -->
     <!-- Template JS File -->
     <script src="~/Content/js/scripts.js"></script>
+    <script src="~/Content/js/Customer.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.min.js"></script>
     <script src="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </body>
 </html>

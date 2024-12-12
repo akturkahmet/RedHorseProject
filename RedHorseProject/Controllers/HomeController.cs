@@ -29,13 +29,20 @@ namespace RedHorseProject.Controllers
         public ActionResult Index()
         {
             var list = _context.Agencys
-            .Where(t => t.isDeleted == false && t.Status == true)
+            .Where(t => t.isDeleted == false)
             .ToList();
-
+            string FirstName = (string)Session["FirstName"];
+            string LastName = (string)Session["LastName"];
+            string FullName = FirstName + " " + LastName;
+            ViewData["FullName"] = FullName;
             return View(list);
         }
 
         public ActionResult About()
+        {
+            return View();
+        }
+        public ActionResult EditCapacity()
         {
             return View();
         }
@@ -71,7 +78,7 @@ namespace RedHorseProject.Controllers
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                UserName = model.UserName,
+                AgencyName = model.AgencyName,
                 Mail = model.Mail,
                 Phone = model.Phone,
                 TursabNo = model.TursabNo,
@@ -181,21 +188,32 @@ namespace RedHorseProject.Controllers
 
             return true;
         }
-        public bool DeleteCustomer(int id)
+        [HttpPost]
+        public JsonResult UpdateCustomerStatus(int id)
         {
             var customer = _context.Agencys.FirstOrDefault(t => t.Id == id);
 
             if (customer == null)
             {
-                return false;
+                return Json(new { success = false, message = "Müşteri bulunamadı." });
             }
 
-            customer.isDeleted = true;
+            if (customer.Status == true)
+            {
+                customer.Status = false;
+            }
+            else
+            {
+                customer.Status = true;
+            }
 
             _context.SaveChanges();
 
-            return true;
+            string message = customer.Status ? "Müşteri aktif edildi." : "Müşteri deaktif edildi.";
+
+            return Json(new { success = true, message = message });
         }
+
         public bool ConfirmCustomer(int id)
         {
             var customer = _context.Agencys.FirstOrDefault(t => t.Id == id);
@@ -210,7 +228,7 @@ namespace RedHorseProject.Controllers
             _context.SaveChanges();
 
             return true;
-        } 
+        }
         public bool CancelCustomer(int id)
         {
             var customer = _context.Agencys.FirstOrDefault(t => t.Id == id);
@@ -226,6 +244,46 @@ namespace RedHorseProject.Controllers
 
             return true;
         }
+        [HttpPost]
+        public JsonResult UpdateCapacity(HoursCapacity model)
+        {
+            if (model == null)
+            {
+                return Json(new { success = false, message = "Model is null." });
+            }
+
+            var existingCapacity = _context.HoursCapacitys
+                .FirstOrDefault(x => x.TourTypeId == model.TourTypeId && x.Hour == model.Hour);
+
+
+
+            existingCapacity.Capacity = model.Capacity;
+
+            _context.SaveChanges();
+
+            return Json(new { success = true, message = "Successfully updated." });
+        }
+        public JsonResult getAgencyDetails(int id)
+        {
+            var customers = _context.Agencys
+                .FirstOrDefault(x => x.Id == id);
+
+            if (customers == null)
+            {
+                return Json(new { success = false, message = "Customer not found." });
+            }
+
+            return Json(new
+            {
+                customers.AgencyName,
+                customers.Mail,
+                customers.TursabNo,
+                customers.Phone,
+                customers.TaxNo,
+                success = true
+            });
+        }
+
 
     }
 }

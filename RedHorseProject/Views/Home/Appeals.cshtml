@@ -1,63 +1,65 @@
-﻿@Model
+﻿@model List<EntityLayer.Concrete.Agency>
 @{
     ViewBag.Title = "Appeals";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section class="section">
     <div class="section-header">
+
         <h1>Acente Başvuruları</h1>
-        
+
     </div>
+</section>
+<div class="section-body">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Onay Bekleyen Başvurular</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="table-1">
+                            <thead>
+                                <tr>
 
-    <div class="section-body">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Onay Bekleyen Başvurular</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped" id="table-1">
-                                <thead>
+                                    <th>Acente Adı</th>
+                                    <th>Oluşturulma Tarihi</th>
+                                    <th>Aksiyon</th>
+                                    <th>İşlemler</th>
+                                    <th>İşlemler</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
                                     <tr>
+                                        <td>@item.AgencyName</td>
+                                        <td class="font-weight-600">
+                                            @item.CreatedDate.ToString("dd.MM.yyyy")
+                                        </td>
 
-                                        <th>Acente Adı</th>
-                                        <th>Oluşturulma Tarihi</th>
-                                        <th>Aksiyon</th>
-                                        <th>İşlemler</th>
-                                        <th>İşlemler</th>
+                                        <td>
+                                            <button href="" onclick="openCustomerModal()" class="btn btn-primary">Detaylar</button>
+                                        </td>
+                                        <td>
+                                            <a onclick="confirmCustomer(@item.Id)" class="btn btn-primary">Onayla</a>
+                                        </td>
+                                        <td>
+                                            <a onclick="cancelCustomer(@item.Id)" class="btn btn-primary">Reddet</a>
+                                        </td>
 
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>@item.UserName</td>
-                                            <td class="font-weight-600">
-                                                @item.CreatedDate.ToString("dd.MM.yyyy")
-                                            </td>
+                                }
 
-                                            <td>
-                                                <button href="" onclick="openCustomerModal()" class="btn btn-primary">Detaylar</button>
-                                            </td>
-                                            <td>
-                                                <a onclick="confirmCustomer(@item.Id)" class="btn btn-primary">Onayla</a>
-                                            </td>    <td>
-                                                <a onclick="cancelCustomer(@item.Id)" class="btn btn-primary">Reddet</a>
-                                            </td>
-
-                                        </tr>
-                                    }
-                                   
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-        
     </div>
+
+</div>
 </section>

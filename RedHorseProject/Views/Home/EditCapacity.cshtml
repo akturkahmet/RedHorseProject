@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "EditCapacity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="section">
+    <div class="section-header">
+        <h1>
+            Saatleri Pasife Çekme
+        </h1>
+    </div>
+</section>
+<div class="section-body8">
+
+    <div class="row">
+        <div class="col-6">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="mb-2" for="turSec">Tur Kategorisi:</label>
+                        <select id="turSec" name="turSec" class="form-control">
+                            <option value="seçiniz" disabled selected>Seç</option>
+                            <option value="atTur">At Turu</option>
+                            <option value="atvTur">ATV Turu</option>
+                            <option value="jeepSafari">Jeep Safari Turu</option>
+                            <option value="balonTur">Balon Turu</option>
+                            <option value="deveTur">Deve Turu</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="mb-2" for="turSec">Saat Seçiniz:</label>
+                        <select id="turSec" name="turSec" class="form-control">
+                            <option value="seçiniz" id="EditClock" disabled selected>Seç</option>
+                            @for (int i = 0; i < 25; i++)
+                            {
+                                <option value="@i">@i:00</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary col-md-4" style="height:50px;">Pasife Çek</button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<div class="baslık">
+    <h1 class="baslıkh1">
+        Saatlere Göre Kapasite Ayarlama
+    </h1>
+</div>
+<div class="row">
+
+    <div class="col-12">
+        <form id="EditCapacityForm">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="mb-2" for="TourType">Tur Kategorisi:</label>
+                        <select id="TourTypeId" name="TourTypeId" class="form-control">
+                            <option value="seçiniz" disabled selected>Seç</option>
+                            <option value="horse">At Turu</option>
+                            <option value="atv">ATV Turu</option>
+                            <option value="jeep">Jeep Safari Turu</option>
+                            <option value="ballon">Balon Turu</option>
+                            <option value="camel">Deve Turu</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="mb-2" for="Hour">Saat Seçiniz:</label>
+                        <select id="Hour" name="Hour" class="form-control">
+                            <option value="seçiniz" disabled selected>Seç</option>
+                            @for (int i = 0; i < 25; i++)
+                            {
+                              
+                                   <option value="@(i < 10 ? "0" + i.ToString() : i.ToString()):00">@i:00</option>
+                                
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="">Kapasite Giriniz:</label>
+                        <div class="capacityselectcontainer"></div>
+                        <input class="Capacity" type="text" name="Capacity" value="" />
+                    </div>
+                </div>
+                <button onclick="updateCapacity()" type="button" class="btn btn-primary col-md-3" style="height:50px;">Kapasiteyi Güncelle</button>
+            </div>
+        </form>
+
+    </div>
+
+
+</div>
+
+
+
+

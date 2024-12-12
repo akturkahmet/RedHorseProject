@@ -1,8 +1,33 @@
-﻿/* Genel container */
+﻿.capacityselect {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: .375rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
 .row bottom-panel__form-wrap2 {
-    display: flex; /* Elemanları yan yana hizalar */
-    align-items: center; /* Dikeyde hizalama */
-    gap: 10px; /* Elemanlar arası boşluk */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+
+
+.section-body8{
+    min-height:300px;
+
 }
 
 
@@ -183,8 +208,8 @@ body {
     margin: 0;
     color: #6a6f8c;
     background: #c8c8c8;
-    font: 600 16px/18px 'Open Sans',sans-serif;
-}
+/*    font: 600 16px/18px 'Open Sans',sans-serif;
+*/}
 
 *, :after, :before {
     box-sizing: border-box
@@ -1165,6 +1190,7 @@ select.form-control:not([size]):not([multiple]) {
     border: none;
     position: relative;
     margin-bottom: 30px;
+    min-height:550px;
 }
 
     .card .card-header, .card .card-body, .card .card-footer {
@@ -1207,19 +1233,21 @@ select.form-control:not([size]):not([multiple]) {
     .card .card-header {
         border-bottom-color: #f9f9f9;
         line-height: 30px;
-        -ms-grid-row-align: center;
         align-self: center;
         width: 100%;
         min-height: 70px;
         padding: 15px 25px;
         display: flex;
         align-items: center;
+      
+      
     }
 
-        .card .card-header .btn {
-            margin-top: 1px;
-            padding: 2px 15px;
-        }
+
+.card .card-header .btn {
+    margin-top: 1px;
+    padding: 2px 15px;
+}
 
             .card .card-header .btn:not(.note-btn) {
                 border-radius: 30px;
@@ -3523,6 +3551,31 @@ pre {
     .section .section-lead {
         margin-left: 45px;
     }
+.baslıkh1 {
+    margin-bottom: 0;
+    font-weight: 700;
+    display: inline-block;
+    font-size: 24px;
+    margin-top: 3px;
+    color: #34395e;
+}
+.baslık {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+    margin-left: -30px;
+    margin-right: -30px;
+    margin-top: -10px;
+    border-radius: 0;
+    border-top: 1px solid #f9f9f9;
+    padding-left: 35px;
+    padding-right: 35px;
+    flex-wrap: wrap;
+    margin-bottom: 20px !important;
+    font-size: 18px;
+    display: inline-block;
+    width: 100%;
+    background-color: #fff;
+    height:70px;
+}
 
 .main-wrapper-1 .section .section-header {
     margin-left: -30px;
@@ -4355,3 +4408,11 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     cursor:pointer;
 }
 
+.section-body {
+    min-height: 480px;
+}
+
+
+.section + .card-header {
+    margin-top: 40px; 
+}

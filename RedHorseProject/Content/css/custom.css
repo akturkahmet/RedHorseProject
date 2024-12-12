@@ -99,6 +99,24 @@
 
 
 
+.loginSection {
+    padding-top: 115px;
+    background-image: url('/Content/Images/loginagencybg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    position: relative; /* Pozisyonu relative yaparak ::after için referans oluşturuyoruz */
+}
 
-
-
+    .loginSection::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: inherit; /* Arka plan resmini miras alır */
+        filter: blur(10px); /* Arka planı bulanıklaştırır */
+        z-index: -1; /* İçeriğin önünde olmasını sağlar */
+    }

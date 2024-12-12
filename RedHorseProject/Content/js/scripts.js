@@ -1,6 +1,5 @@
 ﻿"use strict";
 
-// ChartJS
 if (window.Chart) {
     Chart.defaults.global.defaultFontFamily = "'Nunito', 'Segoe UI', 'Arial'";
     Chart.defaults.global.defaultFontSize = 11;
@@ -596,29 +595,7 @@ $(document).on('click', '.close', function () {
     $('#timeModal').modal('hide');
 });
 
-function openCustomerModal() {
 
-    fetch('/Home/frmCustomerDetails')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.text();
-        })
-        .then(html => {
-            // İçeriği modal-body123'e yükle
-            document.getElementById('Body').innerHTML = html;
-
-            // Modal'ı göster
-            const modal = document.getElementById('myModal');
-            modal.style.display = 'block';
-            modal.classList.add('show');
-
-            // Arka plan için fade sınıfı
-            document.body.classList.add('modal-open');
-        })
-        .catch(error => console.error('Error loading modal content:', error));
-}
 function openRezervationModal() {
 
     fetch('/Home/frmRezervationDetails')
@@ -717,39 +694,14 @@ function openEditModal(id) {
             modal.style.display = 'block';
             modal.classList.add('show');
             document.body.classList.add('modal-open');
+            $("#ReservationId").val(id)
+            getReservationDetails()
         })
         .catch(error => console.error('Error loading modal content:', error));
 }
 
 
-function openCreateReservationModal() {
 
-    fetch('/Customer/frmCreateReservation')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.text();
-        })
-        .then(html => {
-            // İçeriği modal-body123'e yükle
-            document.getElementById('Body').innerHTML = html;
-
-            // Modal'ı göster
-            const modal = document.getElementById('myModal');
-            modal.style.display = 'block';
-            modal.classList.add('show');
-
-            // Arka plan için fade sınıfı
-            document.body.classList.add('modal-open');
-
-
-        })
-        .catch(error => console.error('Error loading modal content:', error));
-
-
-
-}
 function openFilterModal() {
 
     fetch('/Home/frmFilter')
@@ -830,53 +782,6 @@ function saveCapacities() {
 
 // Rezervasyon başvuru eventi
 
-function saveRezervation() {
-    var dateText = $('#timeModalLabel').text();
-    var timeText = $(".btn-hour[data-selected='true']").text();
-    var fullDateTime = new Date(dateText + ' ' + timeText);
-
-    // Date formatını 'yyyy-MM-dd HH:mm:ss' olarak ayarlıyoruz
-    var formattedDate = fullDateTime.getFullYear() + '-' +
-        ('0' + (fullDateTime.getMonth() + 1)).slice(-2) + '-' +
-        ('0' + fullDateTime.getDate()).slice(-2) + ' ' +
-        ('0' + fullDateTime.getHours()).slice(-2) + ':' +
-        ('0' + fullDateTime.getMinutes()).slice(-2) + ':' +
-        ('0' + fullDateTime.getSeconds()).slice(-2);
-
-    // Backend'e doğru tarih formatında gönderiyoruz (ISO 8601 formatı)
-    var isoDate = fullDateTime.toISOString();  // 2024-01-14T13:00:00.000Z
-
-    var name = $("#guestName").val();
-    var surname = $("#guestSurname").val();
-    var phone = $("#phone").val();
-    var hotelName = $("#hotelName").val();
-    var roomNumber = $("#roomNumber").val();
-    var customerCount = $("#customerCount").val();
-    var passportNo = $("#passportNo").val();
-
-    $.ajax({
-        url: "/Customer/SaveRezervation/",
-        method: "POST",
-        contentType: "application/json",
-        data: JSON.stringify({
-            name: name,
-            surname: surname,
-            phone: phone,
-            roomNumber: roomNumber,
-            hotelName: hotelName,
-            reservationTime: isoDate,
-            customerCount: customerCount,
-            passportNo: passportNo
-        }),
-        success: function (response) {
-            alert(`Seçili saat: ${isoDate}, Cevap: ${response.message}`);
-        },
-        error: function (xhr, status, error) {
-            console.error("Error:", error);
-            alert("Bir hata oluştu.");
-        }
-    });
-}
 function ConfirmRezervation(id) {
     $.ajax({
         url: "/Home/ConfirmRezervation/",
@@ -906,34 +811,34 @@ function ConfirmRezervation(id) {
 }
 
 
-function deleteCustomer(id) {
+function UpdateCustomerStatus(id) {
     $.ajax({
-        url: "/Home/DeleteCustomer/",
+        url: "/Home/UpdateCustomerStatus/",
         method: "POST",
         data: {
             id: id
         },
         success: function (response) {
-
-            Swal.fire({
-                title: 'Başarılı',
-                text: 'Müşteri silindi',
-                icon: 'alert',
-                confirmButtonText: 'Tamam'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    location.reload();
-                }
-            });
-
-
+            if (response.success) {
+                Swal.fire({
+                    title: 'Başarılı',
+                    text: response.message,
+                    icon: 'alert',
+                    confirmButtonText: 'Tamam'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
+            }
         },
         error: function (xhr, status, error) {
             console.error("Error:", error);
             alert("Bir hata oluştu.");
         }
     });
-} function confirmCustomer(id) {
+}
+function confirmCustomer(id) {
     $.ajax({
         url: "/Home/ConfirmCustomer/",
         method: "POST",
@@ -952,7 +857,6 @@ function deleteCustomer(id) {
                     location.reload();
                 }
             });
-
 
         },
         error: function (xhr, status, error) {
@@ -1032,19 +936,21 @@ document.querySelectorAll('.closeDropdown').forEach(action => {
         }
     });
 });
-
-
-
-
-
 $(document).ready(function () {
+
+    createEditReservation()
+    createReservetion()
+});
+
+function createReservetion() {
     $('#example').DataTable({
         ajax: {
             url: '/Customer/GetRezervation',
             dataSrc: ''
         },
         columns: [
-         
+
+            { data: 'AgencyName' },
             { data: 'FirstName' },
             { data: 'LastName' },
             { data: 'Phone' },
@@ -1052,7 +958,7 @@ $(document).ready(function () {
             { data: 'PassportNo' },
             { data: 'HotelRoomNo' },
             { data: 'CustomerCount' },
-            
+
             {
                 data: null,
                 render: function (data, type, row) {
@@ -1063,17 +969,17 @@ $(document).ready(function () {
                         return `<button onclick="updateStatus(${row.Id}, true)" class="btn btn-primary">Aktif Et</button>`;
                     }
                 }
-            
+
             }
-            
-            
+
+
         ]
     });
-});
+}
 
 function updateStatus(reservationId, newStatus) {
     $.ajax({
-        url: '/Customer/updateStatus', 
+        url: '/Customer/updateStatus',
         method: 'POST',
         data: {
             id: reservationId,
@@ -1081,28 +987,43 @@ function updateStatus(reservationId, newStatus) {
         },
         success: function (response) {
             if (response.success) {
-                alert(response.message); 
-                $('#example').DataTable().ajax.reload(); 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Başarılı!',
+                    text: response.message,
+                    confirmButtonText: 'Tamam'
+                }).then(() => {
+                    $('#example').DataTable().ajax.reload();
+                });
             } else {
-                alert(response.message); 
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hata!',
+                    text: response.message,
+                    confirmButtonText: 'Tamam'
+                });
             }
         },
         error: function (xhr, status, error) {
             console.error('Güncelleme hatası:', error);
-            alert('Bir hata oluştu, lütfen tekrar deneyin.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Sunucu Hatası',
+                text: 'Bir hata oluştu, lütfen tekrar deneyin.',
+                confirmButtonText: 'Tamam'
+            });
         }
     });
 }
+var editReservationTable;
 
-$(document).ready(function () {
-    var table = $('#EditReservation').DataTable({
+function createEditReservation() {
+    editReservationTable = $('#EditReservation').DataTable({
         ajax: {
             url: '/Customer/GetRezervation',
             dataSrc: ''
         },
         columns: [
-
-            { data: 'Id' },
             { data: 'FirstName' },
             { data: 'LastName' },
             { data: 'Phone' },
@@ -1110,14 +1031,71 @@ $(document).ready(function () {
             { data: 'PassportNo' },
             { data: 'HotelRoomNo' },
             { data: 'CustomerCount' },
+            { data: 'CreatedDate' },
+            { data: 'ReservationDate' },
             {
                 data: null,
                 render: function (data, type, row) {
-                    return `<button onclick="openEditModal(${row.Id})" class="btn btn-primary btn-edit" >Düzenle</button>`;
+                    return `<button onclick="openEditModal(${row.Id})" class="btn btn-primary" data-id="${row.Id}" id="btn-edit">Düzenle</button>`;
                 }
             }
         ]
     });
-});
+}
 
 
+function getReservationDetails() {
+    var id = $("#ReservationId").val()
+    $.ajax({
+        url: '/Customer/GetReservationDetails',
+        method: 'GET',
+        data: {
+            id: id
+        },
+        success: function (response) {
+            $("#FirstName").val(response.FirstName)
+            $("#LastName").val(response.LastName)
+            $("#Phone").val(response.Phone)
+            $("#HotelName").val(response.HotelName)
+            $("#PassportNo").val(response.PassportNo)
+            $("#CustomerCount").val(response.CustomerCount)
+            $("#HotelRoomNo").val(response.HotelRoomNo)
+            $("#LastName").val(response.LastName)
+        },
+        error: function (error) {
+            console.log("error:" + error);
+        }
+    });
+}
+
+function updateReservation() {
+    var formData = $("#EditReservationForm").serialize();
+    $.ajax({
+        url: '/Customer/UpdateReservation',
+        method: 'POST',
+        data: formData,
+        success: function (response) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Başarıyla Güncellendi!',
+                text: 'Rezervasyon başarıyla güncellendi.',
+                showConfirmButton: true,
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    refreshTable()
+                    $("#myModal").hide()
+                }
+            });
+
+        },
+        error: function (error) {
+            console.log("error:" + error);
+        }
+    });
+}
+function refreshTable() {
+    if (editReservationTable) {
+        editReservationTable.ajax.reload();
+    }
+}

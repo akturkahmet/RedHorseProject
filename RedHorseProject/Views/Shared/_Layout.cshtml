@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿   @{  
+       var FullName = ViewData["FullName"] as string;
+   }
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,8 +32,9 @@
                 <div class="main-wrapper main-wrapper-1">
                     <div class="main-sidebar sidebar-style-2">
                         <aside id="sidebar-wrapper">
-                            <div class="sidebar-brand">
-                                <a>Admin Paneli</a>
+                            <div>
+                                <h6>Hoşgeldiniz</h6>
+                                <h6> @FullName</h6>
                             </div>
                             <div class="sidebar-brand sidebar-brand-sm">
                                 <a href="index.html">AP</a>
@@ -56,16 +60,17 @@
                                 </li>
 
                                 <li class="menu-header">Ayarlar</li>
+
                                 <li>
                                     <a href="~/Home/CustomerCreator/">
                                         <i class="fas fa-th"></i><span>Kullanıcı Oluşturma</span>
                                     </a>
                                 </li>
-                                @*<li> ORNEK DROPDOWN YAPISI
-                                        <a href="~/Home/CustomerCreator/" class="nav-link has-dropdown">
-                                            <i class="fas fa-th"></i><span>Kullanıcı Oluşturma</span>
-                                        </a>
-                                    </li>*@
+                                <li>
+                                    <a class="nav-link" href="~/Home/EditCapacity/">
+                                        <i class="fas fa-th"></i><span>Kapasite Ayarlama</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="~/Home/ResetPassword/">
                                         <i class="fas fa-th"></i><span>Şifre Yenileme</span>
@@ -85,25 +90,25 @@
             </div>
             <!-- Main Content -->
             <div class="col-md-10 ">
-                <div class="header">
-                    <div class="header-right">
-                        <div class="header">
-                            <div class="settings">
-                                <i class="fa-solid fa-gears" onclick="toggleSettingsMenu()"></i>
-                                <ul class="settings-menu" id="settingsMenu">
-                                    <li><label for="horseCapacity">At Turu Kapasitesi:</label> <input type="number" id="horseCapacity" placeholder="Kapasite"></li>
-                                    <li><label for="atvCapacity">ATV Turu Kapasitesi:</label> <input type="number" id="atvCapacity" placeholder="Kapasite"></li>
-                                    <li><label for="jeepCapacity">Jeep Turu Kapasitesi:</label> <input type="number" id="jeepCapacity" placeholder="Kapasite"></li>
-                                    <li><label for="balloonCapacity">Balon Turu Kapasitesi:</label> <input type="number" id="balloonCapacity" placeholder="Kapasite"></li>
-                                    <li><label for="camelCapacity">Deve Turu Kapasitesi:</label> <input type="number" id="camelCapacity" placeholder="Kapasite"></li>
-                                    <li><button onclick="saveCapacities()">Kaydet</button></li>
-                                </ul>
+                @*<div class="header">
+                        <div class="header-right">
+                            <div class="header">
+                                <div class="settings">
+                                    <i class="fa-solid fa-gears" onclick="toggleSettingsMenu()"></i>
+                                    <ul class="settings-menu" id="settingsMenu">
+                                        <li><label for="horseCapacity">At Turu Kapasitesi:</label> <input type="number" id="horseCapacity" placeholder="Kapasite"></li>
+                                        <li><label for="atvCapacity">ATV Turu Kapasitesi:</label> <input type="number" id="atvCapacity" placeholder="Kapasite"></li>
+                                        <li><label for="jeepCapacity">Jeep Turu Kapasitesi:</label> <input type="number" id="jeepCapacity" placeholder="Kapasite"></li>
+                                        <li><label for="balloonCapacity">Balon Turu Kapasitesi:</label> <input type="number" id="balloonCapacity" placeholder="Kapasite"></li>
+                                        <li><label for="camelCapacity">Deve Turu Kapasitesi:</label> <input type="number" id="camelCapacity" placeholder="Kapasite"></li>
+                                        <li><button onclick="saveCapacities()">Kaydet</button></li>
+                                    </ul>
+                                </div>
                             </div>
+
+
                         </div>
-
-
-                    </div>
-                </div>
+                    </div>*@
                 @RenderBody()
             </div>
         </div>
@@ -143,5 +148,6 @@
     <!-- Page Specific JS File -->
     <!-- Template JS File -->
     <script src="~/Content/js/scripts.js"></script>
+    <script src="~/Content/js/Admin.js"></script>
 </body>
 </html>

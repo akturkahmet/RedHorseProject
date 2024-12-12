@@ -1,4 +1,4 @@
-﻿@Model
+﻿@model List<EntityLayer.Concrete.Agency>
 
 
 @{
@@ -7,48 +7,54 @@
 }
 
 <div class="card">
+    <section class="section">
+        <div class="section-header">
+            <h1>Müşteriler</h1>
+        </div>
+    </section>
     <div class="card-header">
         <h4>Kayıtlı Acenteler</h4>
-
     </div>
-    <div class="card-body p-0">
-        <div class="table-responsive table-invoice">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        
-                        <th>Acente Adı</th>
-                        <th>Katılma Tarihi</th>
-                        <th>Detay</th>
-                        <th>İşlemler</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+        <div class="card-body p-0">
+            <div class="table-responsive table-invoice">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                           
-                          
-                            <td>@item.UserName</td>
-                            <td class="font-weight-600">
-                                @item.CreatedDate.ToString("dd.MM.yyyy")
-                            </td>
-
-                            <td>
-                                <button href="" onclick="openCustomerModal()" class="btn btn-primary">Detaylar</button>
-                            </td>
-                            <td>
-                                <a onclick="deleteCustomer(@item.Id)" class="btn btn-primary">Pasifleştir</a>
-                            </td>
-
-
+                            <th>Acente Adı</th>
+                            <th>Katılma Tarihi</th>
+                            <th>Detay</th>
+                            <th>İşlemler</th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
 
-                </tbody>
+
+                                <td>@item.AgencyName</td>
+                                <td class="font-weight-600">
+                                    @item.CreatedDate.ToString("dd.MM.yyyy")
+                                </td>
+                                <td>
+                                    <button href="" onclick="openCustomerModal(@item.Id)" class="btn btn-primary">Detaylar</button>
+                                </td>
+                                <td>
+                                    <a onclick="UpdateCustomerStatus(@item.Id)"
+                                       class="btn @(item.Status ? "btn-danger" : "btn-primary")">
+                                        @(item.Status ? "Deaktif et" : "Aktif et")
+                                    </a>
+
+                                </td>
 
 
-            </table>
+                            </tr>
+                        }
+
+                    </tbody>
+
+
+                </table>
+            </div>
         </div>
     </div>
-</div>

@@ -1,54 +1,58 @@
 ﻿@{
+    ViewBag.Title = "Anasayfa";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+
 
 }
 <div class="bottom-panel bottom-panel--floating">
-        <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="turSec">Tur Seçiniz:</label>
-                        <select id="turSec" name="turSec" class="form-control">
-                            <option value="seçiniz" disabled selected>Seç</option>
-                            <option value="atTur">At Turu</option>
-                            <option value="atvTur">ATV Turu</option>
-                            <option value="jeepSafari">Jeep Safari Turu</option>
-                            <option value="balonTur">Balon Turu</option>
-                            <option value="deveTur">Deve Turu</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group2 col-12 col-md-4 dropdown">
-                        <div class="closeDropdown" id="dropdownSurelerAction" data-toggle="dropdown" data-display="static">
-                            <label class="labelFeature" for="sure">Tur Tarihi</label>
-                            <input type="date" class="inputFeature input-arrow readonly" id="sure" placeholder="Seçin" autocomplete="off">
-                        </div>
-
-                        <div class="dropdown-menu dropdown-menu-lg-left dropdown-menu-right" id="dropdownSureler" aria-labelledby="dropdownSurelerAction">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="turSec">Saat Seçiniz:</label>
-                        <select id="turSec" name="turSec" class="form-control">
-                            <option value="seçiniz" disabled selected>Seç</option>
-                            @for (int i = 0; i < 25; i++)
-                            {
-                                <option value="@i">@i:00</option>
-
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <button href="" onclick="openCreateReservationModal()" class="btn-booking">Rezervasyon Oluştur</button>
-                </div>
-
-
-
-
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="turSec">Tur Seçiniz:</label>
+                <select id="TourType1" name="TourType1" class="form-control">
+                    <option value="seçiniz" disabled selected>Seç</option>
+                    <option value="horse">At Turu</option>
+                    <option value="atv">ATV Turu</option>
+                    <option value="jeep">Jeep Safari Turu</option>
+                    <option value="ballon">Balon Turu</option>
+                    <option value="camel">Deve Turu</option>
+                </select>
+            </div>
         </div>
+        <div class="col-md-3">
+            <div class="form-group2 col-12 col-md-4 dropdown">
+                <div class="closeDropdown" id="dropdownSurelerAction" data-toggle="dropdown" data-display="static">
+                    <label class="labelFeature" for="sure">Tur Tarihi</label>
+                    <input type="date" class="inputFeature input-arrow readonly" id="reservationDay1" placeholder="Seçin" autocomplete="off">
+                </div>
+
+                <div class="dropdown-menu dropdown-menu-lg-left dropdown-menu-right" id="dropdownSureler" aria-labelledby="dropdownSurelerAction">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="reservationHour1">Saat Seçiniz:</label>
+                <select id="reservationHour1" name="reservationHour1" class="form-control">
+                    <option value="seçiniz" disabled selected>Seç</option>
+                    @for (int i = 0; i < 25; i++)
+                    {
+                        <option value="@(i < 10 ? "0" + i.ToString() : i.ToString()):00">@i:00</option>
+
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="CustomerCount">Kişi Sayısı:</label>
+                <input type="text" name="CustomerCount1" id="CustomerCount1" value="" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <button href="" onclick="openCreateReservationModal()" class="btn-booking">Rezervasyon Oluştur</button>
+        </div>
+    </div>
 
     <section class="">
         <h1>Tur Seçenekleri</h1>

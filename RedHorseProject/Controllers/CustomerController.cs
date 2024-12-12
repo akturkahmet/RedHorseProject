@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using AtvTour = EntityLayer.Concrete.Reservation;
 using RedHorseProject.Models.ViewModel;
 using EntityLayer.Concrete;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace RedHorseProject.Controllers
 {
@@ -21,7 +23,6 @@ namespace RedHorseProject.Controllers
         private readonly IReservationService _ReservationService;
         RedHorseContext _context = new RedHorseContext();
         DataContext _datacontext = new DataContext();
-        // _atvTourService.Insert(nesne) şeklinde dbye kaydediyor // 
 
         public CustomerController(IAgencyService agencyService, IReservationService ReservationService)
         {
@@ -32,12 +33,14 @@ namespace RedHorseProject.Controllers
 
         public ActionResult Index()
         {
+            string FirstName = (string)Session["FirstName"];
+            string LastName = (string)Session["LastName"];
+            string FullName = FirstName + " " + LastName;
+            ViewData["FullName"] = FullName;
             using (RedHorseContext c = new RedHorseContext())
             {
-                // Giriş yapan kullanıcının AgencyId'sini Session'dan al
                 var agencyId = (int)Session["AgencyId"];
 
-                // Bu Agency'ye bağlı araçları listele
                 var atv = c.Reservations.Where(car => car.Agency_Id == agencyId).ToList();
 
                 return View();
@@ -49,21 +52,18 @@ namespace RedHorseProject.Controllers
             var Reservation = _context.Reservations.ToList();
             return View(Reservation);
         }
-        public JsonResult GetRezervation()
-        {
 
-            var reservations = _context.Reservations.ToList();
-            return Json(reservations, JsonRequestBehavior.AllowGet);
-        }
 
         [HttpGet]
         public ActionResult ChangePassword()
         {
             return View();
         }
-        public ActionResult Editİnformation()
+        public ActionResult EditInformation()
         {
-            return View();
+            var agencyId = Session["AgencyId"] as int?;
+            var agencyInformation = _context.Agencys.Where(a => a.Id == agencyId).FirstOrDefault();
+            return View(agencyInformation);
         }
         public ActionResult frmDetails()
         {
@@ -73,12 +73,21 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
+        private string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(password);
+                byte[] hash = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
+            }
+        }
         [HttpPost]
         public JsonResult ChangePassword(string email, string newPassword, string confirmPassword)
         {
 
 
-            var currentEmail = Session["Mail"]?.ToString();  // Giriş yapan kullanıcının e-mail adresini çektük //
+            var currentEmail = Session["Mail"]?.ToString();
             var agency = _agencyService.Get(a => a.Mail == currentEmail);
 
             if (string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(email))
@@ -96,32 +105,15 @@ namespace RedHorseProject.Controllers
                 return Json(new { success = false, message = "Yeni şifre ile şifre onayı eşleşmiyor." });
             }
 
-            agency.Password = newPassword;
+            agency.Password = HashPassword(newPassword);
 
             _agencyService.Update(agency);
 
             return Json(new { success = true, message = "Şifreniz başarıyla değiştirildi." });
         }
-        public ActionResult frmEditRezervation(int id)
+        public ActionResult frmEditRezervation()
         {
-            var reservation = _ReservationService.Get(x => x.Id == id);
-            if (reservation == null)
-            {
-                return HttpNotFound("Reservation not found");
-            }
-
-            var viewModel = new EditReservationViewModel
-            {
-                FirstName = reservation.FirstName,
-                LastName = reservation.LastName,
-                Phone = reservation.Phone,
-                HotelName = reservation.HotelName,
-                PassportNo = reservation.PassportNo,
-                CustomerCount = reservation.CustomerCount,
-                HotelRoomNo = reservation.HotelRoomNo
-            };
-
-            return PartialView("_EditReservationPartial", viewModel); // Partial view kullanıyoruz
+            return PartialView("_EditReservationPartial");
         }
 
 
@@ -130,8 +122,68 @@ namespace RedHorseProject.Controllers
             return View();
         }
 
+        // Methodlar
+        public JsonResult GetRezervation()
+        {
+            string role = (string)Session["Role"];
+
+            // Admin rolü kontrolü
+            if (role == "Admin")
+            {
+                var allReservations = _context.Reservations
+                    .Join(_context.Agencys,
+                        reservation => reservation.Agency_Id,
+                        agency => agency.Id,
+                        (reservation, agency) => new
+                        {
+                            reservation.Id,
+                            reservation.FirstName,
+                            reservation.LastName,
+                            reservation.Phone,
+                            reservation.HotelName,
+                            reservation.PassportNo,
+                            reservation.HotelRoomNo,
+                            reservation.CustomerCount,
+                            reservation.Status,
+                            reservation.CreatedDate,
+                            reservation.ReservationDate,
+                            agency.AgencyName
+                        })
+                    .ToList();
+
+                return Json(allReservations, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                int agencyId = (int)Session["AgencyId"];
+
+                var reservations = _context.Reservations
+                    .Where(r => r.Agency_Id == agencyId)
+                    .Select(r => new
+                    {
+                        r.Id,
+                        r.FirstName,
+                        r.LastName,
+                        r.Phone,
+                        r.HotelName,
+                        r.PassportNo,
+                        r.HotelRoomNo,
+                        r.CustomerCount,
+                        r.Status,
+                        r.CreatedDate,
+                        r.ReservationDate
+                    })
+                    .ToList();
+
+                return Json(reservations, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
+
         [HttpPost]
-        public ActionResult updateStatus(int id, bool status)
+        public ActionResult updateStatus(int id)
         {
 
             var reservation = _context.Reservations.SingleOrDefault(r => r.Id == id);
@@ -148,7 +200,161 @@ namespace RedHorseProject.Controllers
                 _context.SaveChanges();
                 return Json(new { success = true, message = "Rezervasyon aktif oldu." });
             }
+        }
+
+        [HttpGet]
+        public JsonResult GetReservationDetails(int id)
+        {
+
+            var reservation = _context.Reservations.Where(r => r.Id == id).FirstOrDefault();
+            return Json(reservation, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateReservation(int ReservationId, string FirstName, string LastName, string Phone, string HotelName, string PassportNo, int CustomerCount, int HotelRoomNo)
+        {
+            try
+            {
+                var reservation = _context.Reservations.FirstOrDefault(r => r.Id == ReservationId);
+
+                if (reservation == null)
+                {
+                    return Json("Reservation not found");
+                }
+
+                reservation.FirstName = FirstName;
+                reservation.LastName = LastName;
+                reservation.Phone = Phone;
+                reservation.HotelName = HotelName;
+                reservation.PassportNo = PassportNo;
+                reservation.CustomerCount = CustomerCount;
+                reservation.HotelRoomNo = HotelRoomNo;
+
+                _context.SaveChanges();
+
+                return Json(new { Message = "Reservation updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Message = "Error updating reservation", Error = ex.Message });
+            }
+        }
+        [HttpPost]
+        public ActionResult UpdateAgencyInformation(int AgencyId, string FirstName, string LastName, string Phone, string AgencyName, string Email, string TursabNo, string TcKimlik)
+        {
+            try
+            {
+                var agency = _context.Agencys.FirstOrDefault(r => r.Id == AgencyId);
+
+                if (agency == null)
+                {
+                    return Json("Agency not found");
+                }
+
+                agency.FirstName = FirstName;
+                agency.LastName = LastName;
+                agency.Phone = Phone;
+                agency.AgencyName = AgencyName;
+                agency.Mail = Email;
+                agency.TursabNo = TursabNo;
+                agency.Tc = TcKimlik;
+
+                _context.SaveChanges();
+
+                return Json(new { Message = "Reservation updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Message = "Error updating reservation", Error = ex.Message });
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult ChangeCustomerPassword(string Email, string Password, string ConfirmPassword)
+        {
+            if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(ConfirmPassword))
+            {
+                return Json(new { success = false, message = "Tüm alanlar doldurulmalıdır." });
+            }
+
+            if (Password != ConfirmPassword)
+            {
+                return Json(new { success = false, message = "Şifreler eşleşmiyor." });
+            }
+
+            var user = _context.Agencys.FirstOrDefault(u => u.Mail == Email);
+
+            if (user == null)
+            {
+                return Json(new { success = false, message = "Email adresi bulunamadı." });
+            }
+
+            user.Password = HashPassword(Password);
+            _context.SaveChanges();
+
+            return Json(new { success = true, message = "Şifreniz başarıyla güncellendi." });
+        }
+
+
+        [HttpPost]
+        public JsonResult CreateReservation(Reservation model)
+        {
+            int agencyId = (int)Session["AgencyId"];
+            _context.Reservations.Add(new Reservation
+            {
+                TourType = model.TourType,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Mail = model.Mail,
+                CountryCode = "TR",
+                Phone = model.Phone,
+                HotelName = model.HotelName,
+                HotelRoomNo = model.HotelRoomNo,
+                PassportNo = model.PassportNo,
+                CustomerCount = model.CustomerCount,
+                CreatedDate = DateTime.Now,
+                Agency_Id = agencyId,
+                ReservationDate = model.ReservationDate,
+            });
+            _context.SaveChanges();
+
+            return Json(new { success = true, message = "Reservation completed successfully." });
+
 
         }
+
+
+        public JsonResult ControlReservationDate(string TourTypeId, string Hour, int CustomerCount, DateTime ReservationDate)
+        {
+
+            var capacity = _context.HoursCapacitys.Where(x => x.TourTypeId == TourTypeId && x.Hour == Hour).FirstOrDefault();
+            var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId).ToList().Sum(x => x.CustomerCount);
+            if (capacity == null)
+            {
+                return Json(new { success = true});
+            }
+            int remainingCapacity = capacity.Capacity - reservationCustomerCount;
+            if (remainingCapacity >= CustomerCount)
+
+            {
+                return Json(new { success = true, message = "Yeterli kapasite yok." });
+            }
+            else
+            {
+                if (remainingCapacity <= 0)
+                {
+                    return Json(new { success = false, message = $"Yer kalmadı" });
+                }
+                else
+                {
+                    return Json(new { success = false, message = $"Sadece {remainingCapacity} kişilik yer kaldı." });
+
+                }
+
+            }
+        }
+
+
     }
 }

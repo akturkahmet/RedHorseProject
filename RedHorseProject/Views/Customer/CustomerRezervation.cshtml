@@ -1,23 +1,24 @@
 ﻿@model List<EntityLayer.Concrete.Reservation>
 
 @{
+    ViewBag.Title = "EditRezervation";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
 <section class="section">
     <div class="section-header">
-        <h1>Rezervasyonlar</h1>
+        <h5>Rezervasyon Düzenle</h5>
     </div>
     <div class="section-body">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Oluşturduğum Rezervasyonlar</h4>
+                        <h4>Düzenle</h4>
                     </div>
                     <div class="card-body">
                         <div id="data-container" class="table-responsive">
-                            <table id="example" class="display" style="width:100%">
+                            <table id="EditReservation" class="display" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>Adı</th>
@@ -27,16 +28,14 @@
                                         <th>Pasaport Numarası</th>
                                         <th>Oda Numarası</th>
                                         <th>Kişi Sayısı</th>
-                                        <th></th>
+                                        <th>Oluşturulma Tarihi</th>
+                                        <th>Rezervasyon Tarihi</th>
                                     </tr>
                                 </thead>
 
 
                             </table>
-                            <ul id="context-menu" class="dropdown-menu" style="display: none; position: absolute;">
-                                <li><a href="#" id="context-edit">Düzenle</a></li>
-                                <li><a href="#" id="context-delete">Sil</a></li>
-                            </ul>
+
 
                         </div>
                     </div>
@@ -44,5 +43,5 @@
             </div>
         </div>
     </div>
-</section>
 
+</section>
