@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "EditClock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="section-header">
+        <h1>
+            Saatleri Pasife Çekme
+        </h1>
+    </div>
+</section>
+<div class="section-body8">
+
+    <div class="row">
+        <div class="col-6">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="mb-2" for="turSec">Tur Kategorisi:</label>
+                        <select id="turSec" name="turSec" class="form-control">
+                            <option value="seçiniz" disabled selected>Seç</option>
+                            <option value="atTur">At Turu</option>
+                            <option value="atvTur">ATV Turu</option>
+                            <option value="jeepSafari">Jeep Safari Turu</option>
+                            <option value="balonTur">Balon Turu</option>
+                            <option value="deveTur">Deve Turu</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="mb-2" for="turSec">Saat Seçiniz:</label>
+                        <select id="turSec" name="turSec" class="form-control">
+                            <option value="seçiniz" id="EditClock" disabled selected>Seç</option>
+                            @for (int i = 0; i < 25; i++)
+                            {
+                                <option value="@i">@i:00</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary col-md-4" style="height:50px;">Pasife Çek</button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+<div class="container-fluid mt-4">
+    <table class="table table-bordered table-hover w-100">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Rezervasyon Türü</th>
+                <th>Saat</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>At Turu</td>
+                <td>01:00</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>ATV Turu</td>
+                <td>09:00</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Jeep Safari Turu</td>
+                <td>15:00</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Deve Turu</td>
+                <td>14:00</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

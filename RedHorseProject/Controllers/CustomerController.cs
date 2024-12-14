@@ -127,7 +127,6 @@ namespace RedHorseProject.Controllers
         {
             string role = (string)Session["Role"];
 
-            // Admin rolü kontrolü
             if (role == "Admin")
             {
                 var allReservations = _context.Reservations
@@ -149,16 +148,7 @@ namespace RedHorseProject.Controllers
                             reservation.ReservationDate,
                             agency.AgencyName
                         })
-                    .ToList();
-
-                return Json(allReservations, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                int agencyId = (int)Session["AgencyId"];
-
-                var reservations = _context.Reservations
-                    .Where(r => r.Agency_Id == agencyId)
+                    .ToList() // Veritabanından verileri çekiyoruz
                     .Select(r => new
                     {
                         r.Id,
@@ -170,14 +160,39 @@ namespace RedHorseProject.Controllers
                         r.HotelRoomNo,
                         r.CustomerCount,
                         r.Status,
-                        r.CreatedDate,
-                        r.ReservationDate
-                    })
-                    .ToList();
+                        CreatedDate = r.CreatedDate.ToString("dd.MM.yyyy"), // Tarihi formatlıyoruz
+                        ReservationDate = r.ReservationDate.ToString("dd.MM.yyyy"), // Tarihi formatlıyoruz
+                        r.AgencyName
+                    });
+
+                return Json(allReservations, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                int agencyId = (int)Session["AgencyId"];
+
+                var reservations = _context.Reservations
+                    .Where(r => r.Agency_Id == agencyId)
+                    .ToList() // Veritabanından verileri çekiyoruz
+                    .Select(r => new
+                    {
+                        r.Id,
+                        r.FirstName,
+                        r.LastName,
+                        r.Phone,
+                        r.HotelName,
+                        r.PassportNo,
+                        r.HotelRoomNo,
+                        r.CustomerCount,
+                        r.Status,
+                        CreatedDate = r.CreatedDate.ToString("dd.MM.yyyy"), // Tarihi formatlıyoruz
+                        ReservationDate = r.ReservationDate.ToString("dd.MM.yyyy") // Tarihi formatlıyoruz
+                    });
 
                 return Json(reservations, JsonRequestBehavior.AllowGet);
             }
         }
+
 
 
 

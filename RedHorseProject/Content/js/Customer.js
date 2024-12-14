@@ -1,4 +1,10 @@
-﻿function openCreateReservationModal() {
+﻿$(document).ready(function () {
+
+    createEditReservationTable()
+});
+
+
+function openCreateReservationModal() {
     var reservationDay = $("#reservationDay1").val();
     var reservationHour = $("#reservationHour1").val();
     var tourType = $("#TourType1").val();
@@ -12,7 +18,7 @@
             showConfirmButton: true,
             confirmButtonText: 'Tamam'
         });
-        return; 
+        return;
     }
 
     $.ajax({
@@ -22,7 +28,7 @@
             ReservationDate: reservationDay + " " + reservationHour,
             TourTypeId: tourType,
             Hour: reservationHour,
-            CustomerCount:CustomerCount
+            CustomerCount: CustomerCount
 
         },
         success: function (response) {
@@ -36,7 +42,8 @@
                     })
                     .then(html => {
                         document.getElementById('Body').innerHTML = html;
-                        $('#myModal').modal('show'); 
+
+                        $('#myModal').modal('show');
 
                         $("#TourType").val(tourType);
                         $("#ReservationDay").val(reservationDay);
@@ -77,6 +84,65 @@
     });
 }
 
+function createEditReservationTable() {
+    editReservationTable = $('#EditReservation').DataTable({
+        ajax: {
+            url: '/Customer/GetRezervation',
+            dataSrc: ''
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Excel Olarak Dışa Aktar',
+                filename: 'Rezervasyonlar',
+                title: 'Rezervasyonlar Listesi',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF Olarak Dışa Aktar',
+                filename: 'Rezervasyonlar',
+                title: 'Rezervasyonlar Listesi',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                }
+            }
+        ],
+        pageLength: 10,
+        lengthMenu: [5, 10, 25, 50, 100],
+        columns: [
+            { data: 'FirstName' },
+            { data: 'LastName' },
+            { data: 'Phone' },
+            { data: 'HotelName' },
+            { data: 'PassportNo' },
+            { data: 'HotelRoomNo' },
+            { data: 'CustomerCount' },
+            { data: 'CreatedDate' },
+            { data: 'ReservationDate' },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return `
+                        <p class="${row.Status ? 'color-green bold' : 'color-red bold'}" 
+                        id="btn-edit">
+                        ${row.Status ? 'Aktif' : 'Pasif'}
+                        </p>`;
+                }
+
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return `<button onclick="openEditModal(${row.Id})" class="btn btn-primary" data-id="${row.Id}" id="btn-edit">Düzenle</button>`;
+                }
+            }
+        ]
+    });
+}
 
 
 

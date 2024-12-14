@@ -1,4 +1,9 @@
-﻿function updateCapacity() {
+﻿$(document).ready(function () {
+
+    createReservetionTable()
+});
+
+function updateCapacity() {
     var formData = $("#EditCapacityForm").serialize()
     $.ajax({
         url: '/Home/UpdateCapacity',
@@ -62,5 +67,57 @@ function openCustomerModal(id) {
             console.error("Error:", error);
             alert("Bir hata oluştu.");
         }
+    });
+}
+
+
+function createReservetionTable() {
+    $('#example').DataTable({
+        ajax: {
+            url: '/Customer/GetRezervation',
+            dataSrc: ''
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Excel Olarak Dışa Aktar',
+                filename: 'Rezervasyonlar',
+                title: 'Rezervasyonlar Listesi',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5,6,7] 
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF Olarak Dışa Aktar',
+                filename: 'Rezervasyonlar',
+                title: 'Rezervasyonlar Listesi',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7] 
+                }
+            }
+        ],
+        columns: [
+            { data: 'AgencyName' },
+            { data: 'FirstName' },
+            { data: 'LastName' },
+            { data: 'Phone' },
+            { data: 'HotelName' },
+            { data: 'PassportNo' },
+            { data: 'HotelRoomNo' },
+            { data: 'CustomerCount' },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    if (data.Status == 1) {
+                        return `<button onclick="updateStatus(${row.Id}, false)" class="btn btn-danger">Deaktif Et</button>`;
+                    }
+                    else {
+                        return `<button onclick="updateStatus(${row.Id}, true)" class="btn btn-primary">Aktif Et</button>`;
+                    }
+                }
+            }
+        ]
     });
 }

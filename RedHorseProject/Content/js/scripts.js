@@ -606,6 +606,8 @@ function openRezervationModal() {
             return response.text();
         })
         .then(html => {
+            document.getElementById('modalTitle').textContent = 'Rezervasyon Oluştur';
+
             // İçeriği modal-body123'e yükle
             document.getElementById('Body').innerHTML = html;
 
@@ -629,6 +631,8 @@ function openAppealModal() {
             return response.text();
         })
         .then(html => {
+            document.getElementById('modalTitle').textContent = 'Müşteriler';
+
             // İçeriği modal-body123'e yükle
             document.getElementById('Body').innerHTML = html;
 
@@ -652,6 +656,8 @@ function openDetailsModal(id) {
             return response.text();
         })
         .then(html => {
+            document.getElementById('modalTitle').textContent = 'Detaylar';
+
             // İçeriği modal-body123'e yükle
             document.getElementById('Body').innerHTML = html;
 
@@ -688,6 +694,10 @@ function openEditModal(id) {
     fetch(`/Customer/frmEditRezervation?id=${id}`)
         .then(response => response.text())
         .then(html => {
+            document.getElementById('modalTitle').textContent = 'Düzenle';
+            $('#modalTitle').text('Rezervasyon Oluştur');
+
+
             document.getElementById('Body').innerHTML = html;
 
             const modal = document.getElementById('myModal');
@@ -712,6 +722,7 @@ function openFilterModal() {
             return response.text();
         })
         .then(html => {
+
             // İçeriği modal-body123'e yükle
             document.getElementById('Body').innerHTML = html;
 
@@ -936,46 +947,8 @@ document.querySelectorAll('.closeDropdown').forEach(action => {
         }
     });
 });
-$(document).ready(function () {
-
-    createEditReservation()
-    createReservetion()
-});
-
-function createReservetion() {
-    $('#example').DataTable({
-        ajax: {
-            url: '/Customer/GetRezervation',
-            dataSrc: ''
-        },
-        columns: [
-
-            { data: 'AgencyName' },
-            { data: 'FirstName' },
-            { data: 'LastName' },
-            { data: 'Phone' },
-            { data: 'HotelName' },
-            { data: 'PassportNo' },
-            { data: 'HotelRoomNo' },
-            { data: 'CustomerCount' },
-
-            {
-                data: null,
-                render: function (data, type, row) {
-                    if (data.Status == 1) {
-                        return `<button onclick="updateStatus(${row.Id}, false)" class="btn btn-danger">Deaktif Et</button>`;
-                    }
-                    else {
-                        return `<button onclick="updateStatus(${row.Id}, true)" class="btn btn-primary">Aktif Et</button>`;
-                    }
-                }
-
-            }
 
 
-        ]
-    });
-}
 
 function updateStatus(reservationId, newStatus) {
     $.ajax({
@@ -1017,31 +990,7 @@ function updateStatus(reservationId, newStatus) {
 }
 var editReservationTable;
 
-function createEditReservation() {
-    editReservationTable = $('#EditReservation').DataTable({
-        ajax: {
-            url: '/Customer/GetRezervation',
-            dataSrc: ''
-        },
-        columns: [
-            { data: 'FirstName' },
-            { data: 'LastName' },
-            { data: 'Phone' },
-            { data: 'HotelName' },
-            { data: 'PassportNo' },
-            { data: 'HotelRoomNo' },
-            { data: 'CustomerCount' },
-            { data: 'CreatedDate' },
-            { data: 'ReservationDate' },
-            {
-                data: null,
-                render: function (data, type, row) {
-                    return `<button onclick="openEditModal(${row.Id})" class="btn btn-primary" data-id="${row.Id}" id="btn-edit">Düzenle</button>`;
-                }
-            }
-        ]
-    });
-}
+
 
 
 function getReservationDetails() {
@@ -1099,3 +1048,6 @@ function refreshTable() {
         editReservationTable.ajax.reload();
     }
 }
+
+
+    

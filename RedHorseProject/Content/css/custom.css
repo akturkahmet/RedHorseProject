@@ -120,3 +120,10 @@
         filter: blur(10px); /* Arka planı bulanıklaştırır */
         z-index: -1; /* İçeriğin önünde olmasını sağlar */
     }
+
+    .color-red{
+        color:red;
+    }  
+    .color-green{
+        color:green;
+    }

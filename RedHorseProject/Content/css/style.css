@@ -1,4 +1,8 @@
-﻿.capacityselect {
+﻿.navbartitle{
+    display:flex;
+    justify-content:center;
+}
+.capacityselect {
     display: block;
     width: 100%;
     padding: .375rem .75rem;
@@ -26,7 +30,7 @@
 
 
 .section-body8{
-    min-height:300px;
+    min-height:400px;
 
 }
 
@@ -177,10 +181,9 @@
     background-color: #00296b;
     color: #fff;
     padding: 12px 20px;
-    font-size: 16px;
+    font-size: 11px;
     font-weight: bold;
     border-radius: 5px;
-    text-transform: uppercase;
     text-align: center;
     cursor: pointer;
     border: none;
@@ -1190,7 +1193,7 @@ select.form-control:not([size]):not([multiple]) {
     border: none;
     position: relative;
     margin-bottom: 30px;
-    min-height:550px;
+    min-height:470px;
 }
 
     .card .card-header, .card .card-body, .card .card-footer {
@@ -1380,10 +1383,16 @@ select.form-control:not([size]):not([multiple]) {
         background-position: center;
     }
 
-    .card.card-primary {
-        border-top: 2px solid #6777ef;
-        width:500px;
-    }
+.card.card-primary {
+   /* border-top: 5px solid #6777ef;
+    border-bottom: 5px solid #6777ef;
+    width: 750px;
+    border-left: 5px solid #6777ef;
+    border-right: 5px solid #6777ef;
+    border-radius: 10px;*/
+   border-radius:5px;
+}
+    
 
     .card.card-secondary {
         border-top: 2px solid #34395e;
@@ -2064,7 +2073,7 @@ h6 .badge {
     }
 
     .btn.btn-lg {
-        padding: .55rem 1.5rem;
+        padding: .55rem 8.5rem;
         font-size: 12px;
     }
 
@@ -3558,7 +3567,33 @@ pre {
     font-size: 24px;
     margin-top: 3px;
     color: #34395e;
+    margin-top:30px;
 }
+.EditTable{
+
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
 .baslık {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
     margin-left: -30px;
@@ -3575,6 +3610,7 @@ pre {
     width: 100%;
     background-color: #fff;
     height:70px;
+
 }
 
 .main-wrapper-1 .section .section-header {
@@ -3668,7 +3704,9 @@ pre {
     background-color: #fff;
     z-index: 880;
     left: 0;
+    display:flex;
 }
+
 
 .main-sidebar,
 .navbar,
@@ -4416,3 +4454,5 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
 .section + .card-header {
     margin-top: 40px; 
 }
+
+

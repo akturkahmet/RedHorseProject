@@ -268,7 +268,6 @@
     <Content Include="Views\Home\frmCustomerDetails.cshtml" />
     <Content Include="Views\Customer\EditInformation.cshtml" />
     <Content Include="Views\Home\frmRezervationDetails.cshtml" />
-    <Content Include="Views\Home\frmAppealDetails.cshtml" />
     <Content Include="Views\Login\AgencyLogin.cshtml" />
     <Content Include="Views\Customer\frmDetails.cshtml" />
     <Content Include="Views\Customer\CustomerRezervation.cshtml" />
@@ -276,6 +275,8 @@
     <Content Include="Views\Customer\frmCreateReservation.cshtml" />
     <Content Include="Views\Customer\_EditReservationPartial.cshtml" />
     <Content Include="Views\Home\EditCapacity.cshtml" />
+    <Content Include="Views\Home\EditClock.cshtml" />
+    <Content Include="Views\Home\Graphics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

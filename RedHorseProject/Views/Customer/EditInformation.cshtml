@@ -37,8 +37,12 @@
                                     <label for="AgencyName">Acente Adı</label>
                                     <input id="AgencyName" type="text" class="form-control" name="AgencyName" value="@Model.AgencyName">
                                 </div>
+                                <div class="form-group col-6">
+                                    <label>Telefon Numarası</label>
+                                    <input type="text" id="Phone" name="Phone" class="form-control" value="@Model.Phone">
+                                </div>
 
-                                
+
                             </div>
 
 
@@ -55,14 +59,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-6">
+                                <div class="form-group col-12">
                                     <label>TC Kimlik No</label>
                                     <input type="text" id="TcKimlik" name="TcKimlik" class="form-control" value="@Model.Tc">
                                 </div>
-                                <div class="form-group col-6">
-                                    <label>Telefon Numarası</label>
-                                    <input type="text" id="Phone" name="Phone" class="form-control" value="@Model.Phone">
-                                </div>
+                                
                             </div>
                             <div class="form-group">
                                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="updateAgencyInformation()">

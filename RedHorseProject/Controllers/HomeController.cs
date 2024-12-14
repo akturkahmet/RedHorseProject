@@ -42,6 +42,14 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
+        public ActionResult Graphics()
+        {
+            return View();
+        }
+        public ActionResult EditClock()
+        {
+            return View();
+        }
         public ActionResult EditCapacity()
         {
             return View();
