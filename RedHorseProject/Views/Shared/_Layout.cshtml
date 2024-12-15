@@ -1,5 +1,5 @@
 ﻿@{
-    var FullName = ViewData["FullName"] as string;
+    var FullName = Session["FullName"] as string;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -37,8 +37,10 @@
                     <div class="main-sidebar sidebar-style-2">
                         <aside id="sidebar-wrapper">
                             <div>
-                                <h6>Hoşgeldiniz</h6>
-                                <h6> @FullName</h6>
+                                <div class="navbartitle" style="background-color: #fff;">
+                                    <h6 class="welcome-text">Hoşgeldiniz </h6>
+                                    <h6 class="username" style="display: inline-flex; gap: 8px; margin-left: 8px;"> @FullName</h6>
+                                </div>
                             </div>
                             <div class="sidebar-brand sidebar-brand-sm">
                                 <a href="index.html"></a>
@@ -107,11 +109,7 @@
             <!-- Main Content -->
             <div class="col-md-10 ">
 
-                <form class="form-inline mr-auto">
-                    <ul class="navbar-nav mr-3">
-                        <li><a style="width:20px;" href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-                    </ul>
-                </form>
+
                 @RenderBody()
             </div>
         </div>
@@ -151,6 +149,8 @@
     <!-- Page Specific JS File -->
     <!-- Template JS File -->
     <script src="~/Content/js/scripts.js"></script>
+    <script src="~/Content/js/Alert.js"></script>
+    <script src="~/Content/js/ValidateForm.js"></script>
     <script src="~/Content/js/Admin.js"></script>
 
 
@@ -166,5 +166,6 @@
     <!-- pdfmake for PDF Export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

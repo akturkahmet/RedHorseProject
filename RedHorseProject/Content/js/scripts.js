@@ -161,6 +161,27 @@ $(function () {
         }
     }
 
+    $("[data-close='sidebar']").click(function () {
+        var body = $("body"),
+            w = $(window),
+            title = $(".navbartitle");
+
+        // Sidebar'ın kapatma mantığı
+        if (w.outerWidth() <= 1024) {
+            body.removeClass('sidebar-show');
+            body.addClass('sidebar-gone');
+        } else {
+            body.addClass('sidebar-mini');
+        }
+
+        // Title'ı kaybolacak şekilde gizle
+        if (!title.hasClass("hidden")) {
+            title.addClass("hidden");
+        }
+
+        return false;
+    });
+
     $("[data-toggle='sidebar']").click(function () {
         var body = $("body"),
             w = $(window);
@@ -582,13 +603,7 @@ $(function () {
         });
     }
 });
-$(document).ready(function () {
-    $('.hamb-menu a').on('click', function () {
-        $('#app').toggleClass('shift'); // 'app' ana sınıfına 'shift' ekle veya kaldır
-        $('.layout').toggleClass('shift'); // 'layout' ana sınıfına 'shift' ekle veya kaldır
-        $('header').toggleClass('expanded'); // 'header' öğesine 'expanded' sınıfını ekle veya kaldır
-    });
-});
+
 
 
 $(document).on('click', '.close', function () {
@@ -822,33 +837,7 @@ function ConfirmRezervation(id) {
 }
 
 
-function UpdateCustomerStatus(id) {
-    $.ajax({
-        url: "/Home/UpdateCustomerStatus/",
-        method: "POST",
-        data: {
-            id: id
-        },
-        success: function (response) {
-            if (response.success) {
-                Swal.fire({
-                    title: 'Başarılı',
-                    text: response.message,
-                    icon: 'alert',
-                    confirmButtonText: 'Tamam'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        location.reload();
-                    }
-                });
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("Error:", error);
-            alert("Bir hata oluştu.");
-        }
-    });
-}
+
 function confirmCustomer(id) {
     $.ajax({
         url: "/Home/ConfirmCustomer/",
@@ -1017,32 +1006,7 @@ function getReservationDetails() {
     });
 }
 
-function updateReservation() {
-    var formData = $("#EditReservationForm").serialize();
-    $.ajax({
-        url: '/Customer/UpdateReservation',
-        method: 'POST',
-        data: formData,
-        success: function (response) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Başarıyla Güncellendi!',
-                text: 'Rezervasyon başarıyla güncellendi.',
-                showConfirmButton: true,
-                confirmButtonText: 'Tamam'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    refreshTable()
-                    $("#myModal").hide()
-                }
-            });
 
-        },
-        error: function (error) {
-            console.log("error:" + error);
-        }
-    });
-}
 function refreshTable() {
     if (editReservationTable) {
         editReservationTable.ajax.reload();

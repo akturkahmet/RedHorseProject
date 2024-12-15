@@ -24,31 +24,34 @@
             <div class="row align-items-center">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="mb-2" for="turSec">Tur Kategorisi:</label>
-                        <select id="turSec" name="turSec" class="form-control">
-                            <option value="seçiniz" disabled selected>Seç</option>
-                            <option value="atTur">At Turu</option>
-                            <option value="atvTur">ATV Turu</option>
-                            <option value="jeepSafari">Jeep Safari Turu</option>
-                            <option value="balonTur">Balon Turu</option>
-                            <option value="deveTur">Deve Turu</option>
+                        <label class="mb-2" for="TourTypeId">Tur Kategorisi:</label>
+                        <select id="TourTypeId" name="TourTypeId" class="form-control">
+                            <option value="-1"  selected>Hepsi</option>
+                            <option value="horse">At Turu</option>
+                            <option value="atv">ATV Turu</option>
+                            <option value="jeep">Jeep Safari Turu</option>
+                            <option value="ballon">Balon Turu</option>
+                            <option value="camel">Deve Turu</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="mb-2"  for="turSec">Saat Seçiniz:</label>
-                        <select id="turSec" name="turSec" class="form-control">
-                            <option value="seçiniz" disabled selected>Seç</option>
+                        <label class="mb-2" for="Hour">Saat Seçiniz:</label>
+                        <select id="Hour" name="Hour" class="form-control">
+                            <option value="-1" selected>Hepsi</option>
                             @for (int i = 0; i < 25; i++)
                             {
-                                <option value="@i">@i:00</option>
+
+                                string formattedHour = i < 10 ? $"0{i}" : i.ToString();
+                                <option value="@i">@formattedHour:00</option>
+
                             }
                         </select>
                     </div>
                 </div>
-                <button href="" onclick="openFilterModal()" class="btn btn-primary col-md-4" style="height:38px;">Listele</button>
+                <button href="" onclick="createReservetionTable()" class="btn btn-primary col-md-2" style="height:38px;">Listele</button>
             </div>
         </div>
     </div>
@@ -66,6 +69,7 @@
                         <thead>
                             <tr>
                                 <th>Acenta Adı</th>
+                                <th>Tur Tipi</th>
                                 <th>Adı</th>
                                 <th>Soyadı</th>
                                 <th>Telefon</th>
@@ -73,6 +77,7 @@
                                 <th>Pasaport Numarası</th>
                                 <th>Oda Numarası</th>
                                 <th>Kişi Sayısı</th>
+                                <th>Rezervasyon Tarihi</th>
                                 <th>Aksiyon</th>
                             </tr>
                         </thead>

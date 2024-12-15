@@ -22,73 +22,67 @@
                         <div class="card-header"><h4>Yeni Kayıt</h4></div>
 
                         <div class="card-body">
-                            <form id="createAgencyForm" method="post">
+                            <form id="createAgencyForm">
                                 <div class="row">
                                     <div class="form-group col-4">
-                                        <label for="first_name">İsim</label>
-                                        <input id="first_name" type="text" class="form-control" name="frist_name" autofocus>
+                                        <label for="FirstName">İsim</label>
+                                        <input id="FirstName" type="text" class="form-control" name="FirstName" autofocus>
                                     </div>
                                     <div class="form-group col-4">
-                                        <label for="last_name">Soyisim</label>
-                                        <input id="last_name" type="text" class="form-control" name="last_name">
+                                        <label for="LastName">Soyisim</label>
+                                        <input id="v" type="text" class="form-control" name="LastName">
                                     </div>
                                     <div class="form-group col-4">
-                                        <label for="frist_name">Acente Adı</label>
-                                        <input id="frist_name" type="text" class="form-control" name="frist_name" autofocus>
+                                        <label for="AgencyName">Acente Adı</label>
+                                        <input id="AgencyName" type="text" class="form-control" name="AgencyName" autofocus>
                                     </div>
                                 </div>
-                               
-
-                                
-
                                 <div class="row">
                                     <div class="form-group col-4">
-                                        <label for="email">Email</label>
-                                        <input id="email" type="email" class="form-control" name="email">
+                                        <label for="Mail">Email</label>
+                                        <input id="Mail" type="email" class="form-control" name="Mail">
                                         <div class="invalid-feedback">
                                         </div>
                                     </div>
                                     <div class="form-group col-4">
-                                        <label for="password" class="d-block">Şifre</label>
-                                        <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password">
+                                        <label for="Password" class="d-block">Şifre</label>
+                                        <input id="Password" type="Password" class="form-control pwstrength" data-indicator="pwindicator" name="password">
                                         <div id="pwindicator" class="pwindicator">
                                             <div class="bar"></div>
                                             <div class="label"></div>
                                         </div>
                                     </div>
                                     <div class="form-group col-4">
-                                        <label for="tursab_no">Türsab Numarası</label>
-                                        <input id="tursab_no" type="text" class="form-control" name="tursab_no" autofocus>
+                                        <label for="TursabNo">Türsab Numarası</label>
+                                        <input id="TursabNo" type="text" class="form-control" name="TursabNo" autofocus>
                                     </div>
                                 </div>
-
                                 <div class="row">
-
                                     <div class="form-group col-4">
                                         <label>Faaliyet Bölgesi</label>
-                                        <select class="form-control selectric" id="region" name="region">
+                                        <select class="form-control selectric" id="Region" name="Region">
                                             <option selected value="Kapadokya">Kapadokya</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-4">
                                         <label>Vergi Kimlik No</label>
-                                        <input type="text" class="form-control" id="Tax_no" name="Tax_no">
+                                        <input type="text" class="form-control" id="TaxNo" name="TaxNo">
                                     </div>
                                     <div class="form-group col-4">
                                         <label>Telefon Numarası</label>
-                                        <input type="text" class="form-control" id="phone" name="phone">
+                                        <input type="text" class="form-control" id="Phone" name="Phone">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-4">
                                         <label>TC Kimlik No</label>
-                                        <input type="text" class="form-control" id="Tc_no" name="tc_no">
+                                        <input type="text" class="form-control" id="Tc" name="Tc">
                                     </div>
 
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="col-12 btn btn-primary btn-lg btn-block">
+                                    <button type="button" onclick="addNewAgency()" class="col-12 btn btn-primary btn-lg btn-block">
                                         Kaydet
                                     </button>
                                 </div>
@@ -98,68 +92,4 @@
                 </div>
             </div>
         </div>
-    
 </body>
-<script>
-    $(document).ready(function () {
-        $('#createAgencyForm').on('submit', function (e) {
-            e.preventDefault();  
-
-            var formData = {
-                FirstName: $('#first_name').val(),
-                LastName: $('#last_name').val(),
-                UserName: $('#frist_name').val(),
-                Mail: $('#email').val(),
-                Phone: $('#phone').val(),
-                TursabNo: $('#tursab_no').val(),
-                TcNo: $('#tc_no').val(),
-                Region: $('#region').val(),
-                Password: $('#password').val(),
-            };
-
-
-            var missingFields = [];
-            if (!formData.FirstName) missingFields.push('İsim');
-            if (!formData.LastName) missingFields.push('Soyisim');
-            if (!formData.UserName) missingFields.push('Acente Adı');
-            if (!formData.Mail) missingFields.push('Email');
-            if (!formData.Phone) missingFields.push('Telefon Numarası');
-            if (!formData.TursabNo) missingFields.push('Türsab Numarası');
-            if (!formData.TcNo) missingFields.push('Vergi Kimlik No/TC Kimlik No');
-            if (!formData.Region) missingFields.push('Faaliyet Bölgesi');
-            if (!formData.Password) missingFields.push('Şifre');
-
-            if (missingFields.length > 0) {
-                var missingFieldsText = missingFields.join(', ');
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Eksik Alanlar',
-                    text: missingFieldsText + ' boş bırakılamaz.',
-                });
-                return; 
-            }
-
-
-            $.ajax({
-                url:'@Url.Action("CreateCustomer","Home")',
-                type: 'POST',
-                data: formData,  
-                success: function (response) {
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Başarılı',
-                            text: response.message,
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Hata',
-                            text: response.message,
-                        });
-                    }
-                },
-            });
-        });
-    });
-</script>

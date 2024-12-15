@@ -1,6 +1,21 @@
-﻿.navbartitle{
-    display:flex;
-    justify-content:center;
+﻿/*.navbartitle {
+    background: linear-gradient(to right, #007bff, #6610f2); 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    gap: 15px; 
+    color: #fff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    padding: 40px 139px 0 0;
+   
+}
+
+.username{
+    white-space:nowrap;
+}*/
+
+.welcome-text{
+    margin-left:5px;
 }
 .capacityselect {
     display: block;
@@ -176,6 +191,7 @@
 
 
 
+
 /* Buton */
 .btn-booking {
     background-color: #00296b;
@@ -211,8 +227,8 @@ body {
     margin: 0;
     color: #6a6f8c;
     background: #c8c8c8;
-/*    font: 600 16px/18px 'Open Sans',sans-serif;
-*/}
+    overflow-x: hidden;
+}
 
 *, :after, :before {
     box-sizing: border-box
@@ -4073,8 +4089,8 @@ body.layout-3 .main-footer {
 }
 
 .main-sidebar .sidebar-brand {
-    display: inline-block;
-    width: 100%;
+    background-color: #EAF4FC;
+    width: 250px;
     text-align: center;
     height: 60px;
     line-height: 60px;

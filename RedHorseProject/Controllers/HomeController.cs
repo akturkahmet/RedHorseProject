@@ -1,15 +1,11 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Context;
 using EntityLayer.Concrete;
+using RedHorseProject.Helper;
 using RedHorseProject.Models;
-using RedHorseProject.Models.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Management;
 using System.Web.Mvc;
-using System.Web.Services.Description;
 
 namespace RedHorseProject.Controllers
 {
@@ -122,9 +118,9 @@ namespace RedHorseProject.Controllers
 
             return PartialView("_CustomerRezervationDetails");
         }
-        public ActionResult frmCustomerDetails()
+        public ActionResult frmEditCapacityHour()
         {
-            return View("frmCustomerDetails");
+            return View();
         }
         public ActionResult frmRezervationDetails()
         {
@@ -271,27 +267,163 @@ namespace RedHorseProject.Controllers
 
             return Json(new { success = true, message = "Successfully updated." });
         }
-        public JsonResult getAgencyDetails(int id)
+        public JsonResult getAgencies()
         {
-            var customers = _context.Agencys
-                .FirstOrDefault(x => x.Id == id);
+            var agencies = _context.Agencys
+               .Select(a => new
+               {
+                   a.AgencyName,
+                   FullName = a.FirstName + " " + a.LastName,
+                   a.CreatedDate,
+                   a.TursabNo,
+                   a.Phone,
+                   a.TaxNo,
+                   a.Tc,
+                   a.Status,
+                   a.Region,
+                   a.Id,
+                   a.Mail
+               }).ToList()
+               .Select(a => new
+               {
+                   a.AgencyName,
+                   a.FullName,
+                   CreatedDate = a.CreatedDate.ToString("dd.MM.yyyy HH:mm"), // Kod tarafında formatlayın
+                   a.TursabNo,
+                   a.Phone,
+                   a.TaxNo,
+                   a.Tc,
+                   a.Status,
+                   a.Region,
+                   a.Id,
+                   a.Mail
+               });
 
-            if (customers == null)
+
+
+            if (!agencies.Any())
             {
-                return Json(new { success = false, message = "Customer not found." });
+                return Json(new { success = false, message = "No agencies found." });
             }
 
-            return Json(new
+            return Json(new { success = true, data = agencies }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult createNewAgency(Agency model)
+        {
+            _context.Agencys.Add(model);
+
+            int rowsAffected = _context.SaveChanges();
+
+            if (rowsAffected > 0)
             {
-                customers.AgencyName,
-                customers.Mail,
-                customers.TursabNo,
-                customers.Phone,
-                customers.TaxNo,
-                success = true
-            });
+                return Json(new { success = true, message = "Ajans başarı ile eklendi." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Ajans ekklenemedi." });
+            }
+        }
+        [HttpGet]
+        public JsonResult getHours(string tourType)
+        {
+            var result = (from h in _context.HoursCapacitys
+                          join t in _context.TourTypes on h.TourTypeId equals t.Id
+                          where tourType == "0" || h.TourTypeId == tourType
+                          select new
+                          {
+                              h.Id,
+                              h.Status,
+                              t.Name,
+                              h.Hour,
+                              h.Capacity,
+                              h.TourTypeId
+                          }).ToList();
+
+
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult updateStatusHour(int id)
+        {
+            var hour = _context.HoursCapacitys.Where(x => x.Id == id).FirstOrDefault();
+            if (hour.Status == true)
+            {
+                hour.Status = false;
+                _context.SaveChanges();
+                return Json(new { succes = true, message = "Saat Deaktif edildi." });
+
+            }
+            else
+            {
+                hour.Status = true;
+                _context.SaveChanges();
+                return Json(new { succes = true, message = "Saat aktif edildi." });
+
+            }
+
+        }
+        public JsonResult ChangePassword(string UserName, string newPassword, string confirmPassword)
+        {
+
+
+            var currentUserName = Session["UserName"]?.ToString();
+            var admin = _context.Admins.Where(a => a.UserName == currentUserName).FirstOrDefault();
+
+            if (string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(UserName))
+            {
+                return Json(new { success = false, message = "Lütfen Boş Bırakmayınız." });
+            }
+
+            if (UserName != currentUserName)
+            {
+                return Json(new { success = false, message = "Hatalı E-Mail Adresi." });
+            }
+
+            if (newPassword != confirmPassword)
+            {
+                return Json(new { success = false, message = "Yeni şifre ile şifre onayı eşleşmiyor." });
+            }
+
+            admin.Password = newPassword;
+            admin.UserName = UserName;
+
+            _context.SaveChanges();
+
+            return Json(new { success = true, message = "Şifreniz başarıyla değiştirildi." });
         }
 
+
+
+
+        public JsonResult GetRezervation(string TourTypeId, int Hour)
+        {
+            var reservations = (from r in _context.Reservations
+                                join a in _context.Agencys on r.Agency_Id equals a.Id
+                                join t in _context.TourTypes on r.TourType equals t.Id
+                                where
+                                    (TourTypeId == "-1" || r.TourType == TourTypeId ) &&
+                                    ( Hour == -1  ||  r.ReservationDate.Hour == Hour )
+                                select new
+                                {
+                                    r.Id,
+                                    r.FirstName,
+                                    r.LastName,
+                                    r.Phone,
+                                    r.HotelName,
+                                    r.PassportNo,
+                                    r.HotelRoomNo,
+                                    r.CustomerCount,
+                                    r.ReservationDate,
+                                    r.Status,
+                                    a.AgencyName,
+                                    t.Name
+                                }).ToList();
+
+            return new CustomJsonResult { Data =  reservations  };
+
+        }
 
     }
 }

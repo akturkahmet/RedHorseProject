@@ -1,5 +1,5 @@
 ﻿@{
-    var FullName = ViewData["FullName"] as string;
+    var FullName = Session["FullName"] as string;
 }
 
 
@@ -29,12 +29,6 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- /END GA -->
-
-
-
-
-
-
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <!-- Buttons CSS -->
@@ -53,10 +47,11 @@
                     <div class="main-sidebar sidebar-style-2">
                         <aside id="sidebar-wrapper">
                             <div>
-                                <div class="navbartitle" style="background-color: #cfd4d9; padding: 40px; ">
-                                    <h6>Hoşgeldiniz </h6>
-                                    <h6 style="margin-left: 8px;"> @FullName</h6>
+                                <div class="sidebar-brand">
+                                    <h6 style="margin-top: 5px;" class="welcome-text">Hoşgeldiniz </h6>
+                                    <h6 style="position:relative; top:8px;"  class="username">@FullName</h6>
                                 </div>
+
                             </div>
                             <div class="sidebar-brand sidebar-brand-sm">
                             </div>
@@ -64,6 +59,11 @@
                                 <li class="menu-header">Turlar</li>
                                 <li>
                                     <a href="/Customer/Index">
+                                        <i class="fas fa-th"></i><span>Ana Sayfa</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Customer/ReservationCreater">
                                         <i class="fas fa-th"></i><span>Rezervasyon Oluştur</span>
                                     </a>
                                 </li>
@@ -108,11 +108,7 @@
             <!-- Main Content -->
 
             <div class="col-md-10 ">
-                <form class="form-inline mr-auto">
-                    <ul class="navbar-nav mr-3">
-                        <li><a style="width:20px;" href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-                    </ul>
-                </form>
+
                 @RenderBody()
             </div>
         </div>
@@ -156,6 +152,8 @@
     <!-- Page Specific JS File -->
     <!-- Template JS File -->
     <script src="~/Content/js/scripts.js"></script>
+    <script src="~/Content/js/Alert.js"></script>
+    <script src="~/Content/js/ValidateForm.js"></script>
     <script src="~/Content/js/Customer.js"></script>
 
 

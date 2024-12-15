@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "ReservationCreater";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<div class="section">
+    <div class="section-header">
+        <h5>Rezervasyon Oluştur</h5>
+    </div>
+    <div class="section-body">
+        <div class="bottom-panel bottom-panel--floating">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-md-6" for="CustomerCount">Kalan Kapasite:</label>
+                        <label class="col-md-6" id="remainingCapacity"></label>
+                    </div>
+                        
+                </div>
+            </div>
+
+            <div class="row" id="reservationForm">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="TourType1">Tur Seçiniz:</label>
+                        <select id="TourType1" name="TourType1" class="form-control" onchange="ControlHours(this.value)">
+                            <option value="seçiniz" disabled selected>Seç</option>
+                            <option value="horse">At Turu</option>
+                            <option value="atv">ATV Turu</option>
+                            <option value="jeep">Jeep Safari Turu</option>
+                            <option value="ballon">Balon Turu</option>
+                            <option value="camel">Deve Turu</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group  dropdown">
+                        <label class="labelFeature" for="sure">Tur Tarihi:</label>
+                        <input type="date" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off">
+
+
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="reservationHour1">Saat Seçiniz:</label>
+                        <select id="reservationHour1" name="reservationHour1" class="form-control">
+                            <option value="" disabled selected>Seç</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="CustomerCount">Kapasite:</label>
+                        <input class="form-control" type="text" name="CustomerCount1" id="CustomerCount1" value="" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button href="" onclick="openCreateReservationModal()" class="btn-booking">Rezervasyon Oluştur</button>
+                </div>
+                <div class="col-md-2">
+                    <button  onclick="controlHourCapacity()" class="btn-booking">Kapasite Gör</button>
+                </div>
+
+            </div>
+
+
+            <div class="tour-card">
+                <h2>Lütfen Dikkat!</h2>
+                <p>Kapasite kısmına At, ATV ve Jeep turları için <strong>araç sayısını</strong>, Balon ve Deve turları için ise <strong>kişi sayılarını</strong> girmeniz gerekmektedir.</p>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -12,6 +12,7 @@ using BusinessLayer.Concrete;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
+using System.Web.Http;
 
 namespace RedHorseProject
 {
@@ -21,10 +22,8 @@ namespace RedHorseProject
         {
             var container = new UnityContainer();
 
-            // Dependency Injection ayarlarını yap
             RegisterDependencies(container);
 
-            // MVC'deki DependencyResolver'ı Unity'e bağla
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
 
@@ -32,6 +31,8 @@ namespace RedHorseProject
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.DateFormatString = "dd/MM/yyyy";
+
         }
         private void RegisterDependencies(IUnityContainer container)
         {

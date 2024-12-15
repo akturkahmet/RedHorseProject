@@ -33,16 +33,9 @@ namespace RedHorseProject.Controllers
 
         public ActionResult Index()
         {
-            string FirstName = (string)Session["FirstName"];
-            string LastName = (string)Session["LastName"];
-            string FullName = FirstName + " " + LastName;
-            ViewData["FullName"] = FullName;
+
             using (RedHorseContext c = new RedHorseContext())
             {
-                var agencyId = (int)Session["AgencyId"];
-
-                var atv = c.Reservations.Where(car => car.Agency_Id == agencyId).ToList();
-
                 return View();
             }
         }
@@ -121,76 +114,38 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
+        public ActionResult ReservationCreater()
+        {
+            return View();
+        }
 
         // Methodlar
         public JsonResult GetRezervation()
         {
-            string role = (string)Session["Role"];
 
-            if (role == "Admin")
-            {
-                var allReservations = _context.Reservations
-                    .Join(_context.Agencys,
-                        reservation => reservation.Agency_Id,
-                        agency => agency.Id,
-                        (reservation, agency) => new
-                        {
-                            reservation.Id,
-                            reservation.FirstName,
-                            reservation.LastName,
-                            reservation.Phone,
-                            reservation.HotelName,
-                            reservation.PassportNo,
-                            reservation.HotelRoomNo,
-                            reservation.CustomerCount,
-                            reservation.Status,
-                            reservation.CreatedDate,
-                            reservation.ReservationDate,
-                            agency.AgencyName
-                        })
-                    .ToList() // Veritabanından verileri çekiyoruz
-                    .Select(r => new
-                    {
-                        r.Id,
-                        r.FirstName,
-                        r.LastName,
-                        r.Phone,
-                        r.HotelName,
-                        r.PassportNo,
-                        r.HotelRoomNo,
-                        r.CustomerCount,
-                        r.Status,
-                        CreatedDate = r.CreatedDate.ToString("dd.MM.yyyy"), // Tarihi formatlıyoruz
-                        ReservationDate = r.ReservationDate.ToString("dd.MM.yyyy"), // Tarihi formatlıyoruz
-                        r.AgencyName
-                    });
 
-                return Json(allReservations, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                int agencyId = (int)Session["AgencyId"];
+            int agencyId = (int)Session["AgencyId"];
 
-                var reservations = _context.Reservations
-                    .Where(r => r.Agency_Id == agencyId)
-                    .ToList() // Veritabanından verileri çekiyoruz
-                    .Select(r => new
-                    {
-                        r.Id,
-                        r.FirstName,
-                        r.LastName,
-                        r.Phone,
-                        r.HotelName,
-                        r.PassportNo,
-                        r.HotelRoomNo,
-                        r.CustomerCount,
-                        r.Status,
-                        CreatedDate = r.CreatedDate.ToString("dd.MM.yyyy"), // Tarihi formatlıyoruz
-                        ReservationDate = r.ReservationDate.ToString("dd.MM.yyyy") // Tarihi formatlıyoruz
-                    });
+            var reservations = _context.Reservations
+                .Where(r => r.Agency_Id == agencyId)
+                .ToList() 
+                .Select(r => new
+                {
+                    r.Id,
+                    r.FirstName,
+                    r.LastName,
+                    r.Phone,
+                    r.HotelName,
+                    r.PassportNo,
+                    r.HotelRoomNo,
+                    r.CustomerCount,
+                    r.Status,
+                    CreatedDate = r.CreatedDate.ToString("dd.MM.yyyy"),
+                    ReservationDate = r.ReservationDate.ToString("dd.MM.yyyy") 
+                });
 
-                return Json(reservations, JsonRequestBehavior.AllowGet);
-            }
+            return Json(reservations, JsonRequestBehavior.AllowGet);
+
         }
 
 
@@ -347,7 +302,7 @@ namespace RedHorseProject.Controllers
             var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId).ToList().Sum(x => x.CustomerCount);
             if (capacity == null)
             {
-                return Json(new { success = true});
+                return Json(new { success = true });
             }
             int remainingCapacity = capacity.Capacity - reservationCustomerCount;
             if (remainingCapacity >= CustomerCount)
@@ -359,17 +314,37 @@ namespace RedHorseProject.Controllers
             {
                 if (remainingCapacity <= 0)
                 {
-                    return Json(new { success = false, message = $"Yer kalmadı" });
+                    return Json(new { success = false, message = $"Yer kalmadı", remainingCapacity });
                 }
                 else
                 {
-                    return Json(new { success = false, message = $"Sadece {remainingCapacity} kişilik yer kaldı." });
+                    return Json(new { success = false, message = $"Sadece {remainingCapacity} kişilik yer kaldı.", remainingCapacity });
 
                 }
 
             }
         }
+        [HttpGet]
+
+        public JsonResult ControlHours(string TourTypeId)
+        {
+
+            var hours = _context.HoursCapacitys.Where(x => x.TourTypeId == TourTypeId).ToList();
+
+            return Json(hours, JsonRequestBehavior.AllowGet);
 
 
+        }
+        public JsonResult ControlHourCapacity(string TourTypeId, string Hour, DateTime ReservationDate)
+        {
+
+            var capacity = _context.HoursCapacitys.Where(x => x.TourTypeId == TourTypeId && x.Hour == Hour).FirstOrDefault();
+            var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId).ToList().Sum(x => x.CustomerCount);
+            int remainingCapacity = capacity.Capacity - reservationCustomerCount;
+
+            return Json(remainingCapacity, JsonRequestBehavior.AllowGet);
+
+
+        }
     }
 }

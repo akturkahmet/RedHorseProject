@@ -52,8 +52,12 @@ namespace RedHorseProject.Controllers
             {
                 FormsAuthentication.SetAuthCookie(adminuserinfo.Role, false);
                 Session["Role"] = adminuserinfo.Role;
+                Session["UserName"] = adminuserinfo.UserName;
                 Session["FirstName"] = adminuserinfo.FirstName;
                 Session["LastName"] = adminuserinfo.LastName;
+                Session["AdminId"] = adminuserinfo.Id;
+                Session["FullName"] = $"{adminuserinfo.FirstName} {adminuserinfo.LastName}";
+
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -97,8 +101,7 @@ namespace RedHorseProject.Controllers
             Session["Mail"] = adminuserinfo.Mail;
             Session["AgencyId"] = adminuserinfo.Id;
             Session["UserId"] = adminuserinfo.Id;
-            Session["FirstName"] = adminuserinfo.FirstName;
-            Session["LastName"] = adminuserinfo.LastName;
+            Session["FullName"] = $"{adminuserinfo.FirstName} {adminuserinfo.LastName}";
 
             return RedirectToAction("Index", "Customer");
         }
@@ -137,7 +140,7 @@ namespace RedHorseProject.Controllers
                 TursabNo = TursabNo,
                 Tc = IdentityNo,
                 Region = Region,
-                Password = hashedPassword, 
+                Password = hashedPassword,
                 TaxNo = TaxNo,
                 Role = "Agency",
                 Status = false,
@@ -155,7 +158,7 @@ namespace RedHorseProject.Controllers
             {
                 byte[] bytes = Encoding.UTF8.GetBytes(password);
                 byte[] hash = sha256.ComputeHash(bytes);
-                return Convert.ToBase64String(hash); 
+                return Convert.ToBase64String(hash);
             }
         }
 
@@ -164,15 +167,15 @@ namespace RedHorseProject.Controllers
         {
             FormsAuthentication.SignOut();
 
-            var role = Session["Role"] as string; 
+            var role = Session["Role"] as string;
             Session.Clear();
-            if (role=="Admin")
-            {   
+            if (role == "Admin")
+            {
                 return RedirectToAction("Admin", "Login");
 
             }
             return RedirectToAction("Index", "Login");
-       
+
         }
 
     }
