@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Concrete\Admin.cs" />
     <Compile Include="Concrete\Agency.cs" />
+    <Compile Include="Concrete\AgencyDto.cs" />
     <Compile Include="Concrete\CustomerInformation.cs" />
     <Compile Include="Concrete\HoursCapacity.cs" />
     <Compile Include="Concrete\Reservation.cs" />

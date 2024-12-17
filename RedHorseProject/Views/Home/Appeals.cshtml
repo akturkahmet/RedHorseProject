@@ -1,6 +1,6 @@
 ﻿@model List<EntityLayer.Concrete.Agency>
 @{
-    ViewBag.Title = "Appeals";
+    ViewBag.Title = "Acenta Başvuruları";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section class="section">
@@ -18,48 +18,32 @@
                     <h4>Onay Bekleyen Başvurular</h4>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="table-1">
-                            <thead>
-                                <tr>
+                    <table class="table" id="unAprrovedAgencies">
+                        <thead>
+                            <tr>
 
-                                    <th>Acente Adı</th>
-                                    <th>Oluşturulma Tarihi</th>
-                                    <th>Aksiyon</th>
-                                    <th>İşlemler</th>
-                                    <th>İşlemler</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@item.AgencyName</td>
-                                        <td class="font-weight-600">
-                                            @item.CreatedDate.ToString("dd.MM.yyyy")
-                                        </td>
-
-                                        <td>
-                                            <button href="" onclick="openCustomerModal()" class="btn btn-primary">Detaylar</button>
-                                        </td>
-                                        <td>
-                                            <a onclick="confirmCustomer(@item.Id)" class="btn btn-primary">Onayla</a>
-                                        </td>
-                                        <td>
-                                            <a onclick="cancelCustomer(@item.Id)" class="btn btn-primary">Reddet</a>
-                                        </td>
-
-                                    </tr>
-                                }
-
-                            </tbody>
-                        </table>
-                    </div>
+                                <th>Acente Adı</th>
+                                <th>Adı</th>
+                                <th>Soyadı</th>
+                                <th>Katılma Tarihi</th>
+                                <th>Telefon Numarası</th>
+                                <th>Mail Adresi</th>
+                                <th>Vergi Numarası</th>
+                                <th>Tursab Numarası</th>
+                                <th>Tc No</th>
+                                <th>Bölge</th>
+                                <th>Onayla</th>
+                                <th>Reddet</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
+            
             </div>
         </div>
     </div>
 
 </div>
-</section>
+

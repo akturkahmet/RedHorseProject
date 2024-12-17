@@ -7,6 +7,9 @@
         passwordField.attr('type', 'password');
     }
 });
+function closeModal() {
+    $('#myModal').hide();
+}
 
 
 function register() {
@@ -59,4 +62,64 @@ function register() {
         },
     });
 }
+function openForgotPasswordModal() {
 
+    fetch('/Login/frmForgotPassword')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(html => {
+            document.getElementById('modalTitle').textContent = 'Şifre Yenile';
+
+            document.getElementById('Body').innerHTML = html;
+
+            // Modal'ı göster
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+
+            // Arka plan için fade sınıfı
+            document.body.classList.add('modal-open');
+        })
+        .catch(error => console.error('Error loading modal content:', error));
+}
+function changePassword() {
+    var formData = $("#changePasswordForm").serialize();
+    $.ajax({
+        url: '/Login/ChangePassword',
+        method: 'POST',
+        data: formData,
+        success: function (response) {
+            if (response.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Başarıyla Güncellendi!',
+                    text: response.message,
+                    showConfirmButton: true,
+                    confirmButtonText: 'Tamam'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hata',
+                    text: response.message,
+                    showConfirmButton: true,
+                    confirmButtonText: 'Tamam'
+                });
+            }
+        },
+
+        error: function (xhr) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Hata',
+                text: xhr.responseJSON?.message || 'Bir hata oluştu. Lütfen tekrar deneyin.',
+                showConfirmButton: true,
+                confirmButtonText: 'Tamam'
+            });
+        }
+    });
+}

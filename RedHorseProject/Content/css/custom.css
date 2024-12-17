@@ -1,10 +1,8 @@
-﻿/* Menüyü sağdan açmak için gerekli stil */
-.shift {
+﻿.shift {
     transform: translateX(-250px); /* Menü genişliğine göre ayarlayın */
     transition: transform 0.3s ease;
 }
 
-/* İçeriğin kayması için gerekli stil */
 .layout.shift {
     transform: translateX(-250px); /* Menü genişliğine göre ayarlayın */
     transition: transform 0.3s ease;
@@ -127,3 +125,22 @@
     .color-green{
         color:green;
     }
+
+
+
+
+#activeButton {
+    line-height: normal;
+    white-space: nowrap;
+    min-width: 85px;
+
+}
+
+
+.deactivebutton {
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 10px 20px;
+    white-space:nowrap;
+}

@@ -1,5 +1,12 @@
 ﻿$(document).ready(function () {
     createAgenciesTable()
+    createunAprrovedAgenciesTable()
+    createReservetionTable()
+    function closeModal() {
+        $('#myModal').hide();
+
+    }
+
 });
 function addNewAgency() {
     var formData = $("#createAgencyForm").serialize()
@@ -43,7 +50,7 @@ function createAgenciesTable() {
     $('#AgenciesTable').DataTable({
         ajax: {
             url: '/Home/getAgencies',
-            dataSrc: 'data'
+            dataSrc: 'Data'
         },
         dom: 'Bfrtip',
         buttons: [
@@ -68,7 +75,8 @@ function createAgenciesTable() {
         ],
         columns: [
             { data: 'AgencyName' },
-            { data: 'FullName' },
+            { data: 'FirstName' },
+            { data: 'LastName' },
             { data: 'CreatedDate' },
             { data: 'Phone' },
             { data: 'Mail' },
@@ -80,17 +88,143 @@ function createAgenciesTable() {
                 data: null,
                 render: function (data, type, row) {
                     if (data.Status == 1) {
-                        return `<button onclick="UpdateCustomerStatus(${row.Id}, false)" class="btn btn-danger">Deaktif Et</button>`;
+                        return `<button onclick="UpdateCustomerStatus(${row.Id}, false)" id="deactivebutton" class="btn btn-danger">Deaktif Et</button>`;
                     }
                     else {
                         return `<button onclick="UpdateCustomerStatus(${row.Id})" class="btn btn-primary">Aktif Et</button>`;
                     }
                 }
             }
-        ]
+        ],
+        initComplete: function () {
+            // Tablodaki tüm hücrelerde padding'i sıfırlama ve metni ortalama
+            $('#AgenciesTable tbody th, #AgenciesTable tbody td').css({
+                'padding': '0',
+                'text-align': 'center',   // Yatayda ortalama
+                'vertical-align': 'middle' // Dikeyde ortalama
+            });
+            $('#AgenciesTable .btn').css({
+                'font-size': '12px', // Buton yazı boyutunu küçültme
+                'padding': '5px 10px', // Buton içindeki padding'i küçültme
+                'width': 'auto'  ,// Buton genişliğini otomatik yapmak
+                'height':'33px'
+            });
+        }
     });
 }
 
+
+function createunAprrovedAgenciesTable() {
+    $('#unAprrovedAgencies').DataTable({
+        ajax: {
+            url: '/Home/GetUnaprrovedAgencies',
+            dataSrc: 'Data'
+        },
+        //dom: 'Bfrtip',
+        columns: [
+            { data: 'AgencyName' },
+            { data: 'FirstName' },
+            { data: 'LastName' },
+            { data: 'CreatedDate' },
+            { data: 'Phone' },
+            { data: 'Mail' },
+            { data: 'TaxNo' },
+            { data: 'TursabNo' },
+            { data: 'Tc' },
+            { data: 'Region' },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return `<a onclick="confirmCustomer(${row.Id})" class="btn btn-primary">Onayla</a>`;
+                }
+            }  ,
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return `<a onclick="cancelCustomer(${row.Id})" class="btn btn-primary">Reddet</a>`;
+                }
+            }
+        ]
+    });
+}
+function openAppealModal() {
+
+    fetch('/Home/frmAppealDetails')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(html => {
+            document.getElementById('modalTitle').textContent = 'Müşteriler';
+
+            // İçeriği modal-body123'e yükle
+            document.getElementById('Body').innerHTML = html;
+
+            // Modal'ı göster
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+
+            // Arka plan için fade sınıfı
+            document.body.classList.add('modal-open');
+        })
+        .catch(error => console.error('Error loading modal content:', error));
+}
+function confirmCustomer(id) {
+    $.ajax({
+        url: "/Home/ConfirmCustomer/",
+        method: "POST",
+        data: {
+            id: id
+        },
+        success: function (response) {
+
+            Swal.fire({
+                title: 'Başarılı',
+                text: 'Müşteri onaylandı.',
+                icon: 'success',
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        },
+        error: function (xhr, status, error) {
+            Alert(3)
+        }
+    });
+}
+function cancelCustomer(id) {
+    $.ajax({
+        url: "/Home/CancelCustomer/",
+        method: "POST",
+        data: {
+            id: id
+        },
+        success: function (response) {
+
+            Swal.fire({
+                title: 'Başarılı',
+                text: 'Müşteri reddedildi.',
+                icon: 'alert',
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+
+
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+            alert("Bir hata oluştu.");
+        }
+    });
+}
 function UpdateCustomerStatus(id) {
     $.ajax({
         url: "/Home/UpdateCustomerStatus/",
@@ -147,7 +281,7 @@ function createReservetionTable() {
                 filename: 'Rezervasyonlar',
                 title: 'Rezervasyonlar Listesi',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                 }
             },
             {
@@ -156,7 +290,7 @@ function createReservetionTable() {
                 filename: 'Rezervasyonlar',
                 title: 'Rezervasyonlar Listesi',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                 }
             }
         ],
@@ -175,9 +309,9 @@ function createReservetionTable() {
                 data: null,
                 render: function (data, type, row) {
                     if (data.Status == 1) {
-                        return `<button onclick="updateStatus(${row.Id}, false)" class="btn btn-danger" style="font-size:10px;" ">Deaktif Et</button>`;
+                        return `<button onclick="updateStatus(${row.Id}, false)" class="btn btn-danger" id="activeButton">Deaktif Et</button>`;
                     } else {
-                        return `<button onclick="updateStatus(${row.Id}, true)" class="btn btn-primary" style="font-size:10px;" >Aktif Et</button>`;
+                        return `<button onclick="updateStatus(${row.Id}, true)" class="btn btn-primary" id="activeButton" >Aktif Et</button>`;
                     }
                 }
             }

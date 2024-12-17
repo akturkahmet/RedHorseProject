@@ -117,6 +117,10 @@
     <Compile Include="Migrations\202412121838599_gdet.Designer.cs">
       <DependentUpon>202412121838599_gdet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202412171235566_isApproved.cs" />
+    <Compile Include="Migrations\202412171235566_isApproved.Designer.cs">
+      <DependentUpon>202412171235566_isApproved.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -175,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202412121838599_gdet.resx">
       <DependentUpon>202412121838599_gdet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412171235566_isApproved.resx">
+      <DependentUpon>202412171235566_isApproved.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

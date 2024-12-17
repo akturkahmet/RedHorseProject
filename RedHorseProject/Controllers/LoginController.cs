@@ -111,6 +111,10 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
+        public ActionResult frmForgotPassword()
+        {
+            return View();
+        }
 
 
 
@@ -176,6 +180,32 @@ namespace RedHorseProject.Controllers
             }
             return RedirectToAction("Index", "Login");
 
+        }
+        [HttpPost]
+        public JsonResult ChangePassword(string email, string newPassword, string confirmPassword)
+        {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
+            {
+                return Json(new { success = false, message = "Lütfen tüm alanları doldurunuz." });
+            }
+
+            var agency = _context.Agencys.FirstOrDefault(x => x.Mail == email);
+            if (agency == null)
+            {
+                return Json(new { success = false, message = "Mail adresi sistemde bulunamadı." });
+            }
+
+            if (newPassword != confirmPassword)
+            {
+                return Json(new { success = false, message = "Yeni şifre ile şifre onayı eşleşmiyor." });
+            }
+
+
+            agency.Password = HashPassword(newPassword);
+
+            _context.SaveChanges();
+
+            return Json(new { success = true, message = "Şifreniz başarıyla değiştirildi." });
         }
 
     }

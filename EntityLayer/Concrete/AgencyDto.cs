@@ -1,17 +1,13 @@
-﻿using Microsoft.SqlServer.Server;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace EntityLayer.Concrete
+namespace RedHorseProject.Models.ViewModel
 {
-    public class Agency
+    public class AgencyDto
     {
         public int Id { get; set; }
-        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string AgencyName { get; set; }
@@ -27,5 +23,4 @@ namespace EntityLayer.Concrete
         public bool isDeleted { get; set; }
         public bool isApproved { get; set; }
     }
-
 }

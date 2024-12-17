@@ -25,12 +25,8 @@ namespace RedHorseProject.Controllers
         public ActionResult Index()
         {
             var list = _context.Agencys
-            .Where(t => t.isDeleted == false)
+            .Where(t => t.isDeleted == false && t.isApproved == true)
             .ToList();
-            string FirstName = (string)Session["FirstName"];
-            string LastName = (string)Session["LastName"];
-            string FullName = FirstName + " " + LastName;
-            ViewData["FullName"] = FullName;
             return View(list);
         }
 
@@ -38,10 +34,7 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
-        public ActionResult Graphics()
-        {
-            return View();
-        }
+
         public ActionResult EditClock()
         {
             return View();
@@ -102,11 +95,7 @@ namespace RedHorseProject.Controllers
 
         public ActionResult Appeals()
         {
-            var list = _context.Agencys
-            .Where(t => t.isDeleted == false && t.Status == false)
-            .ToList();
-
-            return View(list);
+            return View();
         }
         public ActionResult _CustomerDetails()
         {
@@ -228,6 +217,9 @@ namespace RedHorseProject.Controllers
             }
 
             customer.Status = true;
+            customer.isApproved = true;
+
+
 
             _context.SaveChanges();
 
@@ -243,6 +235,7 @@ namespace RedHorseProject.Controllers
             }
 
             customer.isDeleted = true;
+            customer.isApproved = false;
 
             _context.SaveChanges();
 
@@ -267,47 +260,26 @@ namespace RedHorseProject.Controllers
 
             return Json(new { success = true, message = "Successfully updated." });
         }
-        public JsonResult getAgencies()
+        public ActionResult getAgencies()
         {
-            var agencies = _context.Agencys
-               .Select(a => new
-               {
-                   a.AgencyName,
-                   FullName = a.FirstName + " " + a.LastName,
-                   a.CreatedDate,
-                   a.TursabNo,
-                   a.Phone,
-                   a.TaxNo,
-                   a.Tc,
-                   a.Status,
-                   a.Region,
-                   a.Id,
-                   a.Mail
-               }).ToList()
-               .Select(a => new
-               {
-                   a.AgencyName,
-                   a.FullName,
-                   CreatedDate = a.CreatedDate.ToString("dd.MM.yyyy HH:mm"), // Kod tarafında formatlayın
-                   a.TursabNo,
-                   a.Phone,
-                   a.TaxNo,
-                   a.Tc,
-                   a.Status,
-                   a.Region,
-                   a.Id,
-                   a.Mail
-               });
-
-
+            var agencies = _context.Agencys.Where(x => x.isApproved == true).ToList();
 
             if (!agencies.Any())
             {
-                return Json(new { success = false, message = "No agencies found." });
+                return new CustomJsonResult
+                {
+                    Data = new { success = false, message = "No agencies found." },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
             }
 
-            return Json(new { success = true, data = agencies }, JsonRequestBehavior.AllowGet);
+            return new CustomJsonResult
+            {
+                Data = new { success = true, Data = agencies },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
+
         [HttpPost]
         public JsonResult createNewAgency(Agency model)
         {
@@ -403,8 +375,8 @@ namespace RedHorseProject.Controllers
                                 join a in _context.Agencys on r.Agency_Id equals a.Id
                                 join t in _context.TourTypes on r.TourType equals t.Id
                                 where
-                                    (TourTypeId == "-1" || r.TourType == TourTypeId ) &&
-                                    ( Hour == -1  ||  r.ReservationDate.Hour == Hour )
+                                    (TourTypeId == "-1" || r.TourType == TourTypeId) &&
+                                    (Hour == -1 || r.ReservationDate.Hour == Hour)
                                 select new
                                 {
                                     r.Id,
@@ -421,9 +393,26 @@ namespace RedHorseProject.Controllers
                                     t.Name
                                 }).ToList();
 
-            return new CustomJsonResult { Data =  reservations  };
+            return new CustomJsonResult { Data = reservations };
 
         }
+
+        public JsonResult GetUnaprrovedAgencies()
+        {
+            var unaprrovedAgencies = _context.Agencys
+        .Where(t => t.isDeleted == false && t.Status == false && t.isApproved == false)
+        .ToList();
+
+            return new CustomJsonResult
+            {
+                Data = new { success = true, Data = unaprrovedAgencies },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+        }
+
+
+
 
     }
 }

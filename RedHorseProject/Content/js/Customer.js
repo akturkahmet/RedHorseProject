@@ -1,90 +1,23 @@
 ﻿$(document).ready(function () {
+    function closeModal() {
+        $('#myModal').hide();
 
+    }
+    $(function () {
+        $("#myModal .modal-dialog").draggable({
+            containment: false, 
+        });
+
+        $("#myModal").on('show.bs.modal', function () {
+            $(".modal-dialog").css("position", "absolute");
+            $(".modal-dialog").css("top", "100px"); 
+            $(".modal-dialog").css("left", "100px");
+        });
+    });
     createEditReservationTable()
 });
 
 
-//function openCreateReservationModal() {
-//    var reservationDay = $("#reservationDay1").val();
-//    var reservationHour = $("#reservationHour1").val();
-//    var tourType = $("#TourType1").val();
-//    var CustomerCount = $("#CustomerCount1").val();
-
-//    if (tourType == null || reservationDay == null || reservationHour == null) {
-//        Swal.fire({
-//            icon: 'error',
-//            title: 'Hata',
-//            text: "Lütfen tüm alanları doldurunuz!",
-//            showConfirmButton: true,
-//            confirmButtonText: 'Tamam'
-//        });
-//        return;
-//    }
-
-//    $.ajax({
-//        url: '/Customer/ControlReservationDate',
-//        method: 'POST',
-//        data: {
-//            ReservationDate: reservationDay + " " + reservationHour,
-//            TourTypeId: tourType,
-//            Hour: reservationHour,
-//            CustomerCount: CustomerCount
-
-//        },
-//        success: function (response) {
-//            if (response.success) {
-//                fetch('/Customer/frmCreateReservation')
-//                    .then(response => {
-//                        if (!response.ok) {
-//                            throw new Error('Network response was not ok ' + response.statusText);
-//                        }
-//                        return response.text();
-//                    })
-//                    .then(html => {
-//                        document.getElementById('Body').innerHTML = html;
-
-//                        $('#myModal').modal('show'); const modal = document.getElementById('myModal');
-//                        modal.style.display = 'block';
-//                        modal.classList.add('show');
-
-//                        $("#TourType").val(tourType);
-//                        $("#ReservationDay").val(reservationDay);
-//                        $("#ReservationHour").val(reservationHour);
-//                        $("#CustomerCount").val(CustomerCount);
-//                    })
-//                    .catch(error => {
-//                        console.error('Error loading modal content:', error);
-//                        Swal.fire({
-//                            icon: 'error',
-//                            title: 'Hata',
-//                            text: 'Modal içeriği yüklenirken bir hata oluştu.',
-//                            showConfirmButton: true,
-//                            confirmButtonText: 'Tamam'
-//                        });
-//                    });
-
-//            } else {
-//                Swal.fire({
-//                    icon: 'error',
-//                    title: 'Hata',
-//                    text: response.message,
-//                    showConfirmButton: true,
-//                    confirmButtonText: 'Tamam'
-//                });
-//            }
-//        },
-//        error: function (error) {
-//            console.error("Hata oluştu:", error);
-//            Swal.fire({
-//                icon: 'error',
-//                title: 'Hata',
-//                text: 'Tarih kontrolü yapılırken bir hata oluştu.',
-//                showConfirmButton: true,
-//                confirmButtonText: 'Tamam'
-//            });
-//        }
-//    });
-//}
 
 function openCreateReservationModal() {
     var reservationDay = $("#reservationDay1").val();
@@ -104,7 +37,6 @@ function openCreateReservationModal() {
             },
             success: function (response) {
                 if (response.success) {
-                    // Eğer tarih uygunsa modal içeriğini yükle
                     fetch('/Customer/frmCreateReservation')
                         .then(response => {
                             if (!response.ok) {
@@ -113,21 +45,19 @@ function openCreateReservationModal() {
                             return response.text();
                         })
                         .then(html => {
-                            // Modal başlığını ayarla ve içeriği yükle
                             document.getElementById('Body').innerHTML = html;
                             document.getElementById('modalTitle').textContent = 'Rezervasyon Oluştur';
 
-                            // Modal'ı göster
                             const modal = document.getElementById('myModal');
                             modal.style.display = 'block';
                             modal.classList.add('show');
                             document.body.classList.add('modal-open');
 
-                            // Form alanlarını doldur
                             $("#TourType").val(tourType);
                             $("#ReservationDay").val(reservationDay);
                             $("#ReservationHour").val(reservationHour);
                             $("#CustomerCount").val(CustomerCount);
+                            $("#remainingCapacity").text(response.remainingCapacity);
                         })
                         .catch(error => {
                             console.error('Modal içeriği yüklenirken bir hata oluştu:', error);
@@ -230,7 +160,6 @@ function createReservation() {
     var formData = $("#createReservationForm").serializeArray();
     var reservationDay = $("#ReservationDay").val();
     var reservationHour = $("#ReservationHour").val();
-
     formData.push({
         name: "ReservationDate",
         value: reservationDay + " " + reservationHour
@@ -414,7 +343,7 @@ function controlHourCapacity() {
             },
             success: function (response) {
 
-                $('#remainingCapacity').text(response);
+                $('#remainingCapacity1').text(response);
             },
 
             error: function (xhr) {

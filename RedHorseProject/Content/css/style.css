@@ -1,18 +1,31 @@
-﻿/*.navbartitle {
-    background: linear-gradient(to right, #007bff, #6610f2); 
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    gap: 15px; 
-    color: #fff; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    padding: 40px 139px 0 0;
-   
+﻿.capacity-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #6a11cb; /* Metin rengi */
+    text-align: left; /* Yazıyı sağa hizala */
+    padding: 10px;
+    width:148px;
 }
 
-.username{
-    white-space:nowrap;
-}*/
+.capacity-value {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 900;
+    color: #ffffff;
+    background: linear-gradient(90deg, #6a11cb, #2575fc); /* Renk geçişi */
+    border-radius: 25px; /* Yuvarlak köşeler */
+    padding: 10px 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align:left;
+    width:60px;
+}
+
+    .capacity-value:hover {
+        transform: scale(1.1); /* Hover büyüme efekti */
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Hover gölge değişimi */
+    }
 
 .welcome-text{
     margin-left:5px;

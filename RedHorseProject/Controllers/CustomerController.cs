@@ -286,6 +286,7 @@ namespace RedHorseProject.Controllers
                 CreatedDate = DateTime.Now,
                 Agency_Id = agencyId,
                 ReservationDate = model.ReservationDate,
+                Status = true,
             });
             _context.SaveChanges();
 
@@ -299,7 +300,7 @@ namespace RedHorseProject.Controllers
         {
 
             var capacity = _context.HoursCapacitys.Where(x => x.TourTypeId == TourTypeId && x.Hour == Hour).FirstOrDefault();
-            var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId).ToList().Sum(x => x.CustomerCount);
+            var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId&&x.Status==true).ToList().Sum(x => x.CustomerCount);
             if (capacity == null)
             {
                 return Json(new { success = true });
@@ -308,7 +309,7 @@ namespace RedHorseProject.Controllers
             if (remainingCapacity >= CustomerCount)
 
             {
-                return Json(new { success = true, message = "Yeterli kapasite yok." });
+                return Json(new { success = true, remainingCapacity });
             }
             else
             {
