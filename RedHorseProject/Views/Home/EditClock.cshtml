@@ -7,6 +7,54 @@
 <section class="section">
     <div class="section-header">
         <h1>
+         Spesifik Saatleri Pasife Çekme
+        </h1>
+    </div>
+    <div class="row col-10" id="reservationForm">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="TourType1">Tur Seçiniz:</label>
+                <select id="TourType1" name="TourType1" class="form-control" onchange="ControlHours(this.value)">
+                    <option value="seçiniz" disabled selected>Seç</option>
+                    <option value="horse">At Turu</option>
+                    <option value="atv">ATV Turu</option>
+                    <option value="jeep">Jeep Safari Turu</option>
+                    <option value="ballon">Balon Turu</option>
+                    <option value="camel">Deve Turu</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group  dropdown">
+                <label class="labelFeature" for="sure">Tur Tarihi:</label>
+                <input type="date" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off">
+
+
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="reservationHour1">Saat Seçiniz:</label>
+                <select id="reservationHour1" name="reservationHour1" class="form-control">
+                    <option value="" disabled selected>Seç</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="CustomerCount">Kapasite:</label>
+                <input class="form-control" type="text" name="CustomerCount1" id="CustomerCount1" value="" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button href="" class="btn-booking">Oluştur</button>
+        </div>
+
+
+    </div>
+    <div class="section-header">
+        <h1>
             Saatleri Pasife Çekme
         </h1>
     </div>
@@ -30,7 +78,15 @@
                     </select>
                 </div>
             </div>
-            <button  type="button" onclick="getHours()" class="btn btn-primary col-md-2" style="height:43px; width:75px;">Listele</button>
+            <div class="col-md-2">
+                <div class="form-group  dropdown">
+                    <label class="labelFeature" for="sure">Tur Tarihi:</label>
+                    <input type="date" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off">
+
+
+                </div>
+            </div>
+            <button type="button" onclick="getHours()" class="btn btn-primary col-md-2" style="height:43px; width:75px;">Listele</button>
         </div>
         <table class="table table-bordered table-hover w-100" id="hoursTable">
             <thead>

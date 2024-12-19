@@ -280,7 +280,7 @@
     <Content Include="Views\Test\Test2.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\ReservationCreater.cshtml" />
     <Content Include="Scripts\nicescroll\MIT.LICENSE" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Home\CustomerCreator.cshtml" />
@@ -301,10 +301,12 @@
     <Content Include="Views\Customer\_EditReservationPartial.cshtml" />
     <Content Include="Views\Home\EditCapacity.cshtml" />
     <Content Include="Views\Home\EditClock.cshtml" />
-    <Content Include="Views\Customer\ReservationCreater.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Login\frmForgotPassword.cshtml" />
     <Content Include="Views\Home\Appeals.cshtml" />
     <Content Include="Views\Home\frmAppealDetails.cshtml" />
+    <Content Include="Views\Home\SpecificClockSet.cshtml" />
+    <Content Include="Views\Home\SpecificEditCapacity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

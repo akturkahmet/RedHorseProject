@@ -20,13 +20,13 @@
 
 <div class="section-body">
     <div class="row">
-        <div class="col-6">
+        <div class="col-12">
             <div class="row align-items-center">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="mb-2" for="TourTypeId">Tur Kategorisi:</label>
                         <select id="TourTypeId" name="TourTypeId" class="form-control">
-                            <option value="-1"  selected>Hepsi</option>
+                            <option value="-1" selected>Hepsi</option>
                             <option value="horse">At Turu</option>
                             <option value="atv">ATV Turu</option>
                             <option value="jeep">Jeep Safari Turu</option>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="mb-2" for="Hour">Saat Seçiniz:</label>
                         <select id="Hour" name="Hour" class="form-control">
@@ -49,9 +49,18 @@
 
                             }
                         </select>
+
                     </div>
                 </div>
-                <button href="" onclick="createReservetionTable()" class="btn btn-primary col-md-2" style="height:38px;">Listele</button>
+                <div class="col-md-3">
+                    <div class="form-group  dropdown">
+                        <label class="labelFeature" for="sure">Tur Tarihi:</label>
+                        <input type="date" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off">
+
+
+                    </div>
+                </div>
+                <button href="" onclick="createReservetionTable()" class="btn btn-primary col-md-3" style="height:38px; width:auto;">Listele</button>
             </div>
         </div>
     </div>

@@ -34,7 +34,15 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
-
+        public ActionResult SpecificClockSet()
+        {
+            return View();
+        }
+        public ActionResult SpecificEditCapacity()
+        {
+            return View();
+        }
+       
         public ActionResult EditClock()
         {
             return View();

@@ -1,39 +1,77 @@
-﻿@{
-    ViewBag.Title = "Anasayfa";
+﻿
+@{
+    ViewBag.Title = "ReservationCreater";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
-<section class="">
-    <div class="section">
 
-        <div class="section-header">
-            <h1>Tur Seçenekleri</h1>
+<div class="section">
+    <div class="section-header">
+        <h5>Rezervasyon Oluştur</h5>
+    </div>
+    <div class="section-body">
+        <div class="bottom-panel bottom-panel--floating" style="height:506px;">
+            <div class="row"style="padding-bottom:60px;">
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="col-md-6 capacity-label" for="CustomerCount">Kalan Kapasite:</label>
+                        <label class="col-md-6 capacity-value" id="remainingCapacity1"></label>
+                    </div>
+                        
+                </div>
+            </div>
+
+            <div class="row" id="reservationForm">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="TourType1">Tur Seçiniz:</label>
+                        <select id="TourType1" name="TourType1" class="form-control" onchange="ControlHours(this.value)">
+                            <option value="seçiniz" disabled selected>Seç</option>
+                            <option value="horse">At Turu</option>
+                            <option value="atv">ATV Turu</option>
+                            <option value="jeep">Jeep Safari Turu</option>
+                            <option value="ballon">Balon Turu</option>
+                            <option value="camel">Deve Turu</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group  dropdown">
+                        <label class="labelFeature" for="sure">Tur Tarihi:</label>
+                        <input type="date" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off">
+
+
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="reservationHour1">Saat Seçiniz:</label>
+                        <select id="reservationHour1" name="reservationHour1" class="form-control">
+                            <option value="" disabled selected>Seç</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="CustomerCount">Kapasite:</label>
+                        <input class="form-control" type="text" name="CustomerCount1" id="CustomerCount1" value="" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button href="" onclick="openCreateReservationModal()" class="btn-booking">Rezervasyon Oluştur</button>
+                </div>
+                <div class="col-md-2">
+                    <button  onclick="controlHourCapacity()" class="btn-booking">Kapasite Gör</button>
+                </div>
+
+            </div>
+
+
+            <div class="tour-card">
+                <h2>Lütfen Dikkat!</h2>
+                <p>Kapasite kısmına At, ATV ve Jeep turları için <strong>araç sayısını</strong>, Balon ve Deve turları için ise <strong>kişi sayılarını</strong> girmeniz gerekmektedir.</p>
+            </div>
+
         </div>
-
     </div>
-
-    <div class="tour-card">
-        <h2>10.00 Turu</h2>
-        <p>Otel çıkışlı transfer hizmeti veya kendi araçlarıyla gelen misafirler için. Otelinizden alınarak kolaylıkla turumuza katılabilirsiniz ya da kendi aracınızla tur başlangıç noktasına ulaşabilirsiniz. Size en uygun seçeneği tercih edin ve keyifli bir gün geçirin.</p>
-    </div>
-    <div class="tour-card">
-        <h2>11.00 Turu</h2>
-        <p>Mustafapaşa - Ürgüp - Ortahisar transferli veya kendi aracınızla katılım. Kapadokya'nın eşsiz güzelliklerini keşfedeceğiniz bu turda transfer hizmetimizden yararlanabilir ya da kendi ulaşımınızla bu büyüleyici destinasyonları ziyaret edebilirsiniz.</p>
-    </div>
-    <div class="tour-card">
-        <h2>12.00 Turu</h2>
-        <p>Kendi aracınızla katılım. Bu tur, kendi ulaşımını sağlamayı tercih eden misafirlerimiz için idealdir. Programın keyfini kendi hızınızda çıkarabilirsiniz.</p>
-    </div>
-    <div class="tour-card">
-        <h2>13.00 Turu</h2>
-        <p>Uçhisar - Göreme - Avanos transferli veya kendi ulaşımınızla katılım. Bölgenin en gözde noktalarını ziyaret edeceğiniz bu tur için transfer hizmetimizden faydalanabilir ya da kendi aracınızla katılabilirsiniz.</p>
-    </div>
-    <div class="tour-card">
-        <h2>14.00 Turu</h2>
-        <p>Kendi ulaşımını sağlayan misafirlerimiz için. Daha bağımsız bir tur deneyimi yaşamak isteyenler için kendi aracınızla katılım seçeneği sunuyoruz.</p>
-    </div>
-    <div class="tour-card">
-        <h2>15.00 Turu</h2>
-        <p>Gün batımı turu (2 saat). Günün en güzel anını, Kapadokya'nın muhteşem gün batımı eşliğinde yaşayın! Yaklaşık 2 saat süren bu tur, unutulmaz bir atmosferde tamamlanacak.</p>
-    </div>
-</section>
-
+</div>
