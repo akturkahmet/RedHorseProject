@@ -5,12 +5,12 @@
     }
     $(function () {
         $("#myModal .modal-dialog").draggable({
-            containment: false, 
+            containment: false,
         });
 
         $("#myModal").on('show.bs.modal', function () {
             $(".modal-dialog").css("position", "absolute");
-            $(".modal-dialog").css("top", "100px"); 
+            $(".modal-dialog").css("top", "100px");
             $(".modal-dialog").css("left", "100px");
         });
     });
@@ -58,6 +58,19 @@ function openCreateReservationModal() {
                             $("#ReservationHour").val(reservationHour);
                             $("#CustomerCount").val(CustomerCount);
                             $("#remainingCapacity").text(response.remainingCapacity);
+
+
+                            var passportLabel = $("#PassportNo").prev("label");
+                            var passportInput = $("#PassportNo");
+
+                            if (tourType === "ballon") {
+                                passportLabel.text("Pasaport Numarası*");
+                            }
+                            else {
+                                passportInput.addClass("notNecessary");
+                                passportLabel.text("Pasaport Numarası");
+
+                            }
                         })
                         .catch(error => {
                             console.error('Modal içeriği yüklenirken bir hata oluştu:', error);
@@ -155,7 +168,29 @@ function createEditReservationTable() {
 
 
 
+function openEditModal(id) {
+    fetch(`/Customer/frmEditRezervation?id=${id}`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('modalTitle').textContent = 'Düzenle';
+            $('#modalTitle').text('Rezervasyon Oluştur');
 
+
+            document.getElementById('Body').innerHTML = html;
+
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+            document.body.classList.add('modal-open');
+            $("#ReservationId").val(id)
+            getReservationDetails()
+
+
+         
+
+        })
+        .catch(error => console.error('Error loading modal content:', error));
+}
 function createReservation() {
     var formData = $("#createReservationForm").serializeArray();
     var reservationDay = $("#ReservationDay").val();
@@ -174,14 +209,14 @@ function createReservation() {
                 $('#myModal').hide();
             },
             error: function (error) {
-                console.log("error:" + error);
+                Alert(4)
             }
         });
     }
     else {
         Alert(3)
-
     }
+
 }
 
 
@@ -298,20 +333,36 @@ function changePassword() {
 
 
 
+function ControlHours() {
+    var Date1 = $("#reservationDay1").val();
+    var TourTypeId = $("#TourType1").val();
 
-function ControlHours(TourTypeId) {
+    if (Date1 === "" || TourTypeId === "seçiniz") {
+        Alert(2, "Hata", "Lütfen tur tipi ve tarih seçin.");
+        return;
+    }
+
+    var formattedDate = new Date(Date1).toISOString().slice(0, 10);
+
     $.ajax({
         url: '/Customer/ControlHours',
-        method: 'Get',
+        method: 'POST',
         data: {
-            TourTypeId: TourTypeId
+            TourTypeId: TourTypeId,
+            Date1: formattedDate
         },
         success: function (response) {
             $('#reservationHour1').empty();
             $('#reservationHour1').append(new Option('Seç', ''));
+
             response.forEach(function (hour) {
-                var option = new Option(hour.Hour);
-                option.value = hour.Hour;
+                if (!hour || !hour.Hour) {
+                    console.error("Geçersiz saat verisi:", hour);
+                    return;
+                }
+
+                var option = new Option(hour.Hour, hour.Hour);
+
                 if (hour.Status == 0) {
                     option.disabled = true;
                     option.style.color = "red";
@@ -320,14 +371,15 @@ function ControlHours(TourTypeId) {
 
                 $('#reservationHour1').append(option);
             });
+            $("#reservationHour1").prop("disabled", false);
         },
-
-        error: function (xhr) {
-
+        error: function (xhr, status, error) {
+            console.error("AJAX Hatası:", status, error);
+            Alert(1, "Hata", "Saatler getirilirken bir hata oluştu. Lütfen tekrar deneyin.");
+            $("#reservationHour1").prop("disabled", true);
         }
     });
 }
-
 function controlHourCapacity() {
     var TourTypeId = $("#TourType1").val()
     var Hour = $("#reservationHour1").val()
@@ -352,7 +404,7 @@ function controlHourCapacity() {
         });
     }
     else {
-        Alert(3,"Hata","Lütfen Tur tipi,tarihi ve saati doldurunuz.")
+        Alert(3, "Hata", "Lütfen Tur tipi,tarihi ve saati doldurunuz.")
     }
 
 }
@@ -363,3 +415,15 @@ function controlHourCapacity() {
 
 
 
+
+
+
+function clearAllSelected() {
+    $("#TourType1").val("seçiniz");
+    $("#reservationDay1").val(""); 
+    $("#reservationHour1").empty().append(new Option('Seç', '')); 
+    $("#CustomerCount1").val(""); 
+
+    $("#reservationDay1").prop("disabled", true);
+    $("#reservationHour1").prop("disabled", true);
+}

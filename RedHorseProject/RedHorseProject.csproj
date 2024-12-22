@@ -176,6 +176,7 @@
     </Compile>
     <Compile Include="Helper\CustomJsonResult.cs" />
     <Compile Include="Helper\DataContext.cs" />
+    <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Migrations\202412121557402_addded_HoursCapacity.cs" />
     <Compile Include="Migrations\202412121557402_addded_HoursCapacity.Designer.cs">
       <DependentUpon>202412121557402_addded_HoursCapacity.cs</DependentUpon>
@@ -220,6 +221,7 @@
     <Content Include="Content\js\Alert.js" />
     <Content Include="Content\js\custom.js" />
     <Content Include="Content\js\Customer.js" />
+    <Content Include="Content\js\Helper.js" />
     <Content Include="Content\js\ValidateForm.js" />
     <Content Include="Content\js\Login.js" />
     <Content Include="Content\js\scripts.js" />
@@ -307,6 +309,9 @@
     <Content Include="Views\Home\frmAppealDetails.cshtml" />
     <Content Include="Views\Home\SpecificClockSet.cshtml" />
     <Content Include="Views\Home\SpecificEditCapacity.cshtml" />
+    <Content Include="Views\Login\ValidateEmail.cshtml" />
+    <Content Include="Views\Home\frmAgencyDetails.cshtml" />
+    <Content Include="Views\Login\frmEmailVerification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

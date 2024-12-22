@@ -4,6 +4,7 @@ using EntityLayer.Concrete;
 using RedHorseProject.Helper;
 using RedHorseProject.Models;
 using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -33,6 +34,10 @@ namespace RedHorseProject.Controllers
         public ActionResult About()
         {
             return View();
+        } 
+        public ActionResult frmAgencyDetails()
+        {
+            return View();
         }
         public ActionResult SpecificClockSet()
         {
@@ -42,7 +47,7 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
-       
+
         public ActionResult EditClock()
         {
             return View();
@@ -377,29 +382,15 @@ namespace RedHorseProject.Controllers
 
 
 
-        public JsonResult GetRezervation(string TourTypeId, int Hour)
+        public JsonResult GetRezervation(string TourTypeId, int Hour, string ReservationDate)
         {
-            var reservations = (from r in _context.Reservations
-                                join a in _context.Agencys on r.Agency_Id equals a.Id
-                                join t in _context.TourTypes on r.TourType equals t.Id
-                                where
-                                    (TourTypeId == "-1" || r.TourType == TourTypeId) &&
-                                    (Hour == -1 || r.ReservationDate.Hour == Hour)
-                                select new
-                                {
-                                    r.Id,
-                                    r.FirstName,
-                                    r.LastName,
-                                    r.Phone,
-                                    r.HotelName,
-                                    r.PassportNo,
-                                    r.HotelRoomNo,
-                                    r.CustomerCount,
-                                    r.ReservationDate,
-                                    r.Status,
-                                    a.AgencyName,
-                                    t.Name
-                                }).ToList();
+            var reservations = _context.Database.SqlQuery<ReservationViewModel>(
+                 "EXEC sp_GetReservations @TourTypeId, @Hour, @ReservationDate",
+                 new SqlParameter("@TourTypeId", TourTypeId),
+                 new SqlParameter("@Hour", Hour),
+                 new SqlParameter("@ReservationDate", ReservationDate ?? (object)DBNull.Value)
+                    ).ToList();
+
 
             return new CustomJsonResult { Data = reservations };
 
@@ -418,9 +409,118 @@ namespace RedHorseProject.Controllers
             };
 
         }
+        public JsonResult CreateSpecificDateCapacity(SpecificDateCapacity model)
+        {
+            var isExist = _context.SpecificDateCapacitys.Any(x => x.Day == model.Day && x.Hour == model.Hour && x.TourTypeId == model.TourTypeId);
+            if (isExist)
+            {
+                return Json(new { success = false, message = "Bu tarihte zaten bir kayıt var." });
+            }
+            else
+            {
+                var record = new SpecificDateCapacity
+                {
+                    TourTypeId = model.TourTypeId,
+                    Day = model.Day,
+                    Hour = model.Hour,
+                    Capacity = model.Capacity,
+                    Status = true,
+                };
+
+                _context.SpecificDateCapacitys.Add(record);
+                _context.SaveChanges();
+                return Json(new { success = true, message = "Kayıt başarıyla eklendi." });
+            }
+
+        }
+        public JsonResult GetSpecificDateCapacity(string tourType)
+        {
+
+            var SpecificHours = (from s in _context.SpecificDateCapacitys
+                                 join t in _context.TourTypes on s.TourTypeId equals t.Id
+                                 where tourType == "0" || s.TourTypeId == tourType
+                                 select new
+                                 {
+                                     s.Id,
+                                     s.Status,
+                                     t.Name,
+                                     Date = s.Day + " " + s.Hour + ":00",
+                                     s.Hour,
+                                     s.Day,
+                                     s.Capacity,
+                                     s.TourTypeId
+                                 }).ToList();
+            return Json(SpecificHours, JsonRequestBehavior.AllowGet);
+
+        }
 
 
 
+        public JsonResult UpdateSpecificDateCapacity(SpecificDateCapacity model)
+        {
+            if (model == null)
+            {
+                return Json(new { success = false, message = "Model is null." });
+            }
 
+            var existingCapacity = _context.SpecificDateCapacitys
+                .FirstOrDefault(x => x.TourTypeId == model.TourTypeId && x.Day == model.Day && x.Hour == model.Hour);
+
+
+
+            existingCapacity.Capacity = model.Capacity;
+
+            _context.SaveChanges();
+
+            return Json(new { success = true, message = "Successfully updated." });
+        }
+        public JsonResult UpdateAgencyInformation(Agency model)
+        {
+            var agency = _context.Agencys.Where(x => x.Id == model.Id).FirstOrDefault();
+            if (agency != null)
+            {
+                agency.AgencyName = model.AgencyName;
+                agency.FirstName = model.FirstName;
+                agency.LastName = model.LastName;
+                agency.Phone = model.Phone;
+                agency.Mail = model.Mail;
+                agency.TaxNo = model.TaxNo;
+                agency.TursabNo = model.TursabNo;
+                agency.Tc = model.Tc;
+                agency.Region = model.Region;
+                _context.SaveChanges();
+                return Json(new { success = true, message = "Başarıyla güncellendi." }, JsonRequestBehavior.AllowGet);
+            }
+
+            else
+            {
+                return Json(new { success = false, message = "Acenta bulunamadı." }, JsonRequestBehavior.AllowGet);
+
+            }
+        }
+        [HttpGet]
+        public JsonResult GetAgencyById(int AgencyId)
+        {
+            var agency = _context.Agencys.Where(x => x.Id == AgencyId).FirstOrDefault();
+            return Json(agency,JsonRequestBehavior.AllowGet);
+        } 
+        [HttpPost]
+        public JsonResult UpdateClockStatus(int Id)
+        {
+            var record = _context.SpecificDateCapacitys.Where(x => x.Id == Id).FirstOrDefault();
+            if (record.Status==false)
+            {
+                record.Status = true;
+                _context.SaveChanges();
+                return Json(new { success = true, message = "Saat aktif edildi." }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                record.Status = false;
+                _context.SaveChanges();
+                return Json(new { success = true, message = "Saat Deaktif edildi." }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

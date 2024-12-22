@@ -57,6 +57,7 @@
     <Compile Include="Concrete\CustomerInformation.cs" />
     <Compile Include="Concrete\HoursCapacity.cs" />
     <Compile Include="Concrete\Reservation.cs" />
+    <Compile Include="Concrete\SpecificDateCapacity.cs" />
     <Compile Include="Concrete\TourType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

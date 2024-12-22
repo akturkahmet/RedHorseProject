@@ -1,4 +1,4 @@
-﻿function Alert(number,text,title) {
+﻿function Alert(number, title, text, thenFunction) {
     switch (number) {
         case 1:
             Swal.fire({
@@ -7,8 +7,8 @@
                 text: text,
                 showConfirmButton: true,
                 confirmButtonText: 'Tamam'
-            })
-            break
+            });
+            break;
         case 2:
             Swal.fire({
                 icon: 'error',
@@ -16,8 +16,8 @@
                 text: text,
                 showConfirmButton: true,
                 confirmButtonText: 'Tamam'
-            })
-            break
+            });
+            break;
         case 3:
             Swal.fire({
                 icon: 'error',
@@ -25,8 +25,8 @@
                 text: "Lütfen tüm alanları doldurunuz.",
                 showConfirmButton: true,
                 confirmButtonText: 'Tamam'
-            })
-            break
+            });
+            break;
         case 4:
             Swal.fire({
                 icon: 'error',
@@ -34,8 +34,23 @@
                 text: "Bir hata oluştu lütfen sonra deneyin.",
                 showConfirmButton: true,
                 confirmButtonText: 'Tamam'
-            })
-            break
+            });
+            break;
+        case 6:
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    thenFunction();
+                    $("#myModal").hide();
+                }
+            });
+            break;
         default:
+            console.warn("Geçersiz uyarı numarası.");
     }
 }

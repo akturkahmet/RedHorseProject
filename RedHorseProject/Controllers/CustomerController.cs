@@ -128,7 +128,7 @@ namespace RedHorseProject.Controllers
 
             var reservations = _context.Reservations
                 .Where(r => r.Agency_Id == agencyId)
-                .ToList() 
+                .ToList()
                 .Select(r => new
                 {
                     r.Id,
@@ -141,7 +141,7 @@ namespace RedHorseProject.Controllers
                     r.CustomerCount,
                     r.Status,
                     CreatedDate = r.CreatedDate.ToString("dd.MM.yyyy"),
-                    ReservationDate = r.ReservationDate.ToString("dd.MM.yyyy") 
+                    ReservationDate = r.ReservationDate.ToString("dd.MM.yyyy")
                 });
 
             return Json(reservations, JsonRequestBehavior.AllowGet);
@@ -181,7 +181,7 @@ namespace RedHorseProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateReservation(int ReservationId, string FirstName, string LastName, string Phone, string HotelName, string PassportNo, int CustomerCount, int HotelRoomNo)
+        public ActionResult UpdateReservation(int ReservationId, string FirstName, string LastName, string Phone, string HotelName, string PassportNo, int CustomerCount, int? HotelRoomNo)
         {
             try
             {
@@ -210,7 +210,7 @@ namespace RedHorseProject.Controllers
             }
         }
         [HttpPost]
-        public ActionResult UpdateAgencyInformation(int AgencyId, string FirstName, string LastName, string Phone, string AgencyName, string Email, string TursabNo, string TcKimlik)
+        public ActionResult UpdateAgencyInformation(int AgencyId , string AgencyName, string Phone )
         {
             try
             {
@@ -221,14 +221,8 @@ namespace RedHorseProject.Controllers
                     return Json("Agency not found");
                 }
 
-                agency.FirstName = FirstName;
-                agency.LastName = LastName;
                 agency.Phone = Phone;
                 agency.AgencyName = AgencyName;
-                agency.Mail = Email;
-                agency.TursabNo = TursabNo;
-                agency.Tc = TcKimlik;
-
                 _context.SaveChanges();
 
                 return Json(new { Message = "Reservation updated successfully" });
@@ -286,6 +280,7 @@ namespace RedHorseProject.Controllers
                 CreatedDate = DateTime.Now,
                 Agency_Id = agencyId,
                 ReservationDate = model.ReservationDate,
+                TourNote = model.TourNote,
                 Status = true,
             });
             _context.SaveChanges();
@@ -298,54 +293,130 @@ namespace RedHorseProject.Controllers
 
         public JsonResult ControlReservationDate(string TourTypeId, string Hour, int CustomerCount, DateTime ReservationDate)
         {
+            var formattedReservationDate = ReservationDate.ToString("yyyy-MM-dd");
+            var isExistRecord = _context.SpecificDateCapacitys
+                                        .Any(x => x.TourTypeId == TourTypeId && x.Day == formattedReservationDate && x.Hour == Hour);
 
-            var capacity = _context.HoursCapacitys.Where(x => x.TourTypeId == TourTypeId && x.Hour == Hour).FirstOrDefault();
-            var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId&&x.Status==true).ToList().Sum(x => x.CustomerCount);
-            if (capacity == null)
-            {
-                return Json(new { success = true });
-            }
-            int remainingCapacity = capacity.Capacity - reservationCustomerCount;
-            if (remainingCapacity >= CustomerCount)
+            if (isExistRecord)
+            {var specificRecord = _context.SpecificDateCapacitys
+                                              .Where(x => x.TourTypeId == TourTypeId && x.Day == formattedReservationDate && x.Hour == Hour)
+                                              .FirstOrDefault();
 
-            {
-                return Json(new { success = true, remainingCapacity });
-            }
-            else
-            {
-                if (remainingCapacity <= 0)
+                var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId && x.Status == true).ToList().Sum(x => x.CustomerCount);
+
+                
+                if (specificRecord == null)
                 {
-                    return Json(new { success = false, message = $"Yer kalmadı", remainingCapacity });
+                    return Json(new { success = true });
+                }
+                int remainingCapacity = specificRecord.Capacity - reservationCustomerCount;
+                if (remainingCapacity >= CustomerCount)
+
+                {
+                    return Json(new { success = true, remainingCapacity });
                 }
                 else
                 {
-                    return Json(new { success = false, message = $"Sadece {remainingCapacity} kişilik yer kaldı.", remainingCapacity });
+                    if (remainingCapacity <= 0)
+                    {
+                        return Json(new { success = false, message = $"Yer kalmadı", remainingCapacity });
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = $"Sadece {remainingCapacity} kişilik yer kaldı.", remainingCapacity });
+
+                    }
 
                 }
-
             }
-        }
-        [HttpGet]
+            else
+            {
+                var capacity = _context.HoursCapacitys.Where(x => x.TourTypeId == TourTypeId && x.Hour == Hour).FirstOrDefault();
+                var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId && x.Status == true).ToList().Sum(x => x.CustomerCount);
+                if (capacity == null)
+                {
+                    return Json(new { success = true });
+                }
+                int remainingCapacity = capacity.Capacity - reservationCustomerCount;
+                if (remainingCapacity >= CustomerCount)
 
-        public JsonResult ControlHours(string TourTypeId)
+                {
+                    return Json(new { success = true, remainingCapacity });
+                }
+                else
+                {
+                    if (remainingCapacity <= 0)
+                    {
+                        return Json(new { success = false, message = $"Yer kalmadı", remainingCapacity });
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = $"Sadece {remainingCapacity} kişilik yer kaldı.", remainingCapacity });
+
+                    }
+
+                }
+            }
+           
+        }
+        [HttpPost]       
+        public JsonResult ControlHours(string TourTypeId, string Date1)
         {
 
-            var hours = _context.HoursCapacitys.Where(x => x.TourTypeId == TourTypeId).ToList();
+            var defaultHours = _context.HoursCapacitys
+                .Where(x => x.TourTypeId == TourTypeId)
+                .ToList();
 
-            return Json(hours, JsonRequestBehavior.AllowGet);
+            var specificHours = _context.SpecificDateCapacitys
+                .Where(x => x.Day == Date1 && x.TourTypeId==TourTypeId)
+                .ToList();
 
+            List<object> combinedHours = new List<object>();
 
+            for (int i = 0; i < 25; i++)
+            {
+                string formattedHour = i.ToString("D2") + ":00";
+                var specificHourData = specificHours.FirstOrDefault(x => x.Hour == formattedHour);
+                if (specificHourData != null)
+                {
+                    combinedHours.Add(specificHourData);
+                }
+                else
+                {
+                    var defaultHourData = defaultHours.FirstOrDefault(x => x.Hour == formattedHour);
+                    if (defaultHourData != null)
+                    {
+                        combinedHours.Add(defaultHourData);
+                    }
+                }
+            }
+
+            return Json(combinedHours, JsonRequestBehavior.AllowGet);
         }
         public JsonResult ControlHourCapacity(string TourTypeId, string Hour, DateTime ReservationDate)
         {
+            var formattedReservationDate = ReservationDate.ToString("yyyy-MM-dd");
+            var isExistRecord = _context.SpecificDateCapacitys
+                                        .Any(x => x.TourTypeId == TourTypeId && x.Day == formattedReservationDate && x.Hour == Hour);
 
-            var capacity = _context.HoursCapacitys.Where(x => x.TourTypeId == TourTypeId && x.Hour == Hour).FirstOrDefault();
-            var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId).ToList().Sum(x => x.CustomerCount);
-            int remainingCapacity = capacity.Capacity - reservationCustomerCount;
+            if (isExistRecord)
+            {
+                var specificRecord = _context.SpecificDateCapacitys
+                                              .Where(x => x.TourTypeId == TourTypeId && x.Day == formattedReservationDate && x.Hour == Hour)
+                                              .FirstOrDefault();
 
-            return Json(remainingCapacity, JsonRequestBehavior.AllowGet);
+                return Json(specificRecord.Capacity, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var capacity = _context.HoursCapacitys.Where(x => x.TourTypeId == TourTypeId && x.Hour == Hour).FirstOrDefault();
+                var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId).ToList().Sum(x => x.CustomerCount);
+                int remainingCapacity = capacity.Capacity - reservationCustomerCount;
 
+                return Json(remainingCapacity, JsonRequestBehavior.AllowGet);
 
+            }
         }
+
     }
 }

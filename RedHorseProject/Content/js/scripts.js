@@ -26,25 +26,7 @@ function openRezervationModal() {
 }
 
 
-function openEditModal(id) {
-    fetch(`/Customer/frmEditRezervation?id=${id}`)
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('modalTitle').textContent = 'Düzenle';
-            $('#modalTitle').text('Rezervasyon Oluştur');
 
-
-            document.getElementById('Body').innerHTML = html;
-
-            const modal = document.getElementById('myModal');
-            modal.style.display = 'block';
-            modal.classList.add('show');
-            document.body.classList.add('modal-open');
-            $("#ReservationId").val(id)
-            getReservationDetails()
-        })
-        .catch(error => console.error('Error loading modal content:', error));
-}
 
 
 

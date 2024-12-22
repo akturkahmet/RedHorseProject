@@ -16,7 +16,7 @@ namespace EntityLayer.Concrete
         public string CountryCode { get; set; }
         public string Phone { get; set; }
         public string HotelName { get; set; }
-        public int HotelRoomNo { get; set; }
+        public int? HotelRoomNo { get; set; }
         public string PassportNo { get; set; }
         public int CustomerCount { get; set; }
         public DateTime CreatedDate { get; set; }

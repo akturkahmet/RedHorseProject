@@ -5,51 +5,53 @@
 }
 
 
-<section class="section" style="margin-bottom:415px;">
+<section class="section">
     <div class="section-header">
-        <h1>
-            Spesifik Saatleri Pasife Çekme
-        </h1>
+        <h5>
+            Özel Saatlerin Durumunu Değiştirme
+        </h5>
     </div>
-    <div class="row col-10" id="reservationForm">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="TourType1">Tur Seçiniz:</label>
-                <select id="TourType1" name="TourType1" class="form-control" onchange="ControlHours(this.value)">
-                    <option value="seçiniz" disabled selected>Seç</option>
-                    <option value="horse">At Turu</option>
-                    <option value="atv">ATV Turu</option>
-                    <option value="jeep">Jeep Safari Turu</option>
-                    <option value="ballon">Balon Turu</option>
-                    <option value="camel">Deve Turu</option>
-                </select>
+    <div class="section-body">
+
+        <form id="SpecificDateCapacityForm">
+            <div class="row col-10">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="tourType">Tur Seçiniz:</label>
+                        <select id="tourType" name="tourType" class="form-control">
+                            <option value="Select" disabled selected>Seç</option>
+                            <option value="0">Hepsi</option>
+                            <option value="horse">At Turu</option>
+                            <option value="atv">ATV Turu</option>
+                            <option value="jeep">Jeep Safari Turu</option>
+                            <option value="ballon">Balon Turu</option>
+                            <option value="camel">Deve Turu</option>
+                        </select>
+                    </div>
+                </div>
+   
+
+                <div class="col-md-2">
+                    <button type="button" onclick="CreateSpecificDateStatusTable()" class="btn-booking">Listele</button>
+                </div>
+
             </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group  dropdown">
-                <label class="labelFeature" for="sure">Tur Tarihi:</label>
-                <input type="date" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off">
+        </form>
 
 
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="reservationHour1">Saat Seçiniz:</label>
-                <select id="reservationHour1" name="reservationHour1" class="form-control">
-                    <option value="" disabled selected>Seç</option>
-
-                </select>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="CustomerCount">Kapasite:</label>
-                <input class="form-control" type="text" name="CustomerCount1" id="CustomerCount1" value="" />
-            </div>
-        </div>
-        <div class="col-md-2">
-            <button href="" class="btn-booking">Oluştur</button>
-        </div>
+        <table class="table" id="specificClockStatusTable">
+            <thead>
+                <tr>
+                    <th>Rezervasyon Türü</th>
+                    <th>Tarih</th>
+                    <th>Kapasite</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
+
+
 </section>

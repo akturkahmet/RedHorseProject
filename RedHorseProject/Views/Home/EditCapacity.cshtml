@@ -9,106 +9,53 @@
 
 
 <div class="section">
-    <div class="section-header">
-        <h1>
-            Spesifik Kapasite Ayarlama
-        </h1>
-    </div>
-    <div class="row col-10" id="reservationForm">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="TourType1">Tur Seçiniz:</label>
-                <select id="TourType1" name="TourType1" class="form-control" onchange="ControlHours(this.value)">
-                    <option value="seçiniz" disabled selected>Seç</option>
-                    <option value="horse">At Turu</option>
-                    <option value="atv">ATV Turu</option>
-                    <option value="jeep">Jeep Safari Turu</option>
-                    <option value="ballon">Balon Turu</option>
-                    <option value="camel">Deve Turu</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group  dropdown">
-                <label class="labelFeature" for="sure">Tur Tarihi:</label>
-                <input type="date" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off">
-
-
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="reservationHour1">Saat Seçiniz:</label>
-                <select id="reservationHour1" name="reservationHour1" class="form-control">
-                    <option value="" disabled selected>Seç</option>
-
-                </select>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="CustomerCount">Kapasite:</label>
-                <input class="form-control" type="text" name="CustomerCount1" id="CustomerCount1" value="" />
-            </div>
-        </div>
-        <div class="col-md-2">
-            <button href=""  class="btn-booking">Oluştur</button>
-        </div>
-        
-
-    </div>
-
-
 
 
     <div class="section-header">
-        <h1>
+        <h5>
             Kapasite Ayarlama
-        </h1>
+        </h5>
     </div>
-</div>
-<div class="row">
+    <div class="section-body">
+    <div class="row">
 
-    <div class="container-fluid mt-6">
-        <div class="row align-items-center">
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label class="mb-2" for="tourTypeId">Tur Kategorisi:</label>
-                    <select id="tourTypeId" name="tourTypeId" class="form-control">
-                        <option value="Select" disabled selected>Seç</option>
-                        <option value="0">Hepsi</option>
-                        <option value="horse">At Turu</option>
-                        <option value="atv">ATV Turu</option>
-                        <option value="jeep">Jeep Safari Turu</option>
-                        <option value="ballon">Balon Turu</option>
-                        <option value="camel">Deve Turu</option>
-                    </select>
-                </div>
-
-            </div>
-            <div class="col-md-2">
-                <div class="form-group  dropdown">
-                    <label class="labelFeature" for="sure">Tur Tarihi:</label>
-                    <input type="date" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off">
-
+        <div class="container-fluid mt-6">
+            <div class="row align-items-center">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="mb-2" for="tourTypeId">Tur Kategorisi:</label>
+                        <select id="tourTypeId" name="tourTypeId" class="form-control">
+                            <option value="Select" disabled selected>Seç</option>
+                            <option value="0">Hepsi</option>
+                            <option value="horse">At Turu</option>
+                            <option value="atv">ATV Turu</option>
+                            <option value="jeep">Jeep Safari Turu</option>
+                            <option value="ballon">Balon Turu</option>
+                            <option value="camel">Deve Turu</option>
+                        </select>
+                    </div>
 
                 </div>
+
+                <button type="button" onclick="getHoursCapacity()" class="btn btn-primary col-md-2" style="height:43px; width:75px;">Listele</button>
             </div>
-            <button type="button" onclick="getHoursCapacity()" class="btn btn-primary col-md-2" style="height:43px; width:75px;">Listele</button>
+            <table class="table table-bordered table-hover w-100" id="hoursCapacityTable">
+                <thead>
+                    <tr>
+                        <th>Rezervasyon Türü</th>
+                        <th>Saat</th>
+                        <th>Kapasite</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
-        <table class="table table-bordered table-hover w-100" id="hoursCapacityTable">
-            <thead>
-                <tr>
-                    <th>Rezervasyon Türü</th>
-                    <th>Saat</th>
-                    <th>Kapasite</th>
-                    <th>İşlem</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
     </div>
 </div>
+</div>
+
+
 
 

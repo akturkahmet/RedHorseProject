@@ -121,6 +121,18 @@
     <Compile Include="Migrations\202412171235566_isApproved.Designer.cs">
       <DependentUpon>202412171235566_isApproved.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202412191255162_abc1.cs" />
+    <Compile Include="Migrations\202412191255162_abc1.Designer.cs">
+      <DependentUpon>202412191255162_abc1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412191422097_djfnj.cs" />
+    <Compile Include="Migrations\202412191422097_djfnj.Designer.cs">
+      <DependentUpon>202412191422097_djfnj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412221558118_jfj.cs" />
+    <Compile Include="Migrations\202412221558118_jfj.Designer.cs">
+      <DependentUpon>202412221558118_jfj.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -182,6 +194,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202412171235566_isApproved.resx">
       <DependentUpon>202412171235566_isApproved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412191255162_abc1.resx">
+      <DependentUpon>202412191255162_abc1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412191422097_djfnj.resx">
+      <DependentUpon>202412191422097_djfnj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412221558118_jfj.resx">
+      <DependentUpon>202412221558118_jfj.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

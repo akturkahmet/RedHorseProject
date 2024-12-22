@@ -4,54 +4,104 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="section"style="margin-bottom:415px;">
-    <div class="section-header">
-        <h1>
-            Spesifik Kapasite Ayarlama
-        </h1>
+<div class="section" style="min-height:594px;">
+    <div class="container-fluid mt-4">
+        <div class="section-header">
+            <h5>
+                Özel Tarihli Kapasite Ayarla
+            </h5>
+        </div>
+        <div class="section-body">
+            <form id="SpecificDateCapacityForm">
+                <div class="row col-10">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="TourTypeId">Tur Seçiniz:</label>
+                            <select id="TourTypeId" name="TourTypeId" class="form-control" onchange="ControlHours(this.value)">
+                                <option value="Select" disabled selected>Seç</option>
+                                <option value="horse">At Turu</option>
+                                <option value="atv">ATV Turu</option>
+                                <option value="jeep">Jeep Safari Turu</option>
+                                <option value="ballon">Balon Turu</option>
+                                <option value="camel">Deve Turu</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group  dropdown">
+                            <label class="labelFeature" for="sure">Tur Tarihi:</label>
+                            <input type="date" class="form-control" id="Day" name="Day" placeholder="Seçin" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="Hour">Saat Seçiniz:</label>
+                            <select id="Hour" name="Hour" class="form-control">
+                                <option value="" disabled selected>Seç</option>
+                                @for (int i = 0; i < 25; i++)
+                                {
+                                    string clock = i < 10 ? "0" + i.ToString() : i.ToString();
+                                    <option value="@clock:00">@clock:00</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="Capacity">Kapasite:</label>
+                            <input class="form-control" type="text" name="Capacity" id="Capacity" value="" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" onclick="CreateSpecificDateCapacity()" class="btn-booking">Oluştur</button>
+                    </div>
+
+                </div>
+            </form>
+
+            <div class="section-header">
+                <h5>
+                    Özel Tarihli Kapasiteleri Listele
+                </h5>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="mb-2" for="tourType">Tur Kategorisi:</label>
+                        <select id="tourType" name="tourType" class="form-control">
+                            <option value="Select" disabled selected>Seç</option>
+                            <option value="0">Hepsi</option>
+                            <option value="horse">At Turu</option>
+                            <option value="atv">ATV Turu</option>
+                            <option value="jeep">Jeep Safari Turu</option>
+                            <option value="ballon">Balon Turu</option>
+                            <option value="camel">Deve Turu</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="button" onclick="CreateSpecificDateCapacityTable()" class="btn btn-primary col-md-2" style="height:43px; width:75px;">Listele</button>
+            </div>
+            <table class="table table-bordered table-hover w-100" id="hoursTable">
+                <thead>
+                    <tr>
+                        <th>Rezervasyon Türü</th>
+                        <th>Tarih</th>
+                        <th>Kapasite</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="row col-10" id="reservationForm">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="TourType1">Tur Seçiniz:</label>
-                <select id="TourType1" name="TourType1" class="form-control" onchange="ControlHours(this.value)">
-                    <option value="seçiniz" disabled selected>Seç</option>
-                    <option value="horse">At Turu</option>
-                    <option value="atv">ATV Turu</option>
-                    <option value="jeep">Jeep Safari Turu</option>
-                    <option value="ballon">Balon Turu</option>
-                    <option value="camel">Deve Turu</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group  dropdown">
-                <label class="labelFeature" for="sure">Tur Tarihi:</label>
-                <input type="date" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off">
 
 
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="reservationHour1">Saat Seçiniz:</label>
-                <select id="reservationHour1" name="reservationHour1" class="form-control">
-                    <option value="" disabled selected>Seç</option>
-
-                </select>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="CustomerCount">Kapasite:</label>
-                <input class="form-control" type="text" name="CustomerCount1" id="CustomerCount1" value="" />
-            </div>
-        </div>
-        <div class="col-md-2">
-            <button href="" class="btn-booking">Oluştur</button>
-        </div>
+</div>
 
 
-    </div>
 
-</div> 
+  

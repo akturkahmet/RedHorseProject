@@ -39,7 +39,9 @@
 </head>
 <body>
     @{Html.RenderPartial("_LayoutModal"); }
-
+    <div id="loading">
+        <div>Yükleniyor...</div>
+    </div>
     <div class="layout">
         <div class="row">
             <div class="col-md-2" id="app">
@@ -154,6 +156,7 @@
     <script src="~/Content/js/Alert.js"></script>
     <script src="~/Content/js/ValidateForm.js"></script>
     <script src="~/Content/js/Customer.js"></script>
+    <script src="~/Content/js/Helper.js"></script>
 
 
 

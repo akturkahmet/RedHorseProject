@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Ajans Detayları";
+    Layout = null;
+}
+
+<div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <section class="section">
+                <div class="section-body">
+                    <div class="card card-primary">
+                        <div class="card-body">
+                            <form id="updateAgencyForm">
+                                <input type="hidden" name="Id" id="Id" />
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="FirstName">İsim</label>
+                                        <input id="FirstName" type="text" class="form-control" name="FirstName">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="LastName">Soyisim</label>
+                                        <input id="LastName" type="text" class="form-control" name="LastName">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="AgencyName">Acente Adı</label>
+                                        <input id="AgencyName" type="text" class="form-control" name="AgencyName">
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label>Telefon Numarası</label>
+                                        <input type="text" class="form-control" id="Phone" name="Phone">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label for="Mail">Email</label>
+                                    <input id="Mail" type="email" class="form-control" name="Mail">
+                                    <div class="invalid-feedback">
+                                    </div>
+                                </div>
+
+                       
+
+
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="TursabNo">Türsab Numarası</label>
+                                        <input id="TursabNo" type="text" class="form-control" name="TursabNo" autofocus>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Faaliyet Bölgesi</label>
+                                        <select class="form-control selectric" id="Region" name="Region">
+                                            <option selected value="Kapadokya">Kapadokya</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label>TC Kimlik No</label>
+                                        <input type="text" class="form-control" id="Tc" name="Tc">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Vergi Kimlik No</label>
+                                        <input type="text" class="form-control" id="TaxNo" name="TaxNo">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" onclick="UpdateAgencyInformation()" class="btn btn-primary">
+                                        Güncelle
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+</div>

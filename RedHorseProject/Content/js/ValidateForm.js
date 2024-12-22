@@ -3,7 +3,7 @@
 
     $(`#${id}`)
         .find(':input')
-        .not(':button, :submit')
+        .not(':button, :submit,.notNecessary')
         .each(function () {
             if (!$(this).val() || $.trim($(this).val()) === '') {
                 invalidFields.push($(this).attr('name') || $(this).attr('id'));

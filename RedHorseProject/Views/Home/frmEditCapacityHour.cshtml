@@ -5,8 +5,10 @@
 
 
 <form id="EditCapacityForm">
-    <input type="hidden" name="TourTypeId" id="TourTypeId" value="" />
-    <input type="hidden" name="Hour" id="Hour" value="" />
+    <input type="hidden" id="TourTypeId" name="TourTypeId" value="" />
+    <input type="hidden" id="Hour" name="Hour" value="" />
+    <input type="hidden" id="Day" name="Day" value="" />
+
     <div class="row">
         <div class="form-group col-3">
             <label>Kapasite</label>
@@ -16,9 +18,17 @@
         </div>
         <div class="form-group col-3">
             <div class="">
-                <button style="position:absolute; top:32px;margin-left:10px; height:31px;" type="button" class="btn btn-primary" onclick="updateCapacity()">Güncelle</button>
+                <div class="">
+                    <button style="position:absolute; top:32px;margin-left:10px; height:31px;"
+                            type="button"
+                            class="btn btn-primary"
+                            id="updateButton">
+                        Güncelle
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </form>
+
 

@@ -12,6 +12,7 @@ namespace DataAccessLayer.Context
         public DbSet<TourType> TourTypes { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<HoursCapacity> HoursCapacitys { get; set; }
+        public DbSet<SpecificDateCapacity> SpecificDateCapacitys { get; set; }
 
     }
 }

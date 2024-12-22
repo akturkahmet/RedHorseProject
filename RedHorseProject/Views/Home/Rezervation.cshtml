@@ -35,7 +35,14 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="form-group  dropdown">
+                        <label class="labelFeature" for="sure">Tur Tarihi:</label>
+                        <input type="date" class="form-control" id="ReservationDate" name="ReservationDate" placeholder="Seçin" autocomplete="off">
 
+
+                    </div>
+                </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="mb-2" for="Hour">Saat Seçiniz:</label>
@@ -52,14 +59,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group  dropdown">
-                        <label class="labelFeature" for="sure">Tur Tarihi:</label>
-                        <input type="date" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off">
 
-
-                    </div>
-                </div>
                 <button href="" onclick="createReservetionTable()" class="btn btn-primary col-md-3" style="height:38px; width:auto;">Listele</button>
             </div>
         </div>
@@ -87,6 +87,7 @@
                                 <th>Oda Numarası</th>
                                 <th>Kapasite</th>
                                 <th>Rezervasyon Tarihi</th>
+                                <th>Note</th>
                                 <th>Aksiyon</th>
                             </tr>
                         </thead>

@@ -2,12 +2,9 @@
     createAgenciesTable()
     createunAprrovedAgenciesTable()
     createReservetionTable()
-    function closeModal() {
-        $('#myModal').hide();
-
-    }
-
+    CreateSpecificDateCapacityTable();
 });
+
 function addNewAgency() {
     var formData = $("#createAgencyForm").serialize()
 
@@ -38,7 +35,6 @@ function updateCapacity() {
             Alert(1, "Başarıyla Güncellendi!", "Kapasite başarıyla güncellendi.")
             $("#myModal").hide()
             $('#hoursCapacityTable').DataTable().ajax.reload(null, false);
-
         },
         error: function (error) {
             Alert(4, error)
@@ -47,6 +43,7 @@ function updateCapacity() {
 }
 
 function createAgenciesTable() {
+    Destroy("AgenciesTable")
     $('#AgenciesTable').DataTable({
         ajax: {
             url: '/Home/getAgencies',
@@ -88,32 +85,68 @@ function createAgenciesTable() {
                 data: null,
                 render: function (data, type, row) {
                     if (data.Status == 1) {
-                        return `<button onclick="UpdateCustomerStatus(${row.Id}, false)" id="deactivebutton" class="btn btn-danger">Deaktif Et</button>`;
+                        return `<button onclick="UpdateCustomerStatus(${row.Id}, false)" id="activeButton" class="btn btn-danger">Deaktif Et</button>`;
                     }
                     else {
-                        return `<button onclick="UpdateCustomerStatus(${row.Id})" class="btn btn-primary">Aktif Et</button>`;
+                        return `<button onclick="UpdateCustomerStatus(${row.Id})" id="activeButton" class="btn btn-primary">Aktif Et</button>`;
                     }
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return `<button onclick="openFrmAgencyDetails(${row.Id})" id="activeButton" class="btn btn-primary">Düzenle</button>`;
                 }
             }
         ],
-        initComplete: function () {
-            // Tablodaki tüm hücrelerde padding'i sıfırlama ve metni ortalama
-            $('#AgenciesTable tbody th, #AgenciesTable tbody td').css({
-                'padding': '0',
-                'text-align': 'center',   // Yatayda ortalama
-                'vertical-align': 'middle' // Dikeyde ortalama
-            });
-            $('#AgenciesTable .btn').css({
-                'font-size': '12px', // Buton yazı boyutunu küçültme
-                'padding': '5px 10px', // Buton içindeki padding'i küçültme
-                'width': 'auto'  ,// Buton genişliğini otomatik yapmak
-                'height':'33px'
-            });
-        }
+
     });
 }
 
+function openFrmAgencyDetails(Id) {
+    $.ajax({
+        url: "/Home/GetAgencyById/",
+        method: "GET",
+        data: {
+            AgencyId: Id
+        },
+        success: function (response) {
 
+            fetch('/Home/frmAgencyDetails')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('modalTitle').textContent = 'Ajans Detayları';
+                    document.getElementById('Body').innerHTML = html;
+                    const modal = document.getElementById('myModal');
+                    modal.style.display = 'block';
+                    modal.classList.add('show');
+                    document.body.classList.add('modal-open');
+
+
+
+                    $("#FirstName").val(response.FirstName);
+                    $("#Id").val(response.Id);
+                    $("#LastName").val(response.LastName);
+                    $("#AgencyName").val(response.AgencyName);
+                    $("#Phone").val(response.Phone);
+                    $("#Mail").val(response.Mail);
+                    $("#TursabNo").val(response.TursabNo);
+                    $("#Tc").val(response.Tc);
+                    $("#TaxNo").val(response.TaxNo);
+                })
+                .catch(error => console.error('Error loading modal content:', error));
+        },
+        error: function (xhr, status, error) {
+            Alert(4)
+        }
+    });
+
+}
 function createunAprrovedAgenciesTable() {
     $('#unAprrovedAgencies').DataTable({
         ajax: {
@@ -137,7 +170,7 @@ function createunAprrovedAgenciesTable() {
                 render: function (data, type, row) {
                     return `<a onclick="confirmCustomer(${row.Id})" class="btn btn-primary">Onayla</a>`;
                 }
-            }  ,
+            },
             {
                 data: null,
                 render: function (data, type, row) {
@@ -255,11 +288,9 @@ function createReservetionTable() {
 
     var TourTypeId = $("#TourTypeId").val();
     var Hour = $("#Hour").val();
+    var ReservationDate = $("#ReservationDate").val();
 
-    const tableElement = $('#example');
-    if ($.fn.DataTable.isDataTable(tableElement)) {
-        tableElement.DataTable().clear().destroy();
-    }
+    Destroy("example")
 
     tableElement.DataTable({
         ajax: {
@@ -269,7 +300,8 @@ function createReservetionTable() {
             data: function (d) {
                 return $.extend({}, d, {
                     TourTypeId: TourTypeId,
-                    Hour: Hour
+                    Hour: Hour,
+                    ReservationDate: ReservationDate,
                 });
             },
         },
@@ -281,7 +313,7 @@ function createReservetionTable() {
                 filename: 'Rezervasyonlar',
                 title: 'Rezervasyonlar Listesi',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                 }
             },
             {
@@ -290,13 +322,13 @@ function createReservetionTable() {
                 filename: 'Rezervasyonlar',
                 title: 'Rezervasyonlar Listesi',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                 }
             }
         ],
         columns: [
             { data: 'AgencyName' },
-            { data: 'Name' },
+            { data: 'TourTypeName' },
             { data: 'FirstName' },
             { data: 'LastName' },
             { data: 'Phone' },
@@ -305,6 +337,7 @@ function createReservetionTable() {
             { data: 'HotelRoomNo' },
             { data: 'CustomerCount' },
             { data: 'ReservationDate' },
+            { data: 'TourNote' },
             {
                 data: null,
                 render: function (data, type, row) {
@@ -315,7 +348,9 @@ function createReservetionTable() {
                     }
                 }
             }
-        ]
+        ],
+        pageLength: 25,
+        lengthMenu: [[25, -1], [24, "Tümü"]],
     });
 }
 
@@ -343,6 +378,8 @@ function getHours() {
                 dataSrc: ''
             },
             /*     dom: 'Bfrtip', */
+            pageLength: 24,
+            lengthMenu: [[24, -1], [24, "Tümü"]],
             columns: [
                 { data: 'Name' },
                 { data: 'Hour' },
@@ -395,7 +432,8 @@ function getHoursCapacity() {
             ajax: {
                 url: url,
                 dataSrc: ''
-            },
+            }, pageLength: 24,
+            lengthMenu: [[24, -1], [24, "Tümü"]],
             columns: [
                 { data: 'Name' },
                 { data: 'Hour' },
@@ -411,8 +449,7 @@ function getHoursCapacity() {
         });
     }
 }
-function openEditCapacityModal(TourTypeId, Hour) {
-
+function openEditCapacityModal(TourTypeId, Hour, Day) {
     fetch('/Home/frmEditCapacityHour')
         .then(response => {
             if (!response.ok) {
@@ -421,16 +458,26 @@ function openEditCapacityModal(TourTypeId, Hour) {
             return response.text();
         })
         .then(html => {
+            // Modal içeriğini yükle
             document.getElementById('Body').innerHTML = html;
             document.getElementById('modalTitle').textContent = 'Kapasite Düzenle';
 
+            // Modal'ı aç
             const modal = document.getElementById('myModal');
             modal.style.display = 'block';
             modal.classList.add('show');
             document.body.classList.add('modal-open');
+            var currentPath = window.location.pathname;
 
+            if (currentPath.includes("SpecificEditCapacity")) {
+                $("#updateButton").attr("onclick", "UpdateSpecificDateCapacity()");
+            } else {
+                $("#updateButton").attr("onclick", "updateCapacity()");
+            }
+            // Değerleri inputlara atama
             $("#TourTypeId").val(TourTypeId);
             $("#Hour").val(Hour);
+            $("#Day").val(Day);
         })
         .catch(error => {
             console.error('Modal içeriği yüklenirken bir hata oluştu:', error);
@@ -442,11 +489,8 @@ function openEditCapacityModal(TourTypeId, Hour) {
                 confirmButtonText: 'Tamam'
             });
         });
-
-
-
-
 }
+
 
 
 function changePassword() {
@@ -483,6 +527,169 @@ function changePassword() {
                 showConfirmButton: true,
                 confirmButtonText: 'Tamam'
             });
+        }
+    });
+}
+
+
+
+
+function CreateSpecificDateCapacity() {
+    var formData = $("#SpecificDateCapacityForm").serialize()
+
+    if (validateForm("SpecificDateCapacityForm")) {
+        $.ajax({
+            url: '/Home/CreateSpecificDateCapacity',
+            method: 'POST',
+            data: formData,
+            success: function (response) {
+                if (response.success) {
+                    Alert(1, response.message, "Başarılı");
+                }
+                else {
+                    Alert(2, response.message, "Hata");
+                }
+            },
+
+            error: function (xhr) {
+                Alert(4);
+
+            }
+        });
+    }
+    else {
+        Alert(3);
+    }
+}
+
+
+function CreateSpecificDateCapacityTable() {
+    var tourType = $("#tourType").val();
+    var url = '/Home/GetSpecificDateCapacity?tourType=' + encodeURIComponent(tourType);
+    if (tourType === "Select") {
+        Alert(2, "Hata", "Lütfen geçerli bir tur kategorisi seçin.");
+        return;
+    }
+    else {
+
+        Destroy("hoursTable")
+        $('#hoursTable').DataTable({
+            ajax: {
+                url: url,
+                dataSrc: ''
+            },
+            pageLength: 24,
+            lengthMenu: [[24, -1], [24, "Tümü"]],
+            columns: [
+                { data: 'Name' },
+                { data: 'Date' },
+                { data: 'Capacity' },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        return `<button onclick="openEditCapacityModal('${String(row.TourTypeId)}', '${String(row.Hour)}', '${String(row.Day)}')" class="btn btn-primary">Düzenle</button>`;
+                    }
+
+
+                }
+            ]
+        });
+    }
+}
+
+function UpdateSpecificDateCapacity() {
+    var formData = $("#EditCapacityForm").serialize()
+    $.ajax({
+        url: '/Home/UpdateSpecificDateCapacity',
+        method: 'POST',
+        data: formData,
+        success: function (response) {
+            Alert(1, "Başarıyla Güncellendi!", "Kapasite başarıyla güncellendi.")
+            $("#myModal").hide()
+            $('#hoursTable').DataTable().ajax.reload(null, false);
+
+        },
+        error: function (error) {
+            Alert(4, error)
+        }
+    });
+}
+
+
+function UpdateAgencyInformation() {
+    var formData = $("#updateAgencyForm").serialize()
+    $.ajax({
+        url: '/Home/UpdateAgencyInformation',
+        method: 'POST',
+        data: formData,
+        success: function (response) {
+            if (response.success) {
+                Alert(6, "Başarılı", response.message, createAgenciesTable);
+
+            } else {
+                Alert(2, response.message, "Hata")
+
+            }
+        },
+
+        error: function (xhr) {
+            Alert(4)
+        }
+    });
+}
+
+
+function CreateSpecificDateStatusTable() {
+    var tourType = $("#tourType").val();
+    var url = '/Home/GetSpecificDateCapacity?tourType=' + encodeURIComponent(tourType);
+    if (tourType === "Select") {
+        Alert(2, "Hata", "Lütfen geçerli bir tur kategorisi seçin.");
+        return;
+    }
+    else {
+
+        Destroy("specificClockStatusTable")
+        $('#specificClockStatusTable').DataTable({
+            ajax: {
+                url: url,
+                dataSrc: ''
+            },
+            pageLength: 24,
+            lengthMenu: [[24, -1], [24, "Tümü"]],
+            columns: [
+                { data: 'Name' },
+                { data: 'Date' },
+                { data: 'Capacity' },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        return `<button onclick="UpdateClockStatus(${row.Id})" class="btn ${row.Status == 1 ? 'btn-danger' : 'btn-primary'}">${row.Status == 1 ? 'Deaktif Et' : 'Aktif Et'}</button>`;                    }
+
+
+                }
+            ]
+        });
+    }
+}
+function UpdateClockStatus(Id) {
+    $.ajax({
+        url: '/Home/UpdateClockStatus',
+        method: 'POST',
+        data: {
+            Id: Id
+        },
+        success: function (response) {
+            if (response.success) {
+                Alert(6, "Başarılı", response.message, CreateSpecificDateStatusTable);
+
+            } else {
+                Alert(2, response.message, "Hata")
+
+            }
+        },
+
+        error: function (xhr) {
+            Alert(4)
         }
     });
 }

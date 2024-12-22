@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = null;
+}
+
+<section class="section">
+
+    <div class="container mt-5">
+        <div class="row" style="width:475px;">
+            <div class="col-12 " style="display:flex;justify-content:center; width:400px;">
+                <div class="card card-primary">
+
+                    <div class="card-body">
+
+                        <form id="changePasswordForm">
+                            <div class="form-group">
+                                <label>E-Mail</label>
+                                <input id="email" type="text" class="form-control" name="email">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userCode">Kod</label>
+                                <input id="userCode" name="userCode"  class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <button type="button" onclick="SendVerificationCode()" class="btn btn-primary btn-lg btn-block">
+                                    Doğrulama Kodu Al
+                                </button>
+                            </div>    <div class="form-group">
+                                <button type="button" onclick="VerifyCode()" class="btn btn-primary btn-lg btn-block">
+                                    Kodu Onayla
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -123,3 +123,77 @@ function changePassword() {
         }
     });
 }
+
+
+function SendVerificationCode() {
+    var email = $("#email").val();
+    $.ajax({
+        url: '/Login/SendVerificationCode',
+        method: 'POST',
+        data: {
+            userEmail: email,
+        },
+        success: function (response) {
+            if (response.success) {
+                Alert(1, response.message, "Başarılı")
+            } else {
+              Alert(2)
+            }
+        },
+
+        error: function (xhr) {
+          Alert(3)
+        }
+    });
+}
+
+
+function openfrmEmailVerification() {
+
+    fetch('/Login/frmEmailVerification')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(html => {
+            document.getElementById('modalTitle').textContent = 'Şifre Yenile';
+
+            document.getElementById('Body').innerHTML = html;
+
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+
+            document.body.classList.add('modal-open');
+
+
+
+
+
+        })
+        .catch(error => console.error('Error loading modal content:', error));
+}
+
+function VerifyCode() {
+    var userCode = $("#userCode").val();
+    $.ajax({
+        url: '/Login/VerifyCode',
+        method: 'POST',
+        data: {
+            userCode: userCode,
+        },
+        success: function (response) {
+            if (response.success) {
+                Alert(1, response.message, "Başarılı")
+            } else {
+                Alert(2)
+            }
+        },
+
+        error: function (xhr) {
+            Alert(3)
+        }
+    });
+}

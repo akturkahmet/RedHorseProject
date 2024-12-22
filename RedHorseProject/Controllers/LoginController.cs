@@ -114,6 +114,10 @@ namespace RedHorseProject.Controllers
         public ActionResult frmForgotPassword()
         {
             return View();
+        } 
+        public ActionResult frmEmailVerification()
+        {
+            return View();
         }
 
 
@@ -208,5 +212,37 @@ namespace RedHorseProject.Controllers
             return Json(new { success = true, message = "Şifreniz başarıyla değiştirildi." });
         }
 
+
+
+
+
+        public JsonResult SendVerificationCode(string userEmail)
+        {
+            Random rand = new Random();
+            int verificationCode = rand.Next(100000, 999999); 
+            string code = verificationCode.ToString();
+
+            string subject = "Doğrulama Kodu";
+            string body = $"Merhaba,\n\nDoğrulama kodunuz: {code}\n\nBu kodu girerek işleminizi tamamlayabilirsiniz.";
+
+            EmailHelper.SendEmail(userEmail, subject, body);
+
+            Session["VerificationCode"] = code;
+
+            return Json(new { success = true, message = "Doğrulama kodu e-posta adresinize gönderildi." });
+        }
+        public ActionResult VerifyCode(string userCode)
+        {
+            var correctCode = Session["VerificationCode"] as string;
+
+            if (correctCode == userCode)
+            {
+                return Content("Doğrulama başarılı.");
+            }
+            else
+            {
+                return Content("Doğrulama kodu hatalı.");
+            }
+        }
     }
 }
