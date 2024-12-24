@@ -128,23 +128,12 @@ namespace RedHorseProject.Controllers
 
             var reservations = _context.Reservations
                 .Where(r => r.Agency_Id == agencyId)
-                .ToList()
-                .Select(r => new
-                {
-                    r.Id,
-                    r.FirstName,
-                    r.LastName,
-                    r.Phone,
-                    r.HotelName,
-                    r.PassportNo,
-                    r.HotelRoomNo,
-                    r.CustomerCount,
-                    r.Status,
-                    CreatedDate = r.CreatedDate.ToString("dd.MM.yyyy"),
-                    ReservationDate = r.ReservationDate.ToString("dd.MM.yyyy")
-                });
+                .ToList();
 
-            return Json(reservations, JsonRequestBehavior.AllowGet);
+            return new CustomJsonResult
+            {
+                Data = reservations
+            };
 
         }
 
@@ -210,7 +199,7 @@ namespace RedHorseProject.Controllers
             }
         }
         [HttpPost]
-        public ActionResult UpdateAgencyInformation(int AgencyId , string AgencyName, string Phone )
+        public ActionResult UpdateAgencyInformation(int AgencyId, string AgencyName, string Phone)
         {
             try
             {
@@ -298,18 +287,19 @@ namespace RedHorseProject.Controllers
                                         .Any(x => x.TourTypeId == TourTypeId && x.Day == formattedReservationDate && x.Hour == Hour);
 
             if (isExistRecord)
-            {var specificRecord = _context.SpecificDateCapacitys
+            {
+                var specificRecord = _context.SpecificDateCapacitys
                                               .Where(x => x.TourTypeId == TourTypeId && x.Day == formattedReservationDate && x.Hour == Hour)
                                               .FirstOrDefault();
 
                 var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId && x.Status == true).ToList().Sum(x => x.CustomerCount);
 
-                
+
                 if (specificRecord == null)
                 {
                     return Json(new { success = true });
                 }
-                int remainingCapacity = specificRecord.Capacity - reservationCustomerCount;
+                int remainingCapacity = specificRecord.Capacity - reservationCustomerCount ?? 0;
                 if (remainingCapacity >= CustomerCount)
 
                 {
@@ -337,7 +327,7 @@ namespace RedHorseProject.Controllers
                 {
                     return Json(new { success = true });
                 }
-                int remainingCapacity = capacity.Capacity - reservationCustomerCount;
+                int remainingCapacity = capacity.Capacity - reservationCustomerCount ?? 0;
                 if (remainingCapacity >= CustomerCount)
 
                 {
@@ -357,9 +347,9 @@ namespace RedHorseProject.Controllers
 
                 }
             }
-           
+
         }
-        [HttpPost]       
+        [HttpPost]
         public JsonResult ControlHours(string TourTypeId, string Date1)
         {
 
@@ -368,7 +358,7 @@ namespace RedHorseProject.Controllers
                 .ToList();
 
             var specificHours = _context.SpecificDateCapacitys
-                .Where(x => x.Day == Date1 && x.TourTypeId==TourTypeId)
+                .Where(x => x.Day == Date1 && x.TourTypeId == TourTypeId)
                 .ToList();
 
             List<object> combinedHours = new List<object>();
@@ -411,7 +401,7 @@ namespace RedHorseProject.Controllers
             {
                 var capacity = _context.HoursCapacitys.Where(x => x.TourTypeId == TourTypeId && x.Hour == Hour).FirstOrDefault();
                 var reservationCustomerCount = _context.Reservations.Where(x => x.ReservationDate == ReservationDate && x.TourType == TourTypeId).ToList().Sum(x => x.CustomerCount);
-                int remainingCapacity = capacity.Capacity - reservationCustomerCount;
+                int remainingCapacity = capacity.Capacity - reservationCustomerCount ?? 0;
 
                 return Json(remainingCapacity, JsonRequestBehavior.AllowGet);
 

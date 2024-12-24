@@ -133,6 +133,10 @@
     <Compile Include="Migrations\202412221558118_jfj.Designer.cs">
       <DependentUpon>202412221558118_jfj.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202412231441598_dfsbfvber.cs" />
+    <Compile Include="Migrations\202412231441598_dfsbfvber.Designer.cs">
+      <DependentUpon>202412231441598_dfsbfvber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -203,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202412221558118_jfj.resx">
       <DependentUpon>202412221558118_jfj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412231441598_dfsbfvber.resx">
+      <DependentUpon>202412231441598_dfsbfvber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

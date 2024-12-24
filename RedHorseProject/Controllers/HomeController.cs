@@ -4,9 +4,13 @@ using EntityLayer.Concrete;
 using RedHorseProject.Helper;
 using RedHorseProject.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
+using System.Web.WebPages;
 
 namespace RedHorseProject.Controllers
 {
@@ -199,6 +203,7 @@ namespace RedHorseProject.Controllers
         {
             var customer = _context.Agencys.FirstOrDefault(t => t.Id == id);
 
+
             if (customer == null)
             {
                 return Json(new { success = false, message = "Müşteri bulunamadı." });
@@ -292,11 +297,38 @@ namespace RedHorseProject.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+        private string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(password);
+                byte[] hash = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
+            }
+        }
 
         [HttpPost]
-        public JsonResult createNewAgency(Agency model)
+        public JsonResult createNewAgency(string FirstName,string LastName,string AgencyName,string Mail, string Password, string TursabNo,string Region,string TaxNo,string Phone,string Tc)
         {
-            _context.Agencys.Add(model);
+            var HashedPassword = HashPassword(Password);
+
+            var newAgency = new Agency
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                AgencyName = AgencyName,
+                Mail = Mail,
+                Password = HashedPassword,  
+                TursabNo = TursabNo,
+                Region = Region,
+                TaxNo = TaxNo,
+                Phone = Phone,
+                Tc = Tc,
+                CreatedDate = DateTime.Now,
+                Status = true,
+            };
+
+            _context.Agencys.Add(newAgency);
 
             int rowsAffected = _context.SaveChanges();
 
@@ -324,8 +356,6 @@ namespace RedHorseProject.Controllers
                               h.Capacity,
                               h.TourTypeId
                           }).ToList();
-
-
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -384,6 +414,10 @@ namespace RedHorseProject.Controllers
 
         public JsonResult GetRezervation(string TourTypeId, int Hour, string ReservationDate)
         {
+            if (ReservationDate.IsEmpty())
+            {
+                ReservationDate = "-1";
+            }
             var reservations = _context.Database.SqlQuery<ReservationViewModel>(
                  "EXEC sp_GetReservations @TourTypeId, @Hour, @ReservationDate",
                  new SqlParameter("@TourTypeId", TourTypeId),
@@ -395,7 +429,7 @@ namespace RedHorseProject.Controllers
             return new CustomJsonResult { Data = reservations };
 
         }
-
+     
         public JsonResult GetUnaprrovedAgencies()
         {
             var unaprrovedAgencies = _context.Agencys
@@ -409,30 +443,63 @@ namespace RedHorseProject.Controllers
             };
 
         }
-        public JsonResult CreateSpecificDateCapacity(SpecificDateCapacity model)
+        [HttpPost]
+        public JsonResult CreateSpecificDateCapacity(string TourTypeId, int Capacity, DateTime startDate, DateTime? endDate, int[] selectedHours)
         {
-            var isExist = _context.SpecificDateCapacitys.Any(x => x.Day == model.Day && x.Hour == model.Hour && x.TourTypeId == model.TourTypeId);
-            if (isExist)
+            try
             {
-                return Json(new { success = false, message = "Bu tarihte zaten bir kayıt var." });
-            }
-            else
-            {
-                var record = new SpecificDateCapacity
+                startDate = startDate.AddDays(1);
+
+                if (endDate.HasValue)
                 {
-                    TourTypeId = model.TourTypeId,
-                    Day = model.Day,
-                    Hour = model.Hour,
-                    Capacity = model.Capacity,
-                    Status = true,
-                };
+                    endDate = endDate.Value.AddDays(1);
+                }
 
-                _context.SpecificDateCapacitys.Add(record);
+                List<DateTime> dateRange = new List<DateTime>();
+
+                if (endDate.HasValue)
+                {
+                    for (DateTime date = startDate; date <= endDate.Value; date = date.AddDays(1))
+                    {
+                        dateRange.Add(date);
+                    }
+                }
+                else
+                {
+                    dateRange.Add(startDate);
+                }
+
+                List<SpecificDateCapacity> capacityRecords = new List<SpecificDateCapacity>();
+                foreach (var date in dateRange)
+                {
+                    foreach (var hour in selectedHours)
+                    {
+                        string formattedHour = hour.ToString("D2") + ":00";
+
+                        capacityRecords.Add(new SpecificDateCapacity
+                        {
+                            TourTypeId = TourTypeId,
+                            Day = date.ToString("yyyy-MM-dd"),
+                            Hour = formattedHour,
+                            Capacity = Capacity,
+                            Status = true
+                        });
+                    }
+                }
+
+                _context.SpecificDateCapacitys.AddRange(capacityRecords);
                 _context.SaveChanges();
-                return Json(new { success = true, message = "Kayıt başarıyla eklendi." });
-            }
 
+                return Json(new { success = true, message = "Kapasiteler başarıyla kaydedildi." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Hata: {ex.Message}" });
+            }
         }
+
+
+
         public JsonResult GetSpecificDateCapacity(string tourType)
         {
 
@@ -473,6 +540,7 @@ namespace RedHorseProject.Controllers
             _context.SaveChanges();
 
             return Json(new { success = true, message = "Successfully updated." });
+
         }
         public JsonResult UpdateAgencyInformation(Agency model)
         {

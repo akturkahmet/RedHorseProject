@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -111,10 +112,14 @@ namespace RedHorseProject.Controllers
         {
             return View();
         }
+        public ActionResult frmVerification()
+        {
+            return View();
+        }
         public ActionResult frmForgotPassword()
         {
             return View();
-        } 
+        }
         public ActionResult frmEmailVerification()
         {
             return View();
@@ -188,22 +193,8 @@ namespace RedHorseProject.Controllers
         [HttpPost]
         public JsonResult ChangePassword(string email, string newPassword, string confirmPassword)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
-            {
-                return Json(new { success = false, message = "Lütfen tüm alanları doldurunuz." });
-            }
 
             var agency = _context.Agencys.FirstOrDefault(x => x.Mail == email);
-            if (agency == null)
-            {
-                return Json(new { success = false, message = "Mail adresi sistemde bulunamadı." });
-            }
-
-            if (newPassword != confirmPassword)
-            {
-                return Json(new { success = false, message = "Yeni şifre ile şifre onayı eşleşmiyor." });
-            }
-
 
             agency.Password = HashPassword(newPassword);
 
@@ -213,13 +204,10 @@ namespace RedHorseProject.Controllers
         }
 
 
-
-
-
-        public JsonResult SendVerificationCode(string userEmail)
+        public JsonResult SendVerificationCode(string userEmail,string newPassword,string confirmPassword)
         {
             Random rand = new Random();
-            int verificationCode = rand.Next(100000, 999999); 
+            int verificationCode = rand.Next(100000, 999999);
             string code = verificationCode.ToString();
 
             string subject = "Doğrulama Kodu";
@@ -228,20 +216,39 @@ namespace RedHorseProject.Controllers
             EmailHelper.SendEmail(userEmail, subject, body);
 
             Session["VerificationCode"] = code;
+            Session["email"] = userEmail;
+            Session["newPassword"] = newPassword;
+            Session["confirmPassword"] = confirmPassword;
 
             return Json(new { success = true, message = "Doğrulama kodu e-posta adresinize gönderildi." });
         }
-        public ActionResult VerifyCode(string userCode)
+        public JsonResult VerifyCode(string userCode)
         {
             var correctCode = Session["VerificationCode"] as string;
+            var email = Session["email"] as string;
+            var newPassword = Session["newPassword"] as string;
+            var confirmPassword = Session["confirmPassword"] as string;
 
             if (correctCode == userCode)
             {
-                return Content("Doğrulama başarılı.");
+                ChangePassword(email, newPassword, confirmPassword);
+                return Json(new { success = true, message = "Şifre başarılıyla değiştirildi." });
             }
             else
             {
-                return Content("Doğrulama kodu hatalı.");
+                return Json(new { success = false, message = "Doğrulama kodu hatalı" });
+            }
+        }
+        public JsonResult verifyEmail(string email)
+        {
+            var existRecord = _context.Agencys.Any(x => x.Mail == email);
+            if (existRecord)
+            {
+                return Json(new { success = true, message = "Başarılı." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Sisteme kayıtlı böyle bir mail adresi bulunmamaktadır." });
             }
         }
     }

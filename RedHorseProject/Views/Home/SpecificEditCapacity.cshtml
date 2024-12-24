@@ -3,7 +3,26 @@
     ViewBag.Title = "SpecificEditCapacity";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
 
+
+    #checkbox-container {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+    }
+
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+    }
+
+    #time-display {
+        margin: 20px 0;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+</style>
 <div class="section" style="min-height:594px;">
     <div class="container-fluid mt-4">
         <div class="section-header">
@@ -13,11 +32,11 @@
         </div>
         <div class="section-body">
             <form id="SpecificDateCapacityForm">
-                <div class="row col-10">
+                <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="TourTypeId">Tur Seçiniz:</label>
-                            <select id="TourTypeId" name="TourTypeId" class="form-control" onchange="ControlHours(this.value)">
+                            <select id="TourTypeId" name="TourTypeId" class="form-control">
                                 <option value="Select" disabled selected>Seç</option>
                                 <option value="horse">At Turu</option>
                                 <option value="atv">ATV Turu</option>
@@ -27,33 +46,40 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="form-group  dropdown">
-                            <label class="labelFeature" for="sure">Tur Tarihi:</label>
-                            <input type="date" class="form-control" id="Day" name="Day" placeholder="Seçin" autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="Hour">Saat Seçiniz:</label>
-                            <select id="Hour" name="Hour" class="form-control">
-                                <option value="" disabled selected>Seç</option>
-                                @for (int i = 0; i < 25; i++)
-                                {
-                                    string clock = i < 10 ? "0" + i.ToString() : i.ToString();
-                                    <option value="@clock:00">@clock:00</option>
-                                }
-
-                            </select>
+                            <div class="calendar-container">
+                                <div id="calendar"></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+
+
+                    <div class="col-md-4">
+                        <button id="select-all" type="button" class="btn btn-primary" onclick="SelectAll()">Tümünü Seç</button>
+                        <button id="deselect-all" type="button" class="btn btn-danger" onclick="DeSelectAll()">Tümünü Kaldır</button>
+                        <div id="checkbox-container">
+                            @for (int i = 1; i <= 24; i++)
+                            {
+                                string clock = i < 10 ? "0" + i.ToString() : i.ToString();
+
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="@i" />
+                                    <label for="checkbox-@clock:00">@clock:00</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-1">
                         <div class="form-group">
                             <label for="Capacity">Kapasite:</label>
                             <input class="form-control" type="text" name="Capacity" id="Capacity" value="" />
                         </div>
                     </div>
-                    <div class="col-md-2">
+
+                    <div class="col-md-1">
                         <button type="button" onclick="CreateSpecificDateCapacity()" class="btn-booking">Oluştur</button>
                     </div>
 
@@ -84,7 +110,7 @@
 
                 <button type="button" onclick="CreateSpecificDateCapacityTable()" class="btn btn-primary col-md-2" style="height:43px; width:75px;">Listele</button>
             </div>
-            <table class="table table-bordered table-hover w-100" id="hoursTable">
+            <table class="table table-bordered table-hover w-100" id="specificHoursTable">
                 <thead>
                     <tr>
                         <th>Rezervasyon Türü</th>
@@ -104,4 +130,3 @@
 
 
 
-  

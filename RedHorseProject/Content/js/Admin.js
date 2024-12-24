@@ -1,8 +1,28 @@
-﻿$(document).ready(function () {
+﻿
+var formattedStartDate, formattedEndDate
+$(document).ready(function () {
     createAgenciesTable()
     createunAprrovedAgenciesTable()
     createReservetionTable()
     CreateSpecificDateCapacityTable();
+
+    $('#calendar').dxCalendar({
+        selectionMode: 'range',
+        onValueChanged: function (e) {
+            const selectedRange = e.value;
+
+            if (selectedRange && selectedRange.length === 2) {
+                const startDate = selectedRange[0];
+                const endDate = selectedRange[1];
+
+                formattedStartDate = startDate.toISOString().split('T')[0];
+                formattedEndDate = endDate.toISOString().split('T')[0];
+
+
+            }
+        }
+    }).dxCalendar('instance');
+
 });
 
 function addNewAgency() {
@@ -99,6 +119,12 @@ function createAgenciesTable() {
                 }
             }
         ],
+        initComplete: function () {
+
+            $('#AgenciesTable').closest('.dataTables_wrapper').css('margin', '6px');
+
+
+        }
 
     });
 }
@@ -292,10 +318,10 @@ function createReservetionTable() {
 
     Destroy("example")
 
-    tableElement.DataTable({
+    $('#example').DataTable({
         ajax: {
             url: '/Home/GetRezervation',
-            dataSrc: '',
+            dataSrc: "",
             type: 'POST',
             data: function (d) {
                 return $.extend({}, d, {
@@ -354,9 +380,6 @@ function createReservetionTable() {
     });
 }
 
-
-
-
 function getHours() {
     var tourType = $("#tourType").val();
     var url = '/Home/getHours?tourType=' + encodeURIComponent(tourType);
@@ -366,12 +389,7 @@ function getHours() {
     }
     else {
 
-
-
-        if ($.fn.DataTable.isDataTable('#hoursTable')) {
-            $('#hoursTable').DataTable().clear().destroy();
-        }
-
+        Destroy("hoursTable")
         $('#hoursTable').DataTable({
             ajax: {
                 url: url,
@@ -379,7 +397,7 @@ function getHours() {
             },
             /*     dom: 'Bfrtip', */
             pageLength: 24,
-            lengthMenu: [[24, -1], [24, "Tümü"]],
+            lengthMenu: [[24, 50, 100, -1], [24, 50, 100, "Tümü"]],
             columns: [
                 { data: 'Name' },
                 { data: 'Hour' },
@@ -441,7 +459,8 @@ function getHoursCapacity() {
                 {
                     data: null,
                     render: function (data, type, row) {
-                        return `<button type="button" onclick="openEditCapacityModal('${row.TourTypeId}', '${row.Hour}')" class="btn btn-primary">Düzenle</button>`;
+                        return `<button type="button" onclick="
+                        Modal('${row.TourTypeId}', '${row.Hour}')" class="btn btn-primary">Düzenle</button>`;
 
                     }
                 }
@@ -490,9 +509,6 @@ function openEditCapacityModal(TourTypeId, Hour, Day) {
             });
         });
 }
-
-
-
 function changePassword() {
     var formData = $("#changePasswordForm").serialize();
     $.ajax({
@@ -531,37 +547,44 @@ function changePassword() {
     });
 }
 
-
-
-
 function CreateSpecificDateCapacity() {
-    var formData = $("#SpecificDateCapacityForm").serialize()
 
-    if (validateForm("SpecificDateCapacityForm")) {
+
+    var TourType = $("#TourTypeId").val();
+    var Capacity = $("#Capacity").val();
+    const selectedHours = [];
+    $('#checkbox-container input[type="checkbox"]:checked').each(function () {
+        selectedHours.push($(this).attr('id'));
+    });
+    if (TourType == "Select" || Capacity == null || formattedStartDate == null || selectedHours.length === 0) {
+        Alert(3);
+    }
+    else {
         $.ajax({
             url: '/Home/CreateSpecificDateCapacity',
             method: 'POST',
-            data: formData,
+            contentType: 'application/json',
+            data: JSON.stringify({
+                TourTypeId: TourType,
+                Capacity: parseInt(Capacity, 10),
+                startDate: formattedStartDate,
+                endDate: formattedEndDate,
+                selectedHours: selectedHours
+            }),
             success: function (response) {
                 if (response.success) {
                     Alert(1, response.message, "Başarılı");
-                }
-                else {
+                } else {
                     Alert(2, response.message, "Hata");
                 }
             },
-
             error: function (xhr) {
                 Alert(4);
-
             }
         });
     }
-    else {
-        Alert(3);
-    }
-}
 
+}
 
 function CreateSpecificDateCapacityTable() {
     var tourType = $("#tourType").val();
@@ -572,14 +595,14 @@ function CreateSpecificDateCapacityTable() {
     }
     else {
 
-        Destroy("hoursTable")
-        $('#hoursTable').DataTable({
+        Destroy("specificHoursTable")
+        $('#specificHoursTable').DataTable({
             ajax: {
                 url: url,
                 dataSrc: ''
             },
             pageLength: 24,
-            lengthMenu: [[24, -1], [24, "Tümü"]],
+            lengthMenu: [[24,50,100, -1], [24,50,100, "Tümü"]],
             columns: [
                 { data: 'Name' },
                 { data: 'Date' },
@@ -615,7 +638,6 @@ function UpdateSpecificDateCapacity() {
     });
 }
 
-
 function UpdateAgencyInformation() {
     var formData = $("#updateAgencyForm").serialize()
     $.ajax({
@@ -637,7 +659,6 @@ function UpdateAgencyInformation() {
         }
     });
 }
-
 
 function CreateSpecificDateStatusTable() {
     var tourType = $("#tourType").val();
@@ -663,7 +684,8 @@ function CreateSpecificDateStatusTable() {
                 {
                     data: null,
                     render: function (data, type, row) {
-                        return `<button onclick="UpdateClockStatus(${row.Id})" class="btn ${row.Status == 1 ? 'btn-danger' : 'btn-primary'}">${row.Status == 1 ? 'Deaktif Et' : 'Aktif Et'}</button>`;                    }
+                        return `<button onclick="UpdateClockStatus(${row.Id})" class="btn ${row.Status == 1 ? 'btn-danger' : 'btn-primary'}">${row.Status == 1 ? 'Deaktif Et' : 'Aktif Et'}</button>`;
+                    }
 
 
                 }
@@ -693,3 +715,11 @@ function UpdateClockStatus(Id) {
         }
     });
 }
+
+function SelectAll() {
+    $('#checkbox-container input[type="checkbox"]').prop('checked', true);
+};
+
+function DeSelectAll() {
+    $('#checkbox-container input[type="checkbox"]').prop('checked', false);
+};

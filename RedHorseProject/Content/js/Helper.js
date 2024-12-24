@@ -13,11 +13,11 @@
 
     //Loading Ekranı
     $(document).ajaxStart(function () {
-        $("#loading").fadeIn();
+        $("#loader").fadeIn();
     });
 
     $(document).ajaxStop(function () {
-        $("#loading").fadeOut();
+        $("#loader").fadeOut();
     });
     //Loading Ekranı
     function closeModal() {

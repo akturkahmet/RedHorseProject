@@ -127,3 +127,11 @@ function refreshTable() {
 
 
     
+
+    document.querySelectorAll('.has-dropdown > a').forEach(item => {
+        item.addEventListener('click', function (event) {
+            event.preventDefault();
+            const dropdownMenu = this.nextElementSibling;
+            dropdownMenu.classList.toggle('show');
+        });
+    });

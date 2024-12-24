@@ -1,4 +1,44 @@
-﻿
+﻿/*.nav-link span {
+    white-space: nowrap;*/ /* Tek satırda tutar */
+    /*overflow: hidden;*/ /* Taşan kısmı gizler */
+    /*text-overflow: ellipsis;*/ /* Taşan kısmı ... ile gösterir */
+    /*display: inline-block;*/ /* Gerekirse blok düzenine çeker */
+    /*max-width: 200px;*/ /* Genişliği sınırlandırır */
+/*}
+.dropdown-menu {
+    position: absolute;
+    z-index: 1000;*/ /* Menülerin üstte görünmesi için */
+    /*top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 300px;*/ /* Menü boyutunu sınırlama */
+    /*overflow-y: auto;*/ /* Eğer menü çok uzunsa kaydırma ekler */
+/*}
+.sidebar-menu {
+    position: relative;
+    overflow: hidden;
+}
+
+.main-sidebar {
+    position: relative;
+    overflow-y: auto;*/ /* Sidebar içinde taşmayı engeller ve kaydırma ekler */
+    /*max-height: 100vh;*/ /* Sidebar'ın yüksekliğini sınırlama */
+/*}*/
+/* Sidebar menü stilini ayarlama */
+
+
+
+.showpasswordinput {
+    position: absolute;
+    left: 317px;
+    top: 399px;
+}
+.showpasswordlabel{
+   position:absolute;
+   left:332px;
+   top:394px;
+
+}
 
 .form-group label {
     display: block;
@@ -24,10 +64,10 @@
 .capacity-label {
     font-size: 18px;
     font-weight: bold;
-    color: #6a11cb; /* Metin rengi */
-    text-align: left; /* Yazıyı sağa hizala */
+    color: #574c64;
+    text-align: left;
     padding: 10px;
-    width:148px;
+    width: 148px;
 }
 
 .capacity-value {
@@ -35,19 +75,19 @@
     font-size: 20px;
     font-weight: 900;
     color: #ffffff;
-    background: linear-gradient(90deg, #6a11cb, #2575fc); /* Renk geçişi */
-    border-radius: 25px; /* Yuvarlak köşeler */
+    background: #c1c1d0;
+    border-radius: 25px;
     padding: 10px 20px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align:left;
-    width:60px;
+    text-align: left;
+    width: 60px;
 }
 
     .capacity-value:hover {
-        transform: scale(1.1); /* Hover büyüme efekti */
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Hover gölge değişimi */
+        transform: scale(1.1); 
+        color:aqua; 
     }
 
 .welcome-text{
@@ -247,18 +287,7 @@
     .btn-booking:hover {
         background-color: #001f5b;
     }
-/*.dropdown-menu {
-    display: none; 
-    position: absolute;
-    background-color: #fff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
 
-    .dropdown-menu.show {
-        display: block; 
-    }
-*/
 body {
     margin: 0;
     color: #6a6f8c;

@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <!-- Buttons CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    <link href="https://cdn3.devexpress.com/jslib/24.2.3/css/dx.light.css" rel="stylesheet" />
+    <link href="https://cdn3.devexpress.com/jslib/21.1.6/css/dx.material.css" rel="stylesheet" />
+
 </head>
 <body>
 
@@ -39,11 +42,8 @@
                         <aside id="sidebar-wrapper">
                             <div>
                                 <div class="sidebar-brand">
-                                    <h6 style="margin-top: 5px;" class="welcome-text">Hoşgeldiniz </h6>
+                                    <h6 style="margin-top: 5px;" class="welcome-text">Hoşgeldiniz</h6>
                                     <h6 style="position:relative; top:8px;" class="username">@FullName</h6>
-                                </div>
-                                <div class="sidebar-brand sidebar-brand-sm">
-                                    <a href="index.html"></a>
                                 </div>
                                 <ul class="sidebar-menu">
                                     <li class="menu-header">Acenta İşlemleri</li>
@@ -63,39 +63,55 @@
                                             <i class="fas fa-th"></i><span>Rezervasyonlar</span>
                                         </a>
                                     </li>
-
                                     <li>
                                         <a href="~/Home/CustomerCreator/">
                                             <i class="fas fa-th"></i><span>Yeni Acenta Oluşturma</span>
                                         </a>
                                     </li>
 
-
                                     <li class="menu-header">Ayarlar</li>
 
-
-                                    <li>
-                                        <a class="nav-link" href="~/Home/EditCapacity/">
-                                            <i class="fas fa-th"></i><span>Kapasite Ayarlama</span>
+                                    <!-- Dropdown: Kapasite -->
+                                    <li class="dropdown has-dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle">
+                                            <i class="fas fa-th"></i><span>Kapasite</span>
                                         </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="~/Home/EditClock/">
-                                            <i class="fas fa-th"></i><span>Saatlerin Durumunu Değiştirme</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="~/Home/SpecificEditCapacity/">
-                                            <i class="fas fa-th"></i><span>Özel Tarihli Kapasite Ayarlama</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="~/Home/SpecificClockSet/">
-                                            <i class="fas fa-th"></i><span>Özel Tarihli Saatlerin Durumunu Değiştirme</span>
-                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a style=" padding-left: 0px; padding-right: 0px;" class="nav-link" href="~/Home/EditCapacity/">
+                                                    <i class="fas fa-sliders-h"></i><span>Varsayılan Kapasite Ayarlama</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a style=" padding-left: 0px; padding-right: 0px;" class="nav-link" href="~/Home/SpecificEditCapacity/">
+                                                    <i class="fas fa-calendar-alt"></i><span>Özel Tarihli Kapasite Ayarlama</span>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
 
+                                    <li class="dropdown has-dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle">
+                                            <i class="fas fa-clock"></i><span>Saatler</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a style=" padding-left: 0px; padding-right: 0px;" class="nav-link" href="~/Home/EditClock/">
+                                                    <i class="fas fa-clock"></i>
+                                                    <span>Varsayılan Saatlerin Durumunu Değiştirme</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a style=" padding-left: 0px; padding-right: 0px;" class="nav-link" href="~/Home/SpecificClockSet/">
+                                                    <i class="fas fa-clock"></i>
+                                                    <span style="margin-top:28px;">Özel Tarihli Saatlerin Durumunu Değiştirme</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
                                     <li>
+                                    <li>
+
                                         <a href="~/Home/ResetPassword/">
                                             <i class="fas fa-th"></i><span>Şifre Yenileme</span>
                                         </a>
@@ -112,6 +128,8 @@
                     </div>
                 </div>
             </div>
+
+
             <!-- Main Content -->
             <div class="col-md-10 ">
 
@@ -154,6 +172,8 @@
     <script src="~/Content/js/ValidateForm.js"></script>
     <script src="~/Content/js/Admin.js"></script>
     <script src="~/Content/js/Helper.js"></script>
+
+    <script src="https://cdn3.devexpress.com/jslib/24.2.3/js/dx.all.js"></script>
 
 
 

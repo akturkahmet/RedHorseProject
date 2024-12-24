@@ -50,6 +50,19 @@
                 }
             });
             break;
+        case 7:
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $("#myModal").hide();
+                }
+            });
+            break;
         default:
             console.warn("Geçersiz uyarı numarası.");
     }
