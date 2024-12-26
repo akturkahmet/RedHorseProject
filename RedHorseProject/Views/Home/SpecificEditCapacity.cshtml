@@ -32,20 +32,8 @@
         </div>
         <div class="section-body">
             <form id="SpecificDateCapacityForm">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="TourTypeId">Tur Seçiniz:</label>
-                            <select id="TourTypeId" name="TourTypeId" class="form-control">
-                                <option value="Select" disabled selected>Seç</option>
-                                <option value="horse">At Turu</option>
-                                <option value="atv">ATV Turu</option>
-                                <option value="jeep">Jeep Safari Turu</option>
-                                <option value="ballon">Balon Turu</option>
-                                <option value="camel">Deve Turu</option>
-                            </select>
-                        </div>
-                    </div>
+                <div class="row d-flex justify-content-between">
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <div class="calendar-container">
@@ -55,36 +43,71 @@
                     </div>
 
 
-                    <div class="col-md-4">
-                        <button id="select-all" type="button" class="btn btn-primary" onclick="SelectAll()">Tümünü Seç</button>
-                        <button id="deselect-all" type="button" class="btn btn-danger" onclick="DeSelectAll()">Tümünü Kaldır</button>
-                        <div id="checkbox-container">
+                    <div class="col-md-4 flex-column">
+                        <div style="display:flex; justify-content:space-between;">
+                            <button id="select-all" type="button" class="btn btn-primary" onclick="SelectAll()">Tümünü Seç</button>
+                            <button type="button" class="btn btn-danger" onclick="DeSelectAll()">Tümünü Kaldır</button>
+                        </div>
+                        <div id="checkbox-container" style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 30px;">
                             @for (int i = 1; i <= 24; i++)
                             {
                                 string clock = i < 10 ? "0" + i.ToString() : i.ToString();
 
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="@i" />
+                                <div class="checkbox-item pb-1" style="display: flex; align-items: center; ">
+                                    <input type="checkbox" id="@i" style="margin-right: 10px;" />
                                     <label for="checkbox-@clock:00">@clock:00</label>
                                 </div>
                             }
                         </div>
                     </div>
 
-
-                    <div class="col-md-1">
-                        <div class="form-group">
-                            <label for="Capacity">Kapasite:</label>
-                            <input class="form-control" type="text" name="Capacity" id="Capacity" value="" />
-                        </div>
+                    <div class="col-md-3">
+                            <div class="form-group" >
+                                <label for="TourTypeId">Tur Seçiniz:</label>
+                                <select id="TourTypeId" name="TourTypeId" class="form-control">
+                                    <option value="Select" disabled selected>Seç</option>
+                                    <option value="horse">At Turu</option>
+                                    <option value="atv">ATV Turu</option>
+                                    <option value="jeep">Jeep Safari Turu</option>
+                                    <option value="ballon">Balon Turu</option>
+                                    <option value="camel">Deve Turu</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="Capacity">Kapasite:</label>
+                                <input class="form-control" type="text" name="Capacity" id="Capacity" value="" />
+                            </div>
+                            <div class="form-group">
+                                <button type="button" onclick="CreateSpecificDateCapacity()" class="btn-booking w-100">Oluştur</button>
+                            </div>
                     </div>
 
-                    <div class="col-md-1">
-                        <button type="button" onclick="CreateSpecificDateCapacity()" class="btn-booking">Oluştur</button>
-                    </div>
+
+
 
                 </div>
             </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <div class="section-header">
                 <h5>

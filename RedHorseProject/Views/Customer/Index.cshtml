@@ -14,18 +14,9 @@
             <h2>Lütfen Dikkat!</h2>
             <p>Kapasite kısmına At, ATV ve Jeep turları için <strong>araç sayısını</strong>, Balon ve Deve turları için ise <strong>kişi sayılarını</strong> girmeniz gerekmektedir.</p>
         </div>
-        <div class="bottom-panel bottom-panel--floating" >
+        <div class="bottom-panel bottom-panel--floating" style="height: 340px;">
 
             <div class="container">
-                <div class="row" style="padding-bottom:60px;">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <label class="col-md-6 capacity-label" for="CustomerCount">Kalan Kapasite:</label>
-                            <label class="col-md-6 capacity-value" id="remainingCapacity1"></label>
-                        </div>
-
-                    </div>
-                </div>
 
                 <div class="row" id="reservationForm">
                     <div class="col-md-3">
@@ -69,27 +60,28 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2">
-                        <button href="" onclick="openCreateReservationModal()" class="btn-booking">Rezervasyon Oluştur</button>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button onclick="clearAllSelected()" class="btn btn-danger w-100 h-100">Tüm seçimleri temizle</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button onclick="controlHourCapacity()" class="btn btn-primary w-100 h-100">Kapasite Gör</button>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="capacityContainer d-flex align-items-center rounded h-100">
+                                    <div class=" capacity-label" for="CustomerCount">Kalan Kapasite:</div>
+                                    <div class=" capacity-value" id="remainingCapacity1"></div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-3">
+                                <button href="" onclick="openCreateReservationModal()" class="btn btn-primary w-100 h-100">Rezervasyon Oluştur</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        <button onclick="controlHourCapacity()" class="btn-booking">Kapasite Gör</button>
-                    </div>
-                    <div style="display: flex; justify-content: space-around; align-items: flex-end;" class="col-md-2">
-                        <button style=" display: flex; justify-content: space-evenly; align-items: flex-end;" onclick="clearAllSelected()" class="btn btn-danger">Tüm seçimleri temizle</button>
-                    </div>
-
-
-
-
                 </div>
-
             </div>
-            
-
-
-
-
         </div>
     </div>
 </div>

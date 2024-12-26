@@ -69,24 +69,28 @@ function createAgenciesTable() {
             url: '/Home/getAgencies',
             dataSrc: 'Data'
         },
-        dom: 'Bfrtip',
+        pageLength: 24,
+        lengthMenu: [[24, 50, 100, -1], [24, 50, 100, "Tümü"]],
+        dom: '<"top"lBf>rt<"bottom"ip><"clear">',
         buttons: [
             {
                 extend: 'excelHtml5',
-                text: 'Excel Olarak Dışa Aktar',
-                filename: 'Ajanslar',
-                title: 'Ajans Listesi',
+                text: '<i class="fa fa-file-excel"></i> Excel',
+                filename: 'Acenta Listesi',
+                titleAttr: 'Excel Olarak İndir',
+                title: 'Acenta Listesi',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10]
                 }
             },
             {
                 extend: 'pdfHtml5',
-                text: 'PDF Olarak Dışa Aktar',
-                filename: 'Ajanslar',
-                title: 'Ajans Listesi',
+                text: '<i class="fa fa-file-pdf"></i> PDF',
+                filename: 'Acenta Listesi',
+                titleAttr: 'PDF Olarak İndir',
+                title: 'Acenta Listesi',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10]
                 }
             }
         ],
@@ -120,9 +124,7 @@ function createAgenciesTable() {
             }
         ],
         initComplete: function () {
-
             $('#AgenciesTable').closest('.dataTables_wrapper').css('margin', '6px');
-
 
         }
 
@@ -331,12 +333,15 @@ function createReservetionTable() {
                 });
             },
         },
-        dom: 'Bfrtip',
+        pageLength: 24,
+        lengthMenu: [[24, 50, 100, -1], [24, 50, 100, "Tümü"]],
+        dom: '<"top"lBf>rt<"bottom"ip><"clear">',
         buttons: [
             {
                 extend: 'excelHtml5',
-                text: 'Excel Olarak Dışa Aktar',
+                text: '<i class="fa fa-file-excel"></i> Excel',
                 filename: 'Rezervasyonlar',
+                titleAttr: 'Excel Olarak İndir',
                 title: 'Rezervasyonlar Listesi',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -344,8 +349,9 @@ function createReservetionTable() {
             },
             {
                 extend: 'pdfHtml5',
-                text: 'PDF Olarak Dışa Aktar',
+                text: '<i class="fa fa-file-pdf"></i> PDF',
                 filename: 'Rezervasyonlar',
+                titleAttr: 'PDF Olarak İndir',
                 title: 'Rezervasyonlar Listesi',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

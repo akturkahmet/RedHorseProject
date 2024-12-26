@@ -111,32 +111,36 @@ function createEditReservationTable() {
             url: '/Customer/GetRezervation',
             dataSrc: ''
         },
-        dom: 'Bfrtip',
+        pageLength: 24,
+        lengthMenu: [[24, 50, 100, -1], [24, 50, 100, "Tümü"]],
+        dom: '<"top"lBf>rt<"bottom"ip><"clear">',
         buttons: [
             {
                 extend: 'excelHtml5',
-                text: 'Excel Olarak Dışa Aktar',
+                text: '<i class="fa fa-file-excel"></i> Excel', 
                 filename: 'Rezervasyonlar',
+                titleAttr: 'Excel Olarak İndir', 
                 title: 'Rezervasyonlar Listesi',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10]
                 }
             },
             {
                 extend: 'pdfHtml5',
-                text: 'PDF Olarak Dışa Aktar',
+                text: '<i class="fa fa-file-pdf"></i> PDF',
                 filename: 'Rezervasyonlar',
+                titleAttr: 'PDF Olarak İndir', 
                 title: 'Rezervasyonlar Listesi',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10]
                 }
             }
         ],
-        pageLength: 10,
-        lengthMenu: [5, 10, 25, 50, 100],
+
         columns: [
             { data: 'FirstName' },
             { data: 'LastName' },
+            { data: 'Name' },
             { data: 'Phone' },
             { data: 'HotelName' },
             { data: 'PassportNo' },
@@ -153,12 +157,15 @@ function createEditReservationTable() {
                         ${row.Status ? 'Aktif' : 'Pasif'}
                         </p>`;
                 }
-
             },
             {
                 data: null,
                 render: function (data, type, row) {
-                    return `<button onclick="openEditModal(${row.Id})" class="btn btn-primary" data-id="${row.Id}" id="btn-edit">Düzenle</button>`;
+                    if (row.IsFutureReservation) {
+                        return `<button onclick="openEditModal(${row.Id})" class="btn btn-primary" data-id="${row.Id}" id="activeButton">Düzenle</button>`;
+                    } else {
+                        return `Düzenleme yapılamaz.`;
+                    }
                 }
             }
         ]
@@ -186,7 +193,7 @@ function openEditModal(id) {
             getReservationDetails()
 
 
-         
+
 
         })
         .catch(error => console.error('Error loading modal content:', error));
@@ -420,9 +427,9 @@ function controlHourCapacity() {
 
 function clearAllSelected() {
     $("#TourType1").val("seçiniz");
-    $("#reservationDay1").val(""); 
-    $("#reservationHour1").empty().append(new Option('Seç', '')); 
-    $("#CustomerCount1").val(""); 
+    $("#reservationDay1").val("");
+    $("#reservationHour1").empty().append(new Option('Seç', ''));
+    $("#CustomerCount1").val("");
 
     $("#reservationDay1").prop("disabled", true);
     $("#reservationHour1").prop("disabled", true);

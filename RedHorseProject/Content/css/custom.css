@@ -213,3 +213,16 @@
         transform: translateX(-14px);
     }
 }
+
+.capacityContainer{
+background-color:#c1c1d0;
+}
+
+.capacity-label, .capacity-value {
+    font-size: 20px;
+    color: black;
+    padding-left:10px
+}
+.dx-calendar {
+    width: 100% !important;
+}

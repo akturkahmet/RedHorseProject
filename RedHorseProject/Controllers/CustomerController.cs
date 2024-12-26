@@ -119,7 +119,6 @@ namespace RedHorseProject.Controllers
             return View();
         }
 
-        // Methodlar
         public JsonResult GetRezervation()
         {
 
@@ -127,8 +126,35 @@ namespace RedHorseProject.Controllers
             int agencyId = (int)Session["AgencyId"];
 
             var reservations = _context.Reservations
-                .Where(r => r.Agency_Id == agencyId)
-                .ToList();
+                 .Where(r => r.Agency_Id == agencyId)
+                 .Join(
+                     _context.TourTypes,          
+                     r => r.TourType,               
+                     t => t.Id,                      
+                     (r, t) => new                
+                     {
+                         r.Id,
+                         r.TourType,
+                         r.FirstName,
+                         r.LastName,
+                         r.Mail,
+                         r.CountryCode,
+                         r.Phone,
+                         r.HotelName,
+                         r.HotelRoomNo,
+                         r.PassportNo,
+                         r.CustomerCount,
+                         r.CreatedDate,
+                         r.ReservationDate,
+                         r.TourNote,
+                         r.Agency_Id,
+                         r.Status,
+                         t.Name,          
+                         IsFutureReservation = r.ReservationDate >= DateTime.Now
+                     }
+                 )
+                 .ToList();
+
 
             return new CustomJsonResult
             {
