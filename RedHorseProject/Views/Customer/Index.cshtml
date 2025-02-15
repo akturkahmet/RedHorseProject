@@ -12,7 +12,7 @@
 
         <div class="tour-card">
             <h2>Lütfen Dikkat!</h2>
-            <p>Kapasite kısmına At, ATV ve Jeep turları için <strong>araç sayısını</strong>, Balon ve Deve turları için ise <strong>kişi sayılarını</strong> girmeniz gerekmektedir.</p>
+            <p>Kapasite kısmına At, Atv ve Jeep turları için <strong>araç sayısını</strong>, Balon ve Deve turları için ise <strong>kişi sayılarını</strong> girmeniz gerekmektedir.</p>
         </div>
         <div class="bottom-panel bottom-panel--floating" style="height: 340px;">
 
@@ -25,7 +25,7 @@
                             <select id="TourType1" name="TourType1" class="form-control">
                                 <option value="seçiniz" disabled selected>Seç</option>
                                 <option value="horse">At Turu</option>
-                                <option value="atv">ATV Turu</option>
+                                <option value="atv">Atv Turu</option>
                                 <option value="jeep">Jeep Safari Turu</option>
                                 <option value="ballon">Balon Turu</option>
                                 <option value="camel">Deve Turu</option>
@@ -35,7 +35,7 @@
                     <div class="col-md-3">
                         <div class="form-group  dropdown">
                             <label class="labelFeature" for="sure">Tur Tarihi:</label>
-                            <input type="date" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off" onchange="ControlHours()">
+                            <input type="date" onfocus="disablePastDates()" class="form-control" id="reservationDay1" placeholder="Seçin" autocomplete="off" onchange="ControlHours()">
 
 
                         </div>
@@ -85,3 +85,34 @@
         </div>
     </div>
 </div>
+<script>
+    function disablePastDates() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("reservationDay1").setAttribute("min", today);
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        var currentHour = new Date().getHours(); // Şu anki saat (0-23)
+        var select = document.getElementById("reservationHour1");
+
+        for (var h = 0; h < 24; h++) {
+            var option = document.createElement("option");
+            // Saat değerini "HH:00" formatında ayarla
+            var formattedHour = h.toString().padStart(2, '0') + ":00";
+            option.value = formattedHour;
+            option.textContent = formattedHour;
+
+            // Eğer saat şu anki saatten küçükse disabled yap
+            if (h < currentHour) {
+                option.disabled = true;
+            }
+
+            select.appendChild(option);
+        }
+    });
+
+</script>

@@ -61,7 +61,6 @@ function updateCapacity() {
         }
     });
 }
-
 function createAgenciesTable() {
     Destroy("AgenciesTable")
     $('#AgenciesTable').DataTable({
@@ -466,7 +465,7 @@ function getHoursCapacity() {
                     data: null,
                     render: function (data, type, row) {
                         return `<button type="button" onclick="
-                        Modal('${row.TourTypeId}', '${row.Hour}')" class="btn btn-primary">Düzenle</button>`;
+                        openEditCapacityModal('${row.TourTypeId}', '${row.Hour}')" class="btn btn-primary">Düzenle</button>`;
 
                     }
                 }

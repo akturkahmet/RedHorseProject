@@ -202,6 +202,7 @@ namespace RedHorseProject.Controllers
         public JsonResult UpdateCustomerStatus(int id)
         {
             var customer = _context.Agencys.FirstOrDefault(t => t.Id == id);
+            var reservation = _context.Reservations.Where(t => t.Agency_Id == id).ToList();
 
 
             if (customer == null)
@@ -211,11 +212,20 @@ namespace RedHorseProject.Controllers
 
             if (customer.Status == true)
             {
+                 
                 customer.Status = false;
+                foreach (var item in reservation)
+                {
+                    item.Status = false;
+                }
             }
             else
             {
                 customer.Status = true;
+                foreach (var item in reservation)
+                {
+                    item.Status = true;
+                }
             }
 
             _context.SaveChanges();

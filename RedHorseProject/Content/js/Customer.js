@@ -362,6 +362,19 @@ function ControlHours() {
             $('#reservationHour1').empty();
             $('#reservationHour1').append(new Option('Seç', ''));
 
+            var now = new Date();
+            var currentHour = now.getHours();
+            var formattedCurrentHour = String(currentHour).padStart(2, '0') + ":00";
+
+            // jQuery ile input değerini almak için .val() kullanmalısın.
+            var currentDate = $('#reservationDay1').val();
+
+            var year = now.getFullYear();
+            var month = String(now.getMonth() + 1).padStart(2, '0'); // Ay değeri 0-11 arası olduğu için +1 ekliyoruz.
+            var day = String(now.getDate()).padStart(2, '0');
+
+            var formattedDate = year + '-' + month + '-' + day; // Bugünün tarihi "YYYY-MM-DD" formatında.
+
             response.forEach(function (hour) {
                 if (!hour || !hour.Hour) {
                     console.error("Geçersiz saat verisi:", hour);
@@ -369,7 +382,12 @@ function ControlHours() {
                 }
 
                 var option = new Option(hour.Hour, hour.Hour);
+                // Eğer seçilen gün bugünün tarihi ise ve gelen saat, geçerli saatten küçükse disabled yap.
+                if (formattedDate === currentDate && hour.Hour < formattedCurrentHour) {
+                    option.disabled = true;
+                }
 
+                // Eğer saat durumu 0 ise, disabled yap ve görsel olarak farklılaştır.
                 if (hour.Status == 0) {
                     option.disabled = true;
                     option.style.color = "red";
@@ -378,8 +396,10 @@ function ControlHours() {
 
                 $('#reservationHour1').append(option);
             });
+
             $("#reservationHour1").prop("disabled", false);
         },
+
         error: function (xhr, status, error) {
             console.error("AJAX Hatası:", status, error);
             Alert(1, "Hata", "Saatler getirilirken bir hata oluştu. Lütfen tekrar deneyin.");
